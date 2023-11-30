@@ -35,3 +35,7 @@ docker_containers:
 vscode_option:
     type: bool
     help: Are you using vscode?
+
+docs_option:
+    type: bool
+    help: Would you like docs?

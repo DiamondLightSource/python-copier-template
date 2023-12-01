@@ -39,3 +39,5 @@ vscode_option:
 docs_option:
     type: bool
     help: Would you like docs?
+
+_subdirectory: "template"

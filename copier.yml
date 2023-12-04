@@ -9,6 +9,10 @@ git_platform:
     choices:
         - GitHub
 
+user_name:
+    type: str
+    help: What is your GitHub username?
+
 url:
     type: str
     help: What's the url to your GitHub or GitLab repository?

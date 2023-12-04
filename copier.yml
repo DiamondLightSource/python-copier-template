@@ -32,6 +32,7 @@ email:
 project_description:
     type: str
     help: A short description of your project
+    placeholder: One line description of your module
 
 docker_containers:
     type: bool

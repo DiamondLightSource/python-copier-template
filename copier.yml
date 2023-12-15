@@ -26,6 +26,12 @@ repo_name:
         {{repo_name}} is not a valid repo name
         {% endif %}
 
+pypi_name:
+    type: str
+    help: PyPi name
+    default: {{repo_name}}
+    when: false
+
 full_name:
     type: str
     help: What's your full name?

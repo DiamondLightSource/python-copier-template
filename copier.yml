@@ -59,6 +59,6 @@ _message_after_copy: |
 
     1. Change directory to the project root:
 
-       $ cd {{ _copier_conf.dst_path.name }}
+       $ cd {{ _copier_conf.dst_path.resolve().name }}
 
     2. Read "CONTRIBUING.md" and start coding.

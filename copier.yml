@@ -14,12 +14,6 @@ github_org:
     help: The GitHub organisation that will contain this repo. Set to your GitHub username to make a personal repo, or DiamondLightSource` if you have permissions to make it in the DiamondLightSource organisation.
     when: "{{ git_platform != 'GitHub' }}"
 
-# url:
-#     type: str
-#     help: What's the url to your GitHub or GitLab repository?
-
-url: "https://github.com/{{github_org}}/{{package_name}}"
-
 full_name:
     type: str
     help: What's your full name?
@@ -48,3 +42,6 @@ docs_option:
     help: Would you like docs?
 
 _subdirectory: "template"
+
+_extra_context:
+    url: "https://github.com/{{github_org}}/{{package_name}}"

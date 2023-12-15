@@ -10,15 +10,15 @@ from subprocess import check_output
 
 import requests
 
-import {{project_name}}
+import {{package_name}}
 
 # -- General configuration ------------------------------------------------
 
 # General information about the project.
-project = "{{project_name}}"
+project = "{{package_name}}"
 
 # The full version, including alpha/beta/rc tags.
-release = {{project_name}}.__version__
+release = {{package_name}}.__version__
 
 # The short X.Y version.
 if "+" in release:
@@ -126,7 +126,7 @@ copybutton_prompt_is_regexp = True
 # a list of builtin themes.
 #
 html_theme = "pydata_sphinx_theme"
-github_repo = {{project_name}}
+github_repo = {{package_name}}
 github_user = "{{user_name}}"
 switcher_json = f"https://{github_user}.github.io/{github_repo}/switcher.json"
 switcher_exists = requests.get(switcher_json).ok

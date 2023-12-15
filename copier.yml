@@ -1,7 +1,7 @@
 # questions
-project_name:
+package_name:
     type: str
-    help: The name of your project
+    help: The import name of the python package
 
 git_platform:
     type: str
@@ -17,7 +17,7 @@ user_name:
 #     type: str
 #     help: What's the url to your GitHub or GitLab repository?
 
-url: "https://github.com/{{user_name}}/{{project_name}}"
+url: "https://github.com/{{user_name}}/{{package_name}}"
 
 full_name:
     type: str

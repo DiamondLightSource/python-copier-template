@@ -3,7 +3,7 @@ requires = ["setuptools>=64", "setuptools_scm[toml]>=6.2", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "{{project_name}}"
+name = "{{package_name}}"
 classifiers = [
     "Development Status :: 3 - Alpha",
     "License :: OSI Approved :: Apache Software License",
@@ -40,7 +40,7 @@ dev = [
 ]
 
 [project.scripts]
-{{project_name}} = "{{project_name}}.__main__:main"
+{{package_name}} = "{{package_name}}.__main__:main"
 
 [project.urls]
 GitHub = "{{url}}"
@@ -51,7 +51,7 @@ name = "{{full_name}}"
 
 
 [tool.setuptools_scm]
-write_to = "src/{{project_name}}/_version.py"
+write_to = "src/{{package_name}}/_version.py"
 
 [tool.mypy]
 ignore_missing_imports = true # Ignore missing stubs in imported modules
@@ -67,7 +67,7 @@ filterwarnings = "error"
 testpaths = "docs src tests"
 
 [tool.coverage.run]
-data_file = "/tmp/{{project_name}}.coverage"
+data_file = "/tmp/{{package_name}}.coverage"
 
 [tool.coverage.paths]
 # Tests are run from installed location, map back to the src directory
@@ -91,7 +91,7 @@ allowlist_externals =
     sphinx-build
     sphinx-autobuild
 commands =
-    pytest: pytest --cov={{project_name}} --cov-report term --cov-report xml:cov.xml {posargs}
+    pytest: pytest --cov={{package_name}} --cov-report term --cov-report xml:cov.xml {posargs}
     mypy: mypy src tests {posargs}
     pre-commit: pre-commit run --all-files {posargs}
     docs: sphinx-{posargs:build -EW --keep-going} -T docs build/html

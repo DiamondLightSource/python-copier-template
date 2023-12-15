@@ -12,6 +12,7 @@ git_platform:
 github_org:
     type: str
     help: The GitHub organisation that will contain this repo. Set to your GitHub username to make a personal repo, or DiamondLightSource` if you have permissions to make it in the DiamondLightSource organisation.
+    when: "{{ git_platform != 'GitHub' }}"
 
 # url:
 #     type: str

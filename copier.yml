@@ -45,3 +45,4 @@ _subdirectory: "template"
 
 _extra_context:
     url: "https://github.com/{{github_org}}/{{package_name}}"
+    repo_name: _copier_conf.dst_path.name

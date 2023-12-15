@@ -43,6 +43,12 @@ docs_option:
 
 _subdirectory: "template"
 
-_extra_context:
-    - url: "https://github.com/{{github_org}}/{{package_name}}"
-    - repo_name: _copier_conf.dst_path.name
+url:
+    type: str
+    default: "https://github.com/{{github_org}}/{{package_name}}"
+    when: false
+    
+repo_name:
+    type: str
+    default: _copier_conf.dst_path.name
+    when: false

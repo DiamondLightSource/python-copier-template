@@ -18,6 +18,10 @@ github_org:
     help: The GitHub organisation that will contain this repo. Set to your GitHub username to make a personal repo, or DiamondLightSource` if you have permissions to make it in the DiamondLightSource organisation.
     when: "{{ git_platform == 'GitHub' }}"
 
+repo_name:
+    type: str
+    help: Name of repo
+
 full_name:
     type: str
     help: What's your full name?
@@ -49,16 +53,5 @@ _subdirectory: "template"
 
 url:
     type: str
-    default: "https://github.com/{{github_org}}/{{package_name}}"
+    default: "https://github.com/{{github_org}}/{{repo_name}}"
     when: false
-    
-_message_after_copy: |
-    Your project "{{ package_name }}" has been created successfully!
-
-    Next steps:
-
-    1. Change directory to the project root:
-
-       $ cd {{ _copier_conf.dst_path.resolve().name }}
-
-    2. Read "CONTRIBUING.md" and start coding.

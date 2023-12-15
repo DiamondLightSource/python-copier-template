@@ -4,7 +4,7 @@ package_name:
     help: The import name of the python package
     validator: >-
         {% if not (package_name | regex_search('^[a-zA-Z][a-zA-Z_0-9]+$')) %}
-        package_name is not a valid python package name
+        {{package_name}} is not a valid python package name
         {% endif %}
 
 git_platform:
@@ -21,6 +21,10 @@ github_org:
 repo_name:
     type: str
     help: Name of repo
+    validator: >-
+        {% if not (repo_name | regex_search('^[a-zA-Z][a-zA-Z_0-9]+$')) %}
+        {{repo_name}} is not a valid repo name
+        {% endif %}
 
 full_name:
     type: str

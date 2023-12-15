@@ -8,6 +8,7 @@ git_platform:
     help: Where is your remote repo located?
     choices:
         - GitHub
+        - Test
 
 github_org:
     type: str

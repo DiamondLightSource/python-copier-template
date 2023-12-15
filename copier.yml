@@ -2,6 +2,10 @@
 package_name:
     type: str
     help: The import name of the python package
+    validator: >-
+        {% if not (package_name | regex_search('^[a-zA-Z][a-zA-Z_0-9]+$')) %}
+        package_name is not a valid python package name
+        {% endif %}
 
 git_platform:
     type: str
@@ -48,7 +52,13 @@ url:
     default: "https://github.com/{{github_org}}/{{package_name}}"
     when: false
     
-repo_name:
-    type: str
-    default: _copier_conf.dst_path.name
-    when: false
+_message_after_copy: |
+    Your project "{{ package_name }}" has been created successfully!
+
+    Next steps:
+
+    1. Change directory to the project root:
+
+       $ cd {{ _copier_conf.dst_path.name }}
+
+    2. Read "CONTRIBUING.md" and start coding.

@@ -29,7 +29,7 @@ repo_name:
 pypi_name:
     type: str
     help: PyPi name
-    default: {{repo_name}}
+    default: "{{repo_name}}"
     when: false
 
 full_name:

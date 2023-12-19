@@ -1,8 +1,8 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: ${{values.component_id | dump}}
-  title: ${{values.component_id | dump}}
+  name: ${{values.name | dump}}
+  title: ${{values.name | dump}}
   description: ${{values.description | dump}}
 spec:
   type: documentation

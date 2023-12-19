@@ -61,7 +61,12 @@ docs_option:
 
 _subdirectory: "template"
 
-url:
+repo_url:
     type: str
     default: "https://github.com/{{github_org}}/{{repo_name}}"
+    when: false
+
+docs_url:
+    type: str
+    default: "https://{{github_org}}.github.io/{{repo_name}}"
     when: false

@@ -75,7 +75,7 @@ spec:
   steps:
     - id: fetch
       name: Template Docs Skeleton
-      action: fetch:template
+      action: fetch:copier
       input:
         url: ./template
         values:

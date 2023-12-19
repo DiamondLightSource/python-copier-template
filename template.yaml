@@ -83,19 +83,19 @@ spec:
           description: ${{ parameters.description }}
           destination: ${{ parameters.repoUrl | parseRepoUrl }}
           owner: ${{ parameters.owner }}
-          package_name: ${{ parameters.package_name }}
-          git_platform: ${{ parameters.git_platform }}
-          github_org: ${{ parameters.github_org }}
-          repo_name: ${{ parameters.repo_name }}
-          pypi_name: ${{ parameters.pypi_name }}
+          # package_name: ${{ parameters.package_name }}
+          # git_platform: ${{ parameters.git_platform }}
+          # github_org: ${{ parameters.github_org }}
+          # repo_name: ${{ parameters.repo_name }}
+          # pypi_name: ${{ parameters.pypi_name }}
           project_description: ${{ parameters.description }}
           full_name: ${{ parameters.full_name }}
           email: ${{ parameters.email }}
           docker_containers: ${{ parameters.docker_containers }}
           vscode_option: ${{ parameters.vscode_option }}
           docs_option: ${{ parameters.docs_option }}
-          repo_url: https://github.com/${{ parameters.github_org }}/${{ parameters.repo_name }}
-          docs_url: https://${{ parameters.github_org }}.github.io/${{ parameters.repo_name }}
+          # repo_url: https://github.com/${{ parameters.github_org }}/${{ parameters.repo_name }}
+          # docs_url: https://${{ parameters.github_org }}.github.io/${{ parameters.repo_name }}
 
     - id: publish
       name: Publish

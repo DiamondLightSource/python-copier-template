@@ -17,6 +17,7 @@ spec:
       required:
         - full_name
         - email
+        - owner
       properties:
         full_name:
           title: Firstname LastName
@@ -56,10 +57,6 @@ spec:
             allowedHosts:
               - github.com
     - title: Template Options
-      required:
-        - docker_containers
-        - vscode_option
-        - docs_option
       properties:
         docker_containers:
           title: Are you working with Docker containers?

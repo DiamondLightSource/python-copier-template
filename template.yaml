@@ -91,11 +91,11 @@ spec:
           docs_option: ${{ parameters.docs_option }}
 
           package_name: "package_name"
-          git_platform: "git_platform"
+          git_platform: "GitHub"
           github_org: "github_org"
           repo_name: "repo_name"
           pypi_name: "pypi_name"
-          
+
     - id: publish
       name: Publish
       action: publish:github

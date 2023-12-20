@@ -95,9 +95,7 @@ spec:
           github_org: "github_org"
           repo_name: "repo_name"
           pypi_name: "pypi_name"
-          repo_url: https://github.com/${{ parameters.github_org }}/${{ parameters.repo_name }}
-          docs_url: https://${{ parameters.github_org }}.github.io/${{ parameters.repo_name }}
-
+          
     - id: publish
       name: Publish
       action: publish:github

@@ -73,8 +73,8 @@ spec:
   # By adding the following and fetching from an absolute URL you can
   # add in the docs template
   steps:
-    - id: fetch
-      name: Template Docs Skeleton
+    - id: fetch-base
+      name: Fetch Base
       action: fetch:copier
       input:
         url: ./template

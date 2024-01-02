@@ -96,6 +96,9 @@ spec:
           repo_name: "repo_name"
           pypi_name: "pypi_name"
 
+          project_name: "project_name"
+          url: "url"
+
     - id: publish
       name: Publish
       action: publish:github

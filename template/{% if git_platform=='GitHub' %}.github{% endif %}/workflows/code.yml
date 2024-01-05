@@ -135,9 +135,10 @@ jobs:
           echo "DIST_LOCKFILE_PATH=lockfiles-${{ env.CONTAINER_PYTHON }}-dist-${{ github.sha }}" >> $GITHUB_ENV
 
       - name: Download wheel and lockfiles
-        uses: actions/download-artifact@v4.0.0
+        uses: actions/download-artifact@v4.1.0
         with:
           path: artifacts/
+          pattern: "*dist*"
 
       - name: Log in to GitHub Docker Registry
         if: github.event_name != 'pull_request'
@@ -212,7 +213,11 @@ jobs:
       HAS_PYPI_TOKEN: ${{ secrets.PYPI_TOKEN != '' }}
 
     steps:
-      - uses: actions/download-artifact@v4.0.0
+      - name: Download wheel and lockfiles
+        uses: actions/download-artifact@v4.1.0
+        with:
+          path: artifacts/
+          pattern: "*dist*"
 
       - name: Fixup blank lockfiles
         # Github release artifacts can't be blank

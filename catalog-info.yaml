@@ -13,10 +13,31 @@ spec:
   type: documentation
 
   parameters:
-    - title: Fill in some steps
+    - title: About You
+      required:
+        - full_name
+        - email
+        - owner
+      properties:
+        full_name:
+          title: Firstname LastName
+          type: string
+        email:
+          title: email@diamond.ac.uk
+          type: string
+        owner:
+          title: Owner
+          type: string
+          description: Owner of the component
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds:
+              - Group
+    - title: Project Details
       required:
         - name
         - description
+        - repoUrl
       properties:
         name:
           title: Name
@@ -28,40 +49,55 @@ spec:
           title: Description
           type: string
           description: A description for the component
-        owner:
-          title: Owner
-          type: string
-          description: Owner of the component
-          ui:field: OwnerPicker
-          ui:options:
-            allowedKinds:
-              - Group
-    - title: Choose a location
-      required:
-        - repoUrl
-      properties:
         repoUrl:
-          title: Repository Location
+          title: Repo Location
           type: string
           ui:field: RepoUrlPicker
           ui:options:
             allowedHosts:
               - github.com
+    - title: Template Options
+      properties:
+        docker_containers:
+          title: Are you working with Docker containers?
+          type: boolean
+        vscode_option:
+          title: Are you using vscode?
+          type: boolean
+        docs_option:
+          title: Would you like docs?
+          type: boolean
+
 
   # This template is meant to be used on top of an existing template.
   # By adding the following and fetching from an absolute URL you can
   # add in the docs template
   steps:
-    - id: fetch
-      name: Template Docs Skeleton
-      action: fetch:template
+    - id: fetch-base
+      name: Fetch Base
+      action: fetch:copier
       input:
-        url: ./template
+        url: .
         values:
           name: ${{ parameters.name }}
           description: ${{ parameters.description }}
           destination: ${{ parameters.repoUrl | parseRepoUrl }}
           owner: ${{ parameters.owner }}
+          project_description: ${{ parameters.description }}
+          full_name: ${{ parameters.full_name }}
+          email: ${{ parameters.email }}
+          docker_containers: ${{ parameters.docker_containers }}
+          vscode_option: ${{ parameters.vscode_option }}
+          docs_option: ${{ parameters.docs_option }}
+
+          package_name: "package_name"
+          git_platform: "GitHub"
+          github_org: "github_org"
+          repo_name: "repo_name"
+          pypi_name: "pypi_name"
+
+          project_name: "project_name"
+          url: "url"
 
     - id: publish
       name: Publish

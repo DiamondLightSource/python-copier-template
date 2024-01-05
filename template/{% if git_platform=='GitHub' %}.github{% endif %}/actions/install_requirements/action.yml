@@ -7,6 +7,9 @@ inputs:
   install_options:
     description: Parameters to pass to pip install
     required: true
+  artifact_name:
+    description: A user friendly name to give the produced artifacts
+    required: true
   python_version:
     description: Python version to install
     default: "3.x"
@@ -36,9 +39,9 @@ runs:
       shell: bash
 
     - name: Upload lockfiles
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4.0.0
       with:
-        name: lockfiles
+        name: lockfiles-${{ inputs.python_version }}-${{ inputs.artifact_name }}-${{ github.sha }}
         path: lockfiles
 
     # This eliminates the class of problems where the requirements being given no

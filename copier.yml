@@ -1,7 +1,11 @@
 # questions
-project_name:
+package_name:
     type: str
-    help: The name of your project
+    help: The import name of the python package
+    validator: >-
+        {% if not (package_name | regex_search('^[a-zA-Z][a-zA-Z_0-9]+$')) %}
+        {{package_name}} is not a valid python package name
+        {% endif %}
 
 git_platform:
     type: str
@@ -9,15 +13,24 @@ git_platform:
     choices:
         - GitHub
 
-user_name:
+github_org:
     type: str
-    help: What is your GitHub username?
+    help: The GitHub organisation that will contain this repo. Set to your GitHub username to make a personal repo, or DiamondLightSource` if you have permissions to make it in the DiamondLightSource organisation.
+    when: "{{ git_platform == 'GitHub' }}"
 
-# url:
-#     type: str
-#     help: What's the url to your GitHub or GitLab repository?
+repo_name:
+    type: str
+    help: Name of repo
+    default: "{{package_name}}"
+    validator: >-
+        {% if not (repo_name | regex_search('^[a-zA-Z][a-zA-Z_\-0-9]+$')) %}
+        {{repo_name}} is not a valid repo name
+        {% endif %}
 
-url: "https://github.com/{{user_name}}/{{project_name}}"
+pypi_name:
+    type: str
+    help: PyPi name
+    default: "{{repo_name}}"
 
 full_name:
     type: str
@@ -47,3 +60,13 @@ docs_option:
     help: Would you like docs?
 
 _subdirectory: "template"
+
+repo_url:
+    type: str
+    default: "https://github.com/{{github_org}}/{{repo_name}}"
+    when: false
+
+docs_url:
+    type: str
+    default: "https://{{github_org}}.github.io/{{repo_name}}"
+    when: false

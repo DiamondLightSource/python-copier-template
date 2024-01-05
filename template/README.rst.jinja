@@ -1,4 +1,4 @@
-{{project_name}}
+{{package_name}}
 ===========================
 
 |code_ci| |docs_ci| |coverage| |pypi_version| |license|
@@ -11,10 +11,10 @@ This is where you should write a short paragraph that describes what your module
 how it does it, and why people should use it.
 
 ============== ==============================================================
-PyPI           ``pip install {{project_name}}``
-Source code    https://github.com/{{user_name}}/{{project_name}}
-Documentation  https://{{user_name}}.github.io/{{project_name}}
-Releases       https://github.com/{{user_name}}/{{project_name}}/releases
+PyPI           ``pip install {{pypi_name}}``
+Source code    {{repo_url}}
+Documentation  {{docs_url}}
+Releases       {{repo_url}}/releases
 ============== ==============================================================
 
 This is where you should put some images or code snippets that illustrate
@@ -23,28 +23,28 @@ introductory code here:
 
 .. code-block:: python
 
-    from {{project_name}} import __version__
+    from {{package_name}} import __version__
 
-    print(f"Hello {{project_name}} {__version__}")
+    print(f"Hello {{package_name}} {__version__}")
 
 Or if it is a commandline tool then you might put some example commands here::
 
-    $ python -m {{project_name}} --version
+    $ python -m {{package_name}} --version
 
-.. |code_ci| image:: https://github.com/{{user_name}}/{{project_name}}/actions/workflows/code.yml/badge.svg?branch=main
-    :target: https://github.com/{{user_name}}/{{project_name}}/actions/workflows/code.yml
+.. |code_ci| image:: {{repo_url}}/actions/workflows/code.yml/badge.svg?branch=main
+    :target: {{repo_url}}/actions/workflows/code.yml
     :alt: Code CI
 
-.. |docs_ci| image:: https://github.com/{{user_name}}/{{project_name}}/actions/workflows/docs.yml/badge.svg?branch=main
-    :target: https://github.com/{{user_name}}/{{project_name}}/actions/workflows/docs.yml
+.. |docs_ci| image:: {{repo_url}}/actions/workflows/docs.yml/badge.svg?branch=main
+    :target: {{repo_url}}/actions/workflows/docs.yml
     :alt: Docs CI
 
-.. |coverage| image:: https://codecov.io/gh/{{user_name}}/{{project_name}}/branch/main/graph/badge.svg
-    :target: https://codecov.io/gh/{{user_name}}/{{project_name}}
+.. |coverage| image:: https://codecov.io/gh/{{github_org}}/{{package_name}}/branch/main/graph/badge.svg
+    :target: https://codecov.io/gh/{{github_org}}/{{package_name}}
     :alt: Test Coverage
 
 .. |pypi_version| image:: https://img.shields.io/pypi/v/template_shell.svg
-    :target: https://pypi.org/project/{{project_name}}
+    :target: https://pypi.org/project/{{package_name}}
     :alt: Latest PyPI version
 
 .. |license| image:: https://img.shields.io/badge/License-Apache%202.0-blue.svg
@@ -55,4 +55,4 @@ Or if it is a commandline tool then you might put some example commands here::
     Anything below this line is used when viewing README.rst and will be replaced
     when included in index.rst
 
-See https://{{user_name}}.github.io/{{project_name}} for more detailed documentation.
+See https://{{github_org}}.github.io/{{package_name}} for more detailed documentation.

@@ -29,6 +29,7 @@ jobs:
         with:
           requirements_file: requirements-dev-3.x.txt
           install_options: -e .[dev]
+          artifact_name: docs
 
       - name: Build docs
         run: tox -e docs

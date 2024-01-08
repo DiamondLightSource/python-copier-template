@@ -61,12 +61,15 @@ spec:
         docker_containers:
           title: Are you working with Docker containers?
           type: boolean
+          default: "false"
         vscode_option:
           title: Are you using vscode?
           type: boolean
+          default: "false"
         docs_option:
           title: Would you like docs?
           type: boolean
+          default: "false"
 
 
   # This template is meant to be used on top of an existing template.

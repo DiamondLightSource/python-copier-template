@@ -33,6 +33,7 @@ spec:
           ui:options:
             allowedKinds:
               - Group
+              - User
     - title: Project Details
       required:
         - name

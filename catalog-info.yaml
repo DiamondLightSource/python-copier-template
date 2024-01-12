@@ -1,8 +1,8 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: python_copier_template_ui
-  title: Python Copier Template UI
+  name: python_copier_template
+  title: Python Copier Template
   description: Create a project based on this template using Copier
   tags:
     - recommended
@@ -13,64 +13,51 @@ spec:
   type: documentation
 
   parameters:
-    - title: About You
-      required:
-        - full_name
-        - email
-        - owner
-      properties:
-        full_name:
-          title: Firstname LastName
-          type: string
-        email:
-          title: email@diamond.ac.uk
-          type: string
-        owner:
-          title: Owner
-          type: string
-          description: Owner of the component
-          ui:field: OwnerPicker
-          ui:options:
-            allowedKinds:
-              - Group
-              - User
     - title: Project Details
       required:
-        - name
-        - description
         - repoUrl
+        - description
+        - owner
       properties:
-        name:
-          title: Name
-          type: string
-          description: Unique name of the component
-          ui:field: EntityNamePicker
-          ui:autofocus: true
-        description:
-          title: Description
-          type: string
-          description: A description for the component
         repoUrl:
-          title: Repo Location
+          title: Repository Name and Location
           type: string
           ui:field: RepoUrlPicker
           ui:options:
             allowedHosts:
               - github.com
+        description:
+          title: Description
+          type: string
+          description: A short description of your project
+        owner:
+          title: Owner
+          type: string
+          description: Owner of the component in the Developer Portal Software Catalogue.
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds:
+              - Group
+              - User
     - title: Template Options
       properties:
-        docker_containers:
-          title: Are you working with Docker containers?
+        docker:
+          title: Docker
+          description: |
+            Would you like to publish your project in a Docker container?
+            You should select this if you are making a service.
           type: boolean
-          default: "false"
-        vscode_option:
-          title: Are you using vscode?
-          type: boolean
-          default: "false"
-        docs_option:
-          title: Would you like docs?
-          type: boolean
-          default: "false"
+          default: false
+        docs:
+          title: Documentation
+          description: |
+            How would you like to document your project?
+            You can start with just a README and add a sphinx project later.          
+          type: string
+          default: README
+          enum:
+            - README
+            - sphinx
 
 
   # This template is meant to be used on top of an existing template.
@@ -82,26 +69,20 @@ spec:
       action: fetch:copier
       input:
         url: .
-        values:
-          name: ${{ parameters.name }}
-          description: ${{ parameters.description }}
+        values:        
           destination: ${{ parameters.repoUrl | parseRepoUrl }}
-          owner: ${{ parameters.owner }}
-          project_description: ${{ parameters.description }}
-          full_name: ${{ parameters.full_name }}
-          email: ${{ parameters.email }}
-          docker_containers: ${{ parameters.docker_containers }}
-          vscode_option: ${{ parameters.vscode_option }}
-          docs_option: ${{ parameters.docs_option }}
 
-          package_name: "package_name"
-          git_platform: "GitHub"
-          github_org: "github_org"
-          repo_name: "repo_name"
-          pypi_name: "pypi_name"
-
-          project_name: "project_name"
-          url: "url"
+          package_name: ${{ parameters.repoUrl | parseRepoUrl | pick('repo') | replace('-', '_') }}
+          description: ${{ parameters.description }}
+          git_platform: ${{ parameters.repoUrl | parseRepoUrl | pick('host') }}
+          github_org: ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}
+          repo_name: ${{ parameters.repoUrl | parseRepoUrl | pick('repo') }}
+          distribution_name: ${{ parameters.repoUrl | parseRepoUrl | pick('repo') | replace('-', '_') }}
+          author_name: ${{ user.entity.metadata.name }}
+          author_email: ${{ user.entity.spec.profile.email }}
+          component_owner: ${{ parameters.owner }}
+          docker: ${{ parameters.docker }}
+          docs_type: ${{ parameters.docs_type }}
 
     - id: publish
       name: Publish

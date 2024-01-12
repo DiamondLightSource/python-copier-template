@@ -3,7 +3,7 @@ requires = ["setuptools>=64", "setuptools_scm[toml]>=6.2", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "{{pypi_name}}"
+name = "{{ distribution_name }}"
 classifiers = [
     "Development Status :: 3 - Alpha",
     "License :: OSI Approved :: Apache Software License",
@@ -13,7 +13,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
 ]
-description = "{{project_description}}"
+description = "{{ description }}"
 dependencies = [
     "typing-extensions;python_version<'3.8'",
 ] # Add project dependencies here, e.g. ["click", "numpy"]
@@ -40,18 +40,18 @@ dev = [
 ]
 
 [project.scripts]
-{{repo_name}} = "{{package_name}}.__main__:main"
+{{ repo_name }} = "{{ package_name }}.__main__:main"
 
 [project.urls]
-GitHub = "{{repo_url}}"
+GitHub = "{{ repo_url }}"
 
 [[project.authors]] # Further authors may be added by duplicating this section
-email = "{{email}}"
-name = "{{full_name}}"
+email = "{{ author_email }}"
+name = "{{ author_name }}"
 
 
 [tool.setuptools_scm]
-write_to = "src/{{package_name}}/_version.py"
+write_to = "src/{{ package_name }}/_version.py"
 
 [tool.mypy]
 ignore_missing_imports = true # Ignore missing stubs in imported modules
@@ -67,7 +67,7 @@ filterwarnings = "error"
 testpaths = "docs src tests"
 
 [tool.coverage.run]
-data_file = "/tmp/{{package_name}}.coverage"
+data_file = "/tmp/{{ package_name }}.coverage"
 
 [tool.coverage.paths]
 # Tests are run from installed location, map back to the src directory
@@ -91,7 +91,7 @@ allowlist_externals =
     sphinx-build
     sphinx-autobuild
 commands =
-    pytest: pytest --cov={{package_name}} --cov-report term --cov-report xml:cov.xml {posargs}
+    pytest: pytest --cov={{ package_name }} --cov-report term --cov-report xml:cov.xml {posargs}
     mypy: mypy src tests {posargs}
     pre-commit: pre-commit run --all-files {posargs}
     docs: sphinx-{posargs:build -EW --keep-going} -T docs build/html

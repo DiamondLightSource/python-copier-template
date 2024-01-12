@@ -1,8 +1,8 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: python_copier_template
-  title: Python Copier Template
+  name: python_copier_template_ui
+  title: Python Copier Template UI
   description: Create a project based on this template using Copier
   tags:
     - recommended

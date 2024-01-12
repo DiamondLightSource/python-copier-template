@@ -70,7 +70,7 @@ docs_type:
     type: str
     help: |
         How would you like to document your project?
-        You can start with just a README and add a sphinx project later.
+        You can start with just a README and change your answer to add a sphinx project later.
     choices:
         - README
         - sphinx

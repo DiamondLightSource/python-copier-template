@@ -1,63 +1,79 @@
-# questions
+# Project Details
 package_name:
     type: str
-    help: The import name of the python package
+    help: Name of the python import package
     validator: >-
         {% if not (package_name | regex_search('^[a-zA-Z][a-zA-Z_0-9]+$')) %}
         {{package_name}} is not a valid python package name
         {% endif %}
 
+description:
+    type: str
+    help: A short description of your project
+    placeholder: One line description of your module
+
 git_platform:
     type: str
-    help: Where is your remote repo located?
+    help: Git platform hosting the repository
     choices:
-        - GitHub
+        - github.com
 
 github_org:
     type: str
-    help: The GitHub organisation that will contain this repo. Set to your GitHub username to make a personal repo, or DiamondLightSource` if you have permissions to make it in the DiamondLightSource organisation.
-    when: "{{ git_platform == 'GitHub' }}"
+    help: |
+        GitHub organisation that will contain this repo.
+        Set to your GitHub username to make a personal repo, or DiamondLightSource
+        if you have permissions to make it in the DiamondLightSource organisation.
+    when: "{{ git_platform == 'github.com' }}"
 
 repo_name:
     type: str
-    help: Name of repo
-    default: "{{package_name}}"
+    help: Name of the repository
+    default: "{{ package_name | replace('_', '-') }}"
     validator: >-
         {% if not (repo_name | regex_search('^[a-zA-Z][a-zA-Z_\-0-9]+$')) %}
-        {{repo_name}} is not a valid repo name
+        {{ repo_name }} is not a valid repo name
         {% endif %}
 
-pypi_name:
+distribution_name:
     type: str
-    help: PyPi name
-    default: "{{repo_name}}"
+    help: |
+        Name of the python distribution package that will be created.
+        This is what people will `pip install`
+    default: "{{ repo_name }}"
 
-full_name:
+author_name:
     type: str
-    help: What's your full name?
+    help: Your full name
     placeholder: FirstName LastName
 
-email:
+author_email:
     type: str
-    help: What's your email address?
+    help: Your email address
     placeholder: email@diamond.ac.uk
 
-project_description:
+component_owner:
     type: str
-    help: A short description of your project
-    default: One line description of your module
+    help: |
+        Owner of the component in the Developer Portal Software Catalogue.
+        This will normally be user:<your_fedid>
+    placeholder: "user:xxxxxxxx"
 
-docker_containers:
+# Template Options
+docker:
     type: bool
-    help: Are you working with Docker containers?
+    help: |
+        Would you like to publish your project in a Docker container?
+        You should select this if you are making a service.
 
-vscode_option:
-    type: bool
-    help: Are you using vscode?
-
-docs_option:
-    type: bool
-    help: Would you like docs?
+docs_type:
+    type: str
+    help: |
+        How would you like to document your project?
+        You can start with just a README and add a sphinx project later.
+    choices:
+        - README
+        - sphinx
 
 _subdirectory: "template"
 

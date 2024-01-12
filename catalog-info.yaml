@@ -77,7 +77,7 @@ spec:
           git_platform: ${{ parameters.repoUrl | parseRepoUrl | pick('host') }}
           github_org: ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}
           repo_name: ${{ parameters.repoUrl | parseRepoUrl | pick('repo') }}
-          distribution_name: ${{ parameters.repoUrl | parseRepoUrl | pick('repo') | replace('-', '_') }}
+          distribution_name: ${{ parameters.repoUrl | parseRepoUrl | pick('repo') }}
           author_name: ${{ user.entity.metadata.name }}
           author_email: ${{ user.entity.spec.profile.email }}
           component_owner: ${{ parameters.owner }}

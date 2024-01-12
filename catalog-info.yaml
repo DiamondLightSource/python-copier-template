@@ -94,7 +94,7 @@ spec:
           author_email: ${{ parameters.email }}
           component_owner: ${{ parameters.owner }}
           docker: ${{ parameters.docker }}
-          docs_type: ${{ parameters.docs_type }}
+          docs_type: ${{ parameters.docs }}
 
     - id: publish
       name: Publish

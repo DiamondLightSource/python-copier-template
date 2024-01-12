@@ -13,6 +13,7 @@ updates:
       github-artifacts:
         patterns:
           - actions/*-artifact
+
   - package-ecosystem: "pip"
     directory: "/"
     schedule:

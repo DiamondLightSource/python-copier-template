@@ -25,6 +25,7 @@ github_org:
         Set to your GitHub username to make a personal repo, or DiamondLightSource
         if you have permissions to make it in the DiamondLightSource organisation.
     when: "{{ git_platform == 'github.com' }}"
+    default: DiamondLightSource
 
 repo_name:
     type: str

@@ -86,3 +86,6 @@ docs_url:
     type: str
     default: "https://{{github_org}}.github.io/{{repo_name}}"
     when: false
+
+_tasks:
+    - "git init"

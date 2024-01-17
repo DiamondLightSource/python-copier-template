@@ -73,8 +73,8 @@ docs_type:
         How would you like to document your project?
         You can start with just a README and change your answer to add a sphinx project later.
     choices:
-        - README
         - sphinx
+        - README
 
 _subdirectory: "template"
 

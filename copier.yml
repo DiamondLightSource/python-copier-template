@@ -88,4 +88,4 @@ docs_url:
     when: false
 
 _tasks:
-    - "git init"
+    - "git init --initial-branch=main"

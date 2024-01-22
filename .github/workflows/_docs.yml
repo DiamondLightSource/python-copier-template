@@ -18,7 +18,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install python packages
-        uses: pip install -c requirements.txt
+        run: pip install -r requirements.txt
 
       - name: Build docs
         run: sphinx-build -EW --keep-going -T docs build/html

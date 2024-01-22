@@ -14,14 +14,6 @@ jobs:
     if: ${{ ! needs.check.outputs.branch-pr }}
     uses: ./.github/workflows/_docs.yml
 
-  pages:
-    if: github.ref_name == 'main'
-    needs: docs
-    uses: ./.github/workflows/_pages.yml
-    permissions:
-      pages: write
-      id-token: write
-
   release:
     if: github.ref_type == 'tag'
     needs: [dist, docs]

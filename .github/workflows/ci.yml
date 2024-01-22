@@ -16,7 +16,7 @@ jobs:
 
   release:
     if: github.ref_type == 'tag'
-    needs: [dist, docs]
+    needs: docs
     # TODO: Use the CI straight from the template
     uses: ./.github/workflows/_release.yml
     permissions:

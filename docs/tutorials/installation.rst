@@ -1,5 +1,8 @@
-Installation
-============
+Installing template pre-requisites
+==================================
+
+This tutorial will take you through installing copier, the templating engine that will allow you
+to create new projects from the template, update existing projects in line with it, and keep projects in sync with changes to it.
 
 Check your version of python
 ----------------------------
@@ -9,6 +12,9 @@ typing into a terminal::
 
     $ python3 --version
 
+.. note::
+
+    At Diamond you can use ``module load python`` to get a more recent version of python on your path
 
 Create a virtual environment
 ----------------------------
@@ -28,20 +34,14 @@ installation will not interfere with any existing Python software::
     - :code:`deactivate` for venv or virtualenv
     - :code:`exit` for pipenv
 
+Installing copier
+-----------------
 
-Installing the library
-----------------------
+You can now use ``pip`` to install copier so you can make your project from the template::
 
-You can now use ``pip`` to install the library and its dependencies::
+    $ python3 -m pip install copier
 
-    $ python3 -m pip install python3-pip-skeleton
+Conclusion
+----------
 
-If you require a feature that is not currently released you can also install
-from github::
-
-    $ python3 -m pip install git+https://github.com/DiamondLightSource/python3-pip-skeleton-cli.git
-
-The library should now be installed and the commandline interface on your path.
-You can check the version that has been installed by typing::
-
-    $ python3-pip-skeleton --version
+You now have the pre-requisites to allow you to `./create-new` and `./adopt-existing`.

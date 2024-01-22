@@ -3,6 +3,7 @@ Make a release
 
 To make a new release, please follow this checklist:
 
+- Ensure that you have previously followed `./pypi`
 - Choose a new PEP440 compliant release number (see https://peps.python.org/pep-0440/)
 - Go to the GitHub release_ page
 - Choose ``Draft New Release``
@@ -12,5 +13,7 @@ To make a new release, please follow this checklist:
 
 Note that tagging and pushing to the main branch has the same effect except that
 you will not get the option to edit the release notes.
+
+A new release will be made and the wheel and sdist uploaded to PyPI.
 
 .. _release: https://github.com/DiamondLightSource/python3-pip-skeleton-cli/releases

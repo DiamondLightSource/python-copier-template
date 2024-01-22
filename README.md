@@ -35,31 +35,19 @@ It integrates the following tools:
 > [!NOTE]
 > Template creation from the developer portal is currently under construction, so these instructions do not work yet
 
-Visit <https://dev-portal.diamond.ac.uk/create> and you will see a list of templates that you can create. Pick the one marked `Python Template` and:
-
-- Choose GitHub as the hosting platform
-- Enter your GitHub username as the organisation
-- Choose from options to customize some template features
-
+Visit <https://dev-portal.diamond.ac.uk/create> and you will see a list of templates that you can create. Pick the one marked `Python Template` and fill in the details of the project.
 
 ## Create a new project from the commandline
 
-You first need to install copier and have it be on your path. At Diamond you can do this with a venv:
+You will need to `pip install copier` inside an activated `venv`, then you can create a new module via:
 
 ```
-$ module load python
-$ python -m venv /scratch/$USER/copier-venv
-$ source /scratch/$USER/copier-venv/bin/activate
-$ python -m pip install copier
+$ mkdir /path/to/my-project
+$ copier copy gh:DiamondLightSource/python-copier-template /path/to/my-project
 ```
 
-You can then use copier to copy from the template into a directory you have prepared:
+You can also use it via `pipx run copier` if you have that installed.
 
-```
-$ mkdir /scratch/$USER/my-project
-$ copier copy gh:DiamondLightSource/python-copier-template /scratch/$USER/my-project
-
-```
 <!-- README only content. Anything below this line won't be included in index.md -->
 
 See https://DiamondLightSource.github.io/python-copier-template for more detailed documentation.

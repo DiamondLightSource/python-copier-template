@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    # TODO: Use the CI straight from the template
+    uses: ./.github/workflows/_check.yml
+
+  docs:
+    needs: check
+    if: ${{ ! needs.check.outputs.branch-pr }}
+    uses: ./.github/workflows/_docs.yml
+
+  pages:
+    if: github.ref_name == 'main'
+    needs: docs
+    uses: ./.github/workflows/_pages.yml
+    permissions:
+      pages: write
+      id-token: write
+
+  release:
+    if: github.ref_type == 'tag'
+    needs: [dist, docs]
+    # TODO: Use the CI straight from the template
+    uses: ./.github/workflows/_release.yml
+    permissions:
+      contents: write

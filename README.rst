@@ -12,4 +12,4 @@ To create a new project in your current directory, using this template and Copie
 
 .. code-block:: shell
 
-    copier copy gh:DiamondLighSource/python-copier-template .
+    copier copy gh:DiamondLightSource/python-copier-template .

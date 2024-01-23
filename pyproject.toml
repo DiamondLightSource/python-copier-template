@@ -4,16 +4,26 @@ version = "0.0"
 
 [project.optional-dependencies]
 dev = [
-    "copier-template-tester",
+    "copier",
     "myst-parser",
     "pip-tools",
     "pre-commit",
     "pydata-sphinx-theme>=0.12",
+    "pytest",
     "sphinx-autobuild",
     "sphinx-copybutton",
     "sphinx-design",
     "tox-direct",
+    "treecomp",
 ]
+
+[tool.pytest.ini_options]
+# Run pytest with all our checkers, and don't spam us with massive tracebacks on error
+addopts = """
+    --tb=native -vv --doctest-modules --doctest-glob="*.rst"
+    """
+# Doctest python code in docs, python code in src docstrings, test functions in tests
+testpaths = "tests"
 
 # tox must currently be configured via an embedded ini string
 # See: https://github.com/tox-dev/tox/issues/999
@@ -22,16 +32,20 @@ legacy_tox_ini = """
 [tox]
 skipsdist=True
 
-[testenv:{pre-commit,docs}]
+[testenv:{pre-commit,test,docs}]
 # Don't create a virtualenv for the command, requires tox-direct plugin
 direct = True
 passenv = *
 allowlist_externals =
     pre-commit
+    rm
+    ctt
+    git
     sphinx-build
     sphinx-autobuild
 commands =
     pre-commit: pre-commit run --all-files --show-diff-on-failure {posargs}
+    test: ctt \n git -C python-copier-template-example add -N . \n git -C python-copier-template-example diff
     docs: sphinx-{posargs:build -EW --keep-going} -T docs build/html
 """
 

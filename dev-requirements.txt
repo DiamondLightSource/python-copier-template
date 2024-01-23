@@ -8,7 +8,6 @@ accessible-pygments==0.0.4
 alabaster==0.7.16
 annotated-types==0.6.0
 babel==2.14.0
-beartype==0.16.4
 beautifulsoup4==4.12.3
 build==1.0.3
 certifi==2023.11.17
@@ -17,9 +16,8 @@ charset-normalizer==3.3.2
 click==8.1.7
 colorama==0.4.6
 copier==9.1.1
-copier-template-tester==2.1.1
-corallium==0.3.3
 decorator==5.1.1
+deprecated==1.2.14
 distlib==0.3.8
 docutils==0.20.1
 dunamai==1.19.0
@@ -28,6 +26,7 @@ funcy==2.0
 identify==2.5.33
 idna==3.6
 imagesize==1.4.1
+iniconfig==2.0.0
 jinja2==3.1.3
 jinja2-ansible-filters==1.3.2
 livereload==2.6.3
@@ -52,11 +51,12 @@ pydantic-core==2.14.6
 pydata-sphinx-theme==0.15.2
 pygments==2.17.2
 pyproject-hooks==1.0.0
+pytest==7.4.4
+pytest-copie==0.1.5
 pyyaml==6.0.1
 pyyaml-include==1.3.2
 questionary==2.0.1
 requests==2.31.0
-rich==13.7.0
 six==1.16.0
 snowballstemmer==2.2.0
 soupsieve==2.5
@@ -73,11 +73,14 @@ sphinxcontrib-serializinghtml==1.1.10
 tornado==6.4
 tox==3.28.0
 tox-direct==0.4
+treecomp==1.0.0
+typer==0.9.0
 typing-extensions==4.9.0
 urllib3==2.1.0
 virtualenv==20.25.0
 wcwidth==0.2.13
 wheel==0.42.0
+wrapt==1.16.0
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip

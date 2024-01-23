@@ -8,15 +8,23 @@ repos:
 
   - repo: local
     hooks:
+      - id: ruff
+        name: lint with ruff
+        language: system
+        entry: ruff check --force-exclude
+        types: [python]
+        require_serial: true
+
+      - id: ruff-format
+        name: format with ruff
+        language: system
+        entry: ruff format --force-exclude
+        types: [python]
+        require_serial: true
+
       - id: constraints
         name: check constraints match installed
         language: system
         entry: pip-compile
         files: ^(pyproject\.toml|dev-requirements\.txt)$
-        pass_filenames: false
-
-      - id: template
-        name: check expanded template matches submodule
-        language: system
-        entry: ctt --check-untracked
         pass_filenames: false

@@ -18,7 +18,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install python packages
-        run: pip install -r requirements.txt
+        run: pip install -c dev-requirements.txt -e .[dev]
 
       - name: Build docs
         run: tox -e docs

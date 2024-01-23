@@ -1,0 +1,45 @@
+[project]
+name = "python-copier-template"
+version = "0.0"
+
+[project.optional-dependencies]
+dev = [
+    "myst-parser",
+    "pip-tools",
+    "pre-commit",
+    "pydata-sphinx-theme>=0.12",
+    "sphinx-autobuild",
+    "sphinx-copybutton",
+    "sphinx-design",
+    "tox-direct",
+]
+
+# tox must currently be configured via an embedded ini string
+# See: https://github.com/tox-dev/tox/issues/999
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+skipsdist=True
+
+[testenv:{pre-commit,docs}]
+# Don't create a virtualenv for the command, requires tox-direct plugin
+direct = True
+passenv = *
+allowlist_externals =
+    pre-commit
+    sphinx-build
+    sphinx-autobuild
+commands =
+    pre-commit: pre-commit run --all-files --show-diff-on-failure {posargs}
+    docs: sphinx-{posargs:build -EW --keep-going} -T docs build/html
+"""
+
+[tool.pip-tools]
+src-files = ["pyproject.toml"]
+extras = ["dev"]
+output-file = "dev-requirements.txt"
+quiet = true
+# Make output suitable for use as a constraints file
+strip-extras = true
+# Remove annotations as coverage source seems to make false positive in CI
+no-annotate = true

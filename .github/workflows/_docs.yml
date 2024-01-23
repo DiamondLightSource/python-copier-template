@@ -1,0 +1,55 @@
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install system packages
+        run: sudo apt-get install graphviz
+
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install python packages
+        run: pip install -c dev-requirements.txt -e .[dev]
+
+      - name: Build docs
+        run: tox -e docs
+
+      - name: Remove environment.pickle
+        run: rm build/html/.doctrees/environment.pickle
+
+      - name: Sanitize ref name for docs version
+        run: echo "DOCS_VERSION=${GITHUB_REF_NAME//[^A-Za-z0-9._-]/_}" >> $GITHUB_ENV
+
+      - name: Move to versioned directory
+        run: mv build/html build/$DOCS_VERSION
+
+      - name: Upload built docs artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs
+          path: build
+
+      - name: Add other static pages files
+        run: cp .github/pages/* build
+
+      - name: Write switcher.json
+        run: python .github/pages/make_switcher.py --add $DOCS_VERSION ${{ github.repository }} build/switcher.json
+
+      - name: Publish Docs to gh-pages
+        if: github.event_name == 'push' && github.actor != 'dependabot[bot]'
+        # We pin to the SHA, not the tag, for security reasons.
+        # https://docs.github.com/en/actions/learn-github-actions/security-hardening-for-github-actions#using-third-party-actions
+        uses: peaceiris/actions-gh-pages@bd8c6b06eba6b3d25d72b7a1767993c0aeee42e7 # v3.9.2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build
+          keep_files: true

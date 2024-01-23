@@ -14,3 +14,9 @@ repos:
         entry: pip-compile
         files: ^(pyproject\.toml|dev-requirements\.txt)$
         pass_filenames: false
+
+      - id: template
+        name: check expanded template matches submodule
+        language: system
+        entry: ctt --check-untracked
+        pass_filenames: false

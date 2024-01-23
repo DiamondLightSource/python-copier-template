@@ -1,0 +1,16 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-yaml
+      - id: check-merge-conflict
+
+  - repo: local
+    hooks:
+      - id: constraints
+        name: check constraints match installed
+        language: system
+        entry: pip-compile
+        files: ^(pyproject\.toml|dev-requirements\.txt)$
+        pass_filenames: false

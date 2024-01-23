@@ -9,6 +9,8 @@ jobs:
     # TODO: Use the CI straight from the template
     uses: ./.github/workflows/_check.yml
 
+  # TODO: add pre-commit and ctt
+
   docs:
     needs: check
     if: ${{ ! needs.check.outputs.branch-pr }}

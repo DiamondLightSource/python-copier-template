@@ -4,6 +4,7 @@ version = "0.0"
 
 [project.optional-dependencies]
 dev = [
+    "copier-template-tester",
     "myst-parser",
     "pip-tools",
     "pre-commit",
@@ -42,4 +43,4 @@ quiet = true
 # Make output suitable for use as a constraints file
 strip-extras = true
 # Remove annotations as coverage source seems to make false positive in CI
-no-annotate = true
+annotate = false

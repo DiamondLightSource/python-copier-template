@@ -1,0 +1,12 @@
+[output."example"]
+package_name = "python_copier_template_example"
+description = "An expanded python-copier-template with all the options"
+git_platform = "github.com"
+github_org = "DiamondLightSource"
+repo_name = "python-copier-template-example"
+distribution_name = "dls-python-copier-template-example"
+author_name = "Tom Cobb"
+author_email = "tom.cobb@diamond.ac.uk"
+component_owner = "group:default/sscc"
+docker = true
+docs_type = sphinx

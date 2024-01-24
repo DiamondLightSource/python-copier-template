@@ -17,6 +17,8 @@ jobs:
         with:
           submodules: true
 
+      - run: find
+
       - name: Setup python
         uses: actions/setup-python@v5
         with:

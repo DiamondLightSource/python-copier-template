@@ -6,7 +6,7 @@ import yaml
 from copier import run_copy
 
 TOP = Path(__file__).absolute().parent.parent
-INPUT = TOP / "python-copier-template-example"
+INPUT = TOP / "example"
 OUTPUT = TOP / "build" / "example"
 
 
@@ -20,6 +20,7 @@ def test_template():
         vcs_ref="HEAD",
         unsafe=True,
     )
+    #
     comparison = treecomp.diff_file_trees(INPUT, OUTPUT, ignore=[".copier-answers.yml"])
     if comparison.diffs:
         raise AssertionError(str(comparison))

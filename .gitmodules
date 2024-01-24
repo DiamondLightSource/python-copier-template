@@ -1,3 +1,6 @@
 [submodule "python-copier-template-example"]
 	path = python-copier-template-example
 	url = git@github.com:DiamondLightSource/python-copier-template-example.git
+[submodule "example"]
+	path = example
+	url = git@github.com:DiamondLightSource/python-copier-template-example.git

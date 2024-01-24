@@ -15,7 +15,7 @@ jobs:
     if: ${{ ! needs.check.outputs.branch-pr }}
     uses: ./.github/workflows/_tox.yml
     with:
-      tox: pre-commit,test
+      tox: pre-commit,pytest
 
   docs:
     needs: check

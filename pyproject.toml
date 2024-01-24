@@ -4,15 +4,27 @@ version = "0.0"
 
 [project.optional-dependencies]
 dev = [
+    "copier",
     "myst-parser",
     "pip-tools",
     "pre-commit",
     "pydata-sphinx-theme>=0.12",
+    "pytest",
+    "ruff",
     "sphinx-autobuild",
     "sphinx-copybutton",
     "sphinx-design",
     "tox-direct",
+    "treecomp",
 ]
+
+[tool.pytest.ini_options]
+# Run pytest with all our checkers, and don't spam us with massive tracebacks on error
+addopts = """
+    --tb=native -vv --doctest-modules --doctest-glob="*.rst"
+    """
+# Doctest python code in docs, python code in src docstrings, test functions in tests
+testpaths = "tests"
 
 # tox must currently be configured via an embedded ini string
 # See: https://github.com/tox-dev/tox/issues/999
@@ -21,18 +33,30 @@ legacy_tox_ini = """
 [tox]
 skipsdist=True
 
-[testenv:{pre-commit,docs}]
+[testenv:{pre-commit,pytest,docs}]
 # Don't create a virtualenv for the command, requires tox-direct plugin
 direct = True
 passenv = *
 allowlist_externals =
     pre-commit
+    pytest
     sphinx-build
     sphinx-autobuild
 commands =
     pre-commit: pre-commit run --all-files --show-diff-on-failure {posargs}
+    pytest: pytest {posargs}
     docs: sphinx-{posargs:build -EW --keep-going} -T docs build/html
 """
+
+[tool.ruff]
+src = ["src", "tests"]
+line-length = 88
+select = [
+    "E", # pycodestyle errors - https://beta.ruff.rs/docs/rules/#error-e
+    "F", # pyflakes rules - https://beta.ruff.rs/docs/rules/#pyflakes-f
+    "W", # pycodestyle warnings - https://beta.ruff.rs/docs/rules/#warning-w
+    "I", # isort - https://docs.astral.sh/ruff/rules/#isort-i
+]
 
 [tool.pip-tools]
 src-files = ["pyproject.toml"]
@@ -42,4 +66,4 @@ quiet = true
 # Make output suitable for use as a constraints file
 strip-extras = true
 # Remove annotations as coverage source seems to make false positive in CI
-no-annotate = true
+annotate = false

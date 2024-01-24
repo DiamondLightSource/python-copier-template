@@ -16,7 +16,7 @@ import requests
 project = "python-copier-template"
 
 # The full version, including alpha/beta/rc tags.
-release = check_output(['git', 'describe', '--always', '--tags']).decode()
+release = check_output(["git", "describe", "--always", "--tags"]).decode()
 
 # The short X.Y version.
 if "-" in release:

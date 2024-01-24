@@ -1,0 +1,3 @@
+[submodule "example"]
+	path = example
+	url = https://github.com/DiamondLightSource/python-copier-template-example.git

@@ -1,8 +1,9 @@
-from copier import run_copy
+import shutil
 from pathlib import Path
+
 import treecomp
 import yaml
-import shutil
+from copier import run_copy
 
 TOP = Path(__file__).absolute().parent.parent
 INPUT = TOP / "python-copier-template-example"

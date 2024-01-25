@@ -72,8 +72,6 @@ sphinxcontrib-serializinghtml==1.1.10
 tornado==6.4
 tox==3.28.0
 tox-direct==0.4
-treecomp==1.0.0
-typer==0.9.0
 typing-extensions==4.9.0
 urllib3==2.1.0
 virtualenv==20.25.0

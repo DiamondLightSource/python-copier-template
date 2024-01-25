@@ -76,9 +76,12 @@ def test_example_repo_updates(tmp_path: Path):
     d["_src_path"] = str(TOP)
     with open(example_path / ".copier-answers.yml", "w") as f:
         yaml.dump(d, f)
-    run_pipe(f"git -C {example_path} commit -am 'Update src'")
-    run_pipe(f"copier update --trust --vcs-ref=HEAD -A {example_path}")
-    output = run_pipe(
+    run = functools.partial(run_pipe, cwd=str(example_path))
+    run("git config user.email 'you@example.com'")
+    run("git config user.name 'Your Name'")
+    run("git commit -am 'Update src'")
+    run("copier update --trust --vcs-ref=HEAD -A")
+    output = run(
         "diff -ur --exclude=.git --ignore-matching-lines='_commit: '"
         f" {generated_path} {example_path}"
     )

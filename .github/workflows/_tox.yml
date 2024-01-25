@@ -15,9 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: true
-
-      - run: find
+          fetch-depth: 0
 
       - name: Setup python
         uses: actions/setup-python@v5

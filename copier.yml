@@ -31,7 +31,7 @@ repo_name:
     help: Name of the repository
     default: "{{ package_name | replace('_', '-') }}"
     validator: >-
-        {% if not (repo_name | regex_search('^[a-zA-Z][a-zA-Z_\-0-9]+$')) %}
+        {% if not (repo_name | regex_search('^[a-zA-Z][a-zA-Z_\\-0-9]+$')) %}
         {{ repo_name }} is not a valid repo name
         {% endif %}
 

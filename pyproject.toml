@@ -1,6 +1,10 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools_scm[toml]>=6.2", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "python-copier-template"
-version = "0.0"
+dynamic = ["version"]
 
 [project.optional-dependencies]
 dev = [
@@ -15,7 +19,6 @@ dev = [
     "sphinx-copybutton",
     "sphinx-design",
     "tox-direct",
-    "treecomp",
 ]
 
 [tool.pytest.ini_options]

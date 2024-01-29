@@ -17,6 +17,7 @@ dev = [
     "sphinx-autobuild",
     "sphinx-copybutton",
     "sphinx-design",
+    "tox",
     "tox-direct",
 ]
 

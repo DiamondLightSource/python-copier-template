@@ -10,7 +10,6 @@ dynamic = ["version"]
 dev = [
     "copier",
     "myst-parser",
-    "pip-tools",
     "pre-commit",
     "pydata-sphinx-theme>=0.12",
     "pytest",
@@ -60,13 +59,3 @@ select = [
     "W", # pycodestyle warnings - https://beta.ruff.rs/docs/rules/#warning-w
     "I", # isort - https://docs.astral.sh/ruff/rules/#isort-i
 ]
-
-[tool.pip-tools]
-src-files = ["pyproject.toml"]
-extras = ["dev"]
-output-file = "dev-requirements.txt"
-quiet = true
-# Make output suitable for use as a constraints file
-strip-extras = true
-# Remove annotations as coverage source seems to make false positive in CI
-annotate = false

@@ -25,6 +25,6 @@ repos:
       - id: constraints
         name: check constraints match installed
         language: system
-        entry: pip-compile
-        files: ^(pyproject\.toml|dev-requirements\.txt)$
+        entry: ./requirements/regenerate.sh --if-non-empty
+        files: ^(pyproject\.toml|requirements/constraints\.txt)$
         pass_filenames: false

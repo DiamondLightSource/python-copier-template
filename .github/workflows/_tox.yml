@@ -23,7 +23,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install python packages
-        run: pip install -c dev-requirements.txt -e .[dev]
+        run: pip install -c requirements/constraints.txt -e .[dev]
 
       - name: Run tox
         run: tox -e ${{ inputs.tox }}

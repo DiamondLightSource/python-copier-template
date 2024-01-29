@@ -21,7 +21,7 @@ Releases        | <https://github.com/DiamondLightSource/python-copier-template/
 It integrates the following tools:
 
 - [setuptools](https://setuptools.pypa.io) and [setuptools-scm](https://setuptools-scm.readthedocs.io) for packaging
-- [pip](https://pip.pypa.io) and [pip-compile](https://pip-tools.readthedocs.io) to manage installation
+- [pip](https://pip.pypa.io) to manage installation
 - [pytest](https://docs.pytest.org) for code testing and coverage
 - [pre-commit](https://pre-commit.com) to run linting and formatting such as [ruff](https://docs.astral.sh/ruff)
 - [pyright](https://microsoft.github.io/pyright) for static type checking

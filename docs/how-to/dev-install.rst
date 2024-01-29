@@ -28,7 +28,7 @@ requires python 3.8 or later) or to run in a container under `VSCode
             $ cd python3-pip-skeleton-cli
             $ python3 -m venv venv
             $ source venv/bin/activate
-            $ pip install -c dev-requirements.txt -e .[dev]
+            $ pip install -c requirements/constraints.txt -e .[dev]
 
     .. tab-item:: VSCode devcontainer
 

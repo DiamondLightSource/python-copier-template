@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Skeleton Project Structure &#8212; python-copier-template 24504e7
+    <title>Template Project Structure &#8212; python-copier-template 07d9093
  documentation</title>
   
   
@@ -39,7 +39,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../_static/documentation_options.js?v=989248fc"></script>
+    <script src="../_static/documentation_options.js?v=18d72aee"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -49,15 +49,15 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.2';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://DiamondLightSource.github.io/python-copier-template/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '24504e7
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '07d9093
 ';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
     <link rel="icon" href="../_static/dls-logo.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Why Use a Skeleton Structure?" href="why-use-skeleton.html" />
-    <link rel="prev" title="Working on the Skeleton Repo" href="skeleton.html" />
+    <link rel="next" title="Why Use a Copier Template?" href="why-use-template.html" />
+    <link rel="prev" title="12. Use containers" href="decisions/0012-containers.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -451,9 +451,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="decisions/0012-containers.html">12. Use containers</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="skeleton.html">Working on the Skeleton Repo</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Skeleton Project Structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="why-use-skeleton.html">Why Use a Skeleton Structure?</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Template Project Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="why-use-template.html">Why Use a Copier Template?</a></li>
 </ul>
 </div>
 </nav></div>
@@ -494,7 +493,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../explanations.html" class="nav-link">Explanations</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">Skeleton...</li>
+    <li class="breadcrumb-item active" aria-current="page">Template...</li>
   </ul>
 </nav>
 </div>
@@ -511,20 +510,17 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="skeleton-project-structure">
-<h1>Skeleton Project Structure<a class="headerlink" href="#skeleton-project-structure" title="Link to this heading">#</a></h1>
-<p>The skeleton project has the following folders at the root level.</p>
+  <section id="template-project-structure">
+<h1>Template Project Structure<a class="headerlink" href="#template-project-structure" title="Link to this heading">#</a></h1>
+<p>The template has the following folders at the root level.</p>
 <section id="src">
 <h2>src<a class="headerlink" href="#src" title="Link to this heading">#</a></h2>
-<p>This folder contains the source code for the project. Typically this
-contains a single folder with the package name for the project and the
-folder contains python modules files.</p>
+<p>This folder contains the source code for the project. Typically this contains a single folder with the package name for the project and the folder contains python modules files.</p>
 <p>See <a class="reference internal" href="decisions/0004-why-src.html#src"><span class="std std-ref">4. Use a source directory</span></a> for details.</p>
 </section>
 <section id="tests">
 <h2>tests<a class="headerlink" href="#tests" title="Link to this heading">#</a></h2>
-<p>This folder holds all of the tests that will be run by pytest, both locally
-and in CI.</p>
+<p>This folder holds all of the tests that will be run by pytest, both locally and in CI.</p>
 <p>See <a class="reference internal" href="../how-to/run-tests.html#using-pytest"><span class="std std-ref">Run the tests using pytest</span></a></p>
 </section>
 <section id="docs">
@@ -534,19 +530,17 @@ and in CI.</p>
 </section>
 <section id="github">
 <h2>.github<a class="headerlink" href="#github" title="Link to this heading">#</a></h2>
-<p>Configuration for the Continuous Integration Workflow on
-github</p>
+<p>Configuration for the Continuous Integration Workflow on github</p>
 </section>
 <section id="vscode-specific-folders">
 <h2>VSCode specific folders<a class="headerlink" href="#vscode-specific-folders" title="Link to this heading">#</a></h2>
 <section id="devcontainer">
 <h3>.devcontainer<a class="headerlink" href="#devcontainer" title="Link to this heading">#</a></h3>
-<p>Configuration for running the developer container for this project
-in VSCode.</p>
+<p>Configuration for running the developer container for this project in VSCode.</p>
 </section>
 <section id="vscode">
 <h3>.vscode<a class="headerlink" href="#vscode" title="Link to this heading">#</a></h3>
-<p>VSCode settings for this project.</p>
+<p>VSCode settings for this project:</p>
 <ul class="simple">
 <li><p>enable static analysis in the editor</p></li>
 <li><p>enables python debugging.</p></li>
@@ -566,20 +560,20 @@ in VSCode.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="skeleton.html"
+       href="decisions/0012-containers.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Working on the Skeleton Repo</p>
+        <p class="prev-next-title">12. Use containers</p>
       </div>
     </a>
     <a class="right-next"
-       href="why-use-skeleton.html"
+       href="why-use-template.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Why Use a Skeleton Structure?</p>
+        <p class="prev-next-title">Why Use a Copier Template?</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -617,8 +611,8 @@ in VSCode.</p>
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/DiamondLightSource/python-copier-template/edit/24504e7
-/docs/explanations/structure.rst">
+    <a href="https://github.com/DiamondLightSource/python-copier-template/edit/07d9093
+/docs/explanations/structure.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -633,7 +627,7 @@ in VSCode.</p>
   <div class="sidebar-secondary-item">
 
   <div class="tocsection sourcelink">
-    <a href="../_sources/explanations/structure.rst.txt">
+    <a href="../_sources/explanations/structure.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>How to update to the latest skeleton structure &#8212; python-copier-template 24504e7
+    <title>How to update to the latest template structure &#8212; python-copier-template 07d9093
  documentation</title>
   
   
@@ -39,7 +39,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../_static/documentation_options.js?v=989248fc"></script>
+    <script src="../_static/documentation_options.js?v=18d72aee"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -49,7 +49,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.2';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://DiamondLightSource.github.io/python-copier-template/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '24504e7
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '07d9093
 ';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
@@ -57,7 +57,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Explanations" href="../explanations.html" />
-    <link rel="prev" title="Pinning Requirements" href="update-requirements.html" />
+    <link rel="prev" title="Run static analysis using pyright" href="static-analysis.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -437,17 +437,16 @@ document.write(`
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="build-docs.html">Build the docs using sphinx</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contributing to the project</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev-install.html">Setup Developer Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build-docs.html">Build the docs using sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contribute to the template</a></li>
 <li class="toctree-l1"><a class="reference internal" href="excalidraw.html">How to embed Excalidraw diagrams</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lint.html">Run linting using pre-commit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="make-release.html">Make a release</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pypi.html">Creating a PyPI Token</a></li>
 <li class="toctree-l1"><a class="reference internal" href="run-tests.html">Run the tests using pytest</a></li>
-<li class="toctree-l1"><a class="reference internal" href="static-analysis.html">Run static analysis using mypy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="update-requirements.html">Pinning Requirements</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">How to update to the latest skeleton structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="static-analysis.html">Run static analysis using pyright</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">How to update to the latest template structure</a></li>
 </ul>
 </div>
 </nav></div>
@@ -505,20 +504,13 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="how-to-update-to-the-latest-skeleton-structure">
-<h1>How to update to the latest skeleton structure<a class="headerlink" href="#how-to-update-to-the-latest-skeleton-structure" title="Link to this heading">#</a></h1>
-<p>If you used the commandline tool to create your repo (or adopt the skeleton
-structure in an existing repo) some time ago, there may be some changes to the
-structure that you could pick up. You can optionally check what differences
-these changes make to the files by doing:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git fetch https://github.com/DiamondLightSource/python3-pip-skeleton main
-$ git diff ...FETCH_HEAD
+  <section id="how-to-update-to-the-latest-template-structure">
+<h1>How to update to the latest template structure<a class="headerlink" href="#how-to-update-to-the-latest-template-structure" title="Link to this heading">#</a></h1>
+<p>To track changes to the upstream template, run</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">copier</span> <span class="n">update</span>
 </pre></div>
 </div>
-<p>To merge the changes in do:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git pull https://github.com/DiamondLightSource/python3-pip-skeleton main
-</pre></div>
-</div>
+<p>This will fetch the latest tagged release of the template, and apply any changes to your working copy. It will prompt for answers again, giving your previous answers as the defaults.</p>
 </section>
 
 
@@ -532,12 +524,12 @@ $ git diff ...FETCH_HEAD
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="update-requirements.html"
+       href="static-analysis.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Pinning Requirements</p>
+        <p class="prev-next-title">Run static analysis using pyright</p>
       </div>
     </a>
     <a class="right-next"
@@ -563,8 +555,8 @@ $ git diff ...FETCH_HEAD
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/DiamondLightSource/python-copier-template/edit/24504e7
-/docs/how-to/update-template.rst">
+    <a href="https://github.com/DiamondLightSource/python-copier-template/edit/07d9093
+/docs/how-to/update-template.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -579,7 +571,7 @@ $ git diff ...FETCH_HEAD
   <div class="sidebar-secondary-item">
 
   <div class="tocsection sourcelink">
-    <a href="../_sources/how-to/update-template.rst.txt">
+    <a href="../_sources/how-to/update-template.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>

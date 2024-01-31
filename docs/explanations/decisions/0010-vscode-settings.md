@@ -1,21 +1,17 @@
-10. Include vscode settings
-===========================
+# 10. Include vscode settings
 
 Date: 2023-01-18
 
-Status
-------
+## Status
 
 Accepted
 
-Context
--------
+## Context
 
 For vscode users a couple of settings are required for neat integration with
 the IDE.
 
-Decision
---------
+## Decision
 
 Include a .vscode folder in the repo with some json files that enable:
 
@@ -24,8 +20,7 @@ Include a .vscode folder in the repo with some json files that enable:
 - settings to make code verification match the tools in CI
 - a task to launch the tox tests from the IDE
 
-Consequences
-------------
+## Consequences
 
 Users of vscode should find that their development environment just works.
 Users of other editors will be unaffected.

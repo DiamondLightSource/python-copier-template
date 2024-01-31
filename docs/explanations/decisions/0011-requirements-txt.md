@@ -1,23 +1,19 @@
-11. Pinning requirements
-========================
+# 11. Pinning requirements
 
 Date: 2023-01-18
 
-Status
-------
+## Status
 
 Accepted
 
-Context
--------
+## Context
 
 Require the ability to pin requirements for a guaranteed rebuild.
 By default CI builds against the latest version of all dependencies, but we
 need a mechanism for overriding this behaviour with a lock file
 when there are issues.
 
-Decision
---------
+## Decision
 
 Have every release generate requirements.txt files using pip freeze and
 publish them as release assets.
@@ -25,12 +21,7 @@ publish them as release assets.
 Request that the user download the asset and commit it into the repo in order
 to lock dependencies for the next CI build.
 
-TODO: link to the How-To on pinning requirements to be written in
-python3-pip-skeleton developer documentation.
-
-Consequences
-------------
+## Consequences
 
 There is less overhead in managing lock files. Incoming issues with dependencies
 will be highlighted early but can be worked around quickly if needed.
-

@@ -1,20 +1,16 @@
-12. Use containers
-==================
+# 12. Use containers
 
 Date: 2023-01-18
 
-Status
-------
+## Status
 
 Accepted
 
-Context
--------
+## Context
 
 Allow developers and users to take advantage of containers.
 
-Decision
---------
+## Decision
 
 Provide a single Dockerfile that can build two kinds of container:
 
@@ -28,7 +24,6 @@ CI builds the runtime container and publishes it to ghcr.io.
 A .devcontainer folder provides the means to build and launch the developer
 container using vscode.
 
-Consequences
-------------
+## Consequences
 
 We can label projects as cloud native.

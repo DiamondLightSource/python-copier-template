@@ -1,27 +1,22 @@
-6. Use setuptools_scm
-=====================
+# 6. Use setuptools_scm
 
 Date: 2023-01-18
 
-Status
-------
+## Status
 
 Accepted
 
-Context
--------
+## Context
 
 We require a mechanism for generating version numbers in python.
 
-Decision
---------
+## Decision
 
 Generate the version number from git tags using setuptools scm.
 
-See https://github.com/pypa/setuptools_scm/
+See <https://github.com/pypa/setuptools_scm/>
 
-Consequences
-------------
+## Consequences
 
 Versions are generated automatically from git tags. This means you can
 can verify if you are running a released version of the code as

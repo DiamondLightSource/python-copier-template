@@ -8,12 +8,20 @@ jobs:
   check:
     uses: ./.github/workflows/_check.yml
 
-  test:
+  lint:
     needs: check
     if: needs.check.outputs.not-in-pr
     uses: ./.github/workflows/_tox.yml
     with:
-      tox: pre-commit,pytest
+      tox: pre-commit
+
+  test:
+    needs: check
+    if: needs.check.outputs.not-in-pr
+    uses: ./.github/workflows/_test.yml
+    with:
+      python-version: dev
+      runs-on: ubuntu-latest
 
   docs:
     needs: check

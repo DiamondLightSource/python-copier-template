@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Set up a virtual environment and put it in PATH
 RUN python -m venv /venv
 ENV PATH=/venv/bin:$PATH
-
+{% if docker %}
 # The build stage installs the context into the venv
 FROM developer as build
 COPY . /context
@@ -27,3 +27,4 @@ ENV PATH=/venv/bin:$PATH
 # change this entrypoint if it is not the same as the repo
 ENTRYPOINT ["{{ repo_name }}"]
 CMD ["--version"]
+{% endif %}

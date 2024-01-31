@@ -10,14 +10,14 @@ jobs:
 
   lint:
     needs: check
-    if: ${{ ! needs.check.outputs.branch-pr }}
+    if: needs.check.outputs.not-in-pr
     uses: ./.github/workflows/_tox.yml
     with:
       tox: pre-commit,mypy
-
+{% raw %}
   test:
     needs: check
-    if: ${{ ! needs.check.outputs.branch-pr }}
+    if: needs.check.outputs.not-in-pr
     strategy:
       matrix:
         runs-on: ["ubuntu-latest"] # can add windows-latest, macos-latest
@@ -31,23 +31,22 @@ jobs:
     with:
       runs-on: ${{ matrix.runs-on }}
       python-version: ${{ matrix.python-version }}
-{% if docker %}
+{% endraw %}{% if docker %}
   container:
     needs: check
-    if: ${{ ! needs.check.outputs.branch-pr }}
+    if: needs.check.outputs.not-in-pr
     uses: ./.github/workflows/_container.yml
     permissions:
       packages: write
-{% endif %}
-{% if sphinx %}
+{% endif %}{% if sphinx %}
   docs:
     needs: check
-    if: ${{ ! needs.check.outputs.branch-pr }}
+    if: needs.check.outputs.not-in-pr
     uses: ./.github/workflows/_docs.yml
 {% endif %}
   dist:
     needs: check
-    if: ${{ ! needs.check.outputs.branch-pr }}
+    if: needs.check.outputs.not-in-pr
     uses: ./.github/workflows/_dist.yml
 
   pypi:

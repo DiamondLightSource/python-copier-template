@@ -7,7 +7,7 @@
     },
     "remoteEnv": {
         // Allow X11 apps to run inside the container
-        "DISPLAY": "${localEnv:DISPLAY}",
+        "DISPLAY": "${localEnv:DISPLAY}"
     },
     "customizations": {
         "vscode": {
@@ -22,7 +22,8 @@
                 "tamasfe.even-better-toml",
                 "redhat.vscode-yaml",
                 "ryanluker.vscode-coverage-gutters",
-                "charliermarsh.ruff"
+                "charliermarsh.ruff",
+                "ms-azuretools.vscode-docker"
             ]
         }
     },
@@ -41,5 +42,5 @@
     // Mount the parent as /workspaces so we can pip install peers as editable
     "workspaceMount": "source=${localWorkspaceFolder}/..,target=/workspaces,type=bind",
     // After the container is created, install the python project in editable form
-    "postCreateCommand": "pip install -c requirements/constraints.txt -e '.[dev]'"
+    "postCreateCommand": "pip install -e '.[dev]'"
 }

@@ -21,10 +21,3 @@ repos:
         entry: ruff format --force-exclude
         types: [python]
         require_serial: true
-
-      - id: constraints
-        name: check constraints match installed
-        language: system
-        entry: ./requirements/regenerate.sh --if-non-empty
-        files: ^(pyproject\.toml|requirements/constraints\.txt)$
-        pass_filenames: false

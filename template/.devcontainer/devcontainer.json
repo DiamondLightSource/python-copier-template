@@ -3,11 +3,7 @@
     "name": "Python 3 Developer Container",
     "build": {
         "dockerfile": "../Dockerfile",
-        "target": "build",
-        // Only upgrade pip, we will install the project below
-        "args": {
-            "PIP_OPTIONS": "--upgrade pip"
-        }
+        "target": "developer"
     },
     "remoteEnv": {
         "DISPLAY": "${localEnv:DISPLAY}"
@@ -19,11 +15,11 @@
             "upgradePackages": false
         }
     },
-    // Set *default* container specific settings.json values on container create.
-    "settings": {
-        "python.defaultInterpreterPath": "/venv/bin/python"
-    },
     "customizations": {
+        // Set *default* container specific settings.json values on container create.
+        "settings": {
+            "python.defaultInterpreterPath": "/venv/bin/python"
+        },
         "vscode": {
             // Add the IDs of extensions you want installed when the container is created.
             "extensions": [

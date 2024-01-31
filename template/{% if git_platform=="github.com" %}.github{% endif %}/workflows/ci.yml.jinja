@@ -13,14 +13,14 @@ jobs:
     if: ${{ ! needs.check.outputs.branch-pr }}
     uses: ./.github/workflows/_tox.yml
     with:
-      tox: pre-commit,pyright
+      tox: pre-commit,mypy
 
   test:
     needs: check
     if: ${{ ! needs.check.outputs.branch-pr }}
     strategy:
       matrix:
-        runs-on: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        runs-on: ["ubuntu-latest"] # can add windows-latest, macos-latest
         python-version: ["3.8", "3.9", "3.10", "3.11"]
         include:
           # Include one that runs in the dev environment
@@ -31,19 +31,20 @@ jobs:
     with:
       runs-on: ${{ matrix.runs-on }}
       python-version: ${{ matrix.python-version }}
-
+{% if docker %}
   container:
     needs: check
     if: ${{ ! needs.check.outputs.branch-pr }}
     uses: ./.github/workflows/_container.yml
     permissions:
       packages: write
-
+{% endif %}
+{% if sphinx %}
   docs:
     needs: check
     if: ${{ ! needs.check.outputs.branch-pr }}
     uses: ./.github/workflows/_docs.yml
-
+{% endif %}
   dist:
     needs: check
     if: ${{ ! needs.check.outputs.branch-pr }}
@@ -58,7 +59,7 @@ jobs:
 
   release:
     if: github.ref_type == 'tag'
-    needs: [dist, docs]
+    needs: [dist{% if sphinx %}, docs{% endif %}]
     uses: ./.github/workflows/_release.yml
     permissions:
       contents: write

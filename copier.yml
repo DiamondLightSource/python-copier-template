@@ -76,8 +76,7 @@ docs_type:
         - README
         - sphinx
 
-_subdirectory: "template"
-
+# Internal variables
 repo_url:
     type: str
     default: "https://github.com/{{github_org}}/{{repo_name}}"
@@ -87,6 +86,13 @@ docs_url:
     type: str
     default: "https://{{github_org | lower}}.github.io/{{repo_name}}"
     when: false
+
+sphinx:
+    type: bool
+    default: "{{ docs_type == 'sphinx' }}"
+    when: false
+
+_subdirectory: "template"
 
 _tasks:
     - "git init --initial-branch=main"

@@ -1,56 +1,37 @@
-{{package_name}}
-=============================================================================
+<img src="https://raw.githubusercontent.com/DiamondLightSource/python3-pip-skeleton-cli/main/docs/images/dls-logo.svg"
+     style="background: none" width="200px" height="200px" align="right">
+[![CI]({{repo_url}}/actions/workflows/code.yml/badge.svg)]({{repo_url}}/actions/workflows/code.yml)
+[![Coverage](https://codecov.io/gh/{{github_org}}/{{repo_name}}/branch/master/graph/badge.svg)](https://codecov.io/gh/{{github_org}}/{{repo_name}})
+[![PyPI](https://img.shields.io/pypi/v/{{pypi_name}}.svg)](https://pypi.org/project/{{pypi_name}})
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-|code_ci| |docs_ci| |coverage| |pypi_version| |license|
+# {{ package_name }}
 
 This is where you should write a short paragraph that describes what your module does,
 how it does it, and why people should use it.
 
-============== ==============================================================
-PyPI           ``pip install {{distribution_name}}``
-Source code    {{repo_url}}
-{% if docs_type=="sphinx" %}Documentation  {{docs_url}}{% endif %}
-Releases       {{repo_url}}/releases
-============== ==============================================================
+Source          | <{{repo_url}}>
+:---:           | :---:
+PyPI            | `pip install {{pypi_name}}`
+Documentation   | <{{docs_url}}>
+Releases        | <{{repo_url}}/releases>
 
 This is where you should put some images or code snippets that illustrate
 some relevant examples. If it is a library then you might put some
 introductory code here:
 
-.. code-block:: python
+```python
+from {{package_name}} import __version__
 
-    from {{package_name}} import __version__
+print(f"Hello {{package_name}} {__version__}")
+```
 
-    print(f"Hello {{package_name}} {__version__}")
+Or if it is a commandline tool then you might put some example commands here:
 
-Or if it is a commandline tool then you might put some example commands here::
+```
+python -m {{package_name}} --version
+```
 
-    $ python -m {{package_name}} --version
-
-.. |code_ci| image:: {{repo_url}}/actions/workflows/code.yml/badge.svg?branch=main
-    :target: {{repo_url}}/actions/workflows/code.yml
-    :alt: Code CI
-
-.. |docs_ci| image:: {{repo_url}}/actions/workflows/docs.yml/badge.svg?branch=main
-    :target: {{repo_url}}/actions/workflows/docs.yml
-    :alt: Docs CI
-
-.. |coverage| image:: https://codecov.io/gh/{{github_org}}/{{repo_name}}/branch/main/graph/badge.svg
-    :target: https://codecov.io/gh/{{github_org}}/{{repo_name}}
-    :alt: Test Coverage
-
-.. |pypi_version| image:: https://img.shields.io/pypi/v/{{distribution_name}}.svg
-    :target: https://pypi.org/project/{{distribution_name}}
-    :alt: Latest PyPI version
-
-.. |license| image:: https://img.shields.io/badge/License-Apache%202.0-blue.svg
-    :target: https://opensource.org/licenses/Apache-2.0
-    :alt: Apache License
-
-{% if docs_type=="sphinx" %}
-..
-    Anything below this line is used when viewing README.rst and will be replaced
-    when included in index.rst
+<!-- README only content. Anything below this line won't be included in index.md -->
 
 See {{docs_url}} for more detailed documentation.
-{% endif %}

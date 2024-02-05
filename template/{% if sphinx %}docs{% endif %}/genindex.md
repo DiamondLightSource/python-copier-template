@@ -1,5 +1,3 @@
-API Index
-=========
+# Index
 
-..
-    https://stackoverflow.com/a/42310803
+<!-- Placeholder that sphinx will replace with a generated index -->

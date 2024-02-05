@@ -1,15 +1,14 @@
-Run in a container
-==================
+# Run in a container
 
-Pre-built containers with {{ repo_name }} and its dependencies already
-installed are available on `Github Container Registry
-<https://ghcr.io/{{ github_org }}/{{ repo_name }}>`_.
+Pre-built containers with {\{repo_name}} and its dependencies already
+installed are available on [Github Container Registry](https://ghcr.io/{{github_org}}/{{repo_name}}).
 
-Starting the container
-----------------------
+## Starting the container
 
-To pull the container from github container registry and run::
+To pull the container from github container registry and run:
 
-    $ docker run ghcr.io/{{ github_org }}/{{ repo_name }}:main --version
+```
+$ docker run ghcr.io/{{github_org}}/{{repo_name}}:main --version
+```
 
-To get a released version, use a numbered release instead of ``main``.
+To get a released version, use a numbered release instead of `main`.

@@ -85,7 +85,7 @@ repo_url:
 
 docs_url:
     type: str
-    default: "https://{{github_org}}.github.io/{{repo_name}}"
+    default: "https://{{github_org | lower}}.github.io/{{repo_name}}"
     when: false
 
 _tasks:

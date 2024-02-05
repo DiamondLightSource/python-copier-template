@@ -86,6 +86,11 @@ spec:
           enum:
             - pyright
             - mypy
+        pypi:
+          title: PyPI?
+          description: Create a wheel and upload to PyPI?
+          type: boolean
+          default: false
 
   # This template is meant to be used on top of an existing template.
   # By adding the following and fetching from an absolute URL you can

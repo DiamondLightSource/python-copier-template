@@ -86,6 +86,10 @@ type_checker:
         - pyright
         - mypy
 
+pypi:
+    type: bool
+    help: Create a wheel and upload to PyPI?
+
 # Internal variables
 repo_url:
     type: str

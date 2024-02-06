@@ -32,3 +32,4 @@ jobs:
           external_repository: DiamondLightSource/python-copier-template-example
           publish_branch: main
           enable_jekyll: true  # don't put a .nojekyll
+          exclude_assets: ''  # default would exclude .github

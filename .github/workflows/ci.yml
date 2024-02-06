@@ -27,6 +27,8 @@ jobs:
     needs: check
     if: needs.check.outputs.not-in-pr
     uses: ./.github/workflows/_docs.yml
+    permissions:
+      contents: write
 
   release:
     if: github.ref_type == 'tag'

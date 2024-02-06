@@ -50,6 +50,7 @@ jobs:
     needs: check
     if: needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_dist.yml
+  {% if pypi %}
   {% raw %}
   pypi:
     if: github.ref_type == 'tag'
@@ -60,6 +61,7 @@ jobs:
     secrets:
       PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
   {% endraw %}
+  {% endif %}
   release:
     if: github.ref_type == 'tag'
     needs: [dist{% if sphinx %}, docs{% endif %}]

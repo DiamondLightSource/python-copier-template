@@ -30,6 +30,12 @@ jobs:
     permissions:
       contents: write
 
+  example:
+    if: github.ref_name == 'main'
+    uses: ./.github/workflows/_example.yml
+    secrets:
+      EXAMPLE_DEPLOY_KEY: ${{ secrets.EXAMPLE_DEPLOY_KEY }}
+
   release:
     if: github.ref_type == 'tag'
     needs: docs

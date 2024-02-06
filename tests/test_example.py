@@ -11,22 +11,10 @@ from prompt_toolkit.validation import ValidationError
 TOP = Path(__file__).absolute().parent.parent
 
 
-def copy_project(
-    project_path: Path,
-    author_email="tom.cobb@diamond.ac.uk",
-    author_name="Tom Cobb",
-    component_owner="group:default/sscc",
-    description="An expanded python-copier-template with all the options",
-    distribution_name="dls-python-copier-template-example",
-    docker=True,
-    docs_type="sphinx",
-    git_platform="github.com",
-    github_org="DiamondLightSource",
-    package_name="python_copier_template_example",
-    repo_name="python-copier-template-example",
-):
-    answers = locals()
-    answers.pop("project_path")
+def copy_project(project_path: Path, **kwargs):
+    with open(TOP / "example-answers.yml") as f:
+        answers = yaml.safe_load(f)
+    answers.update(kwargs)
     run_copy(
         src_path=str(TOP),
         dst_path=project_path,

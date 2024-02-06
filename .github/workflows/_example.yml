@@ -1,0 +1,34 @@
+on:
+  workflow_call:
+    secrets:
+      EXAMPLE_DEPLOY_KEY:
+        required: true
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Need this to get version number from last tag
+          fetch-depth: 0
+
+      - name: Regenerate example
+        run: |
+          pipx run copier copy --data-file example-answers.yml --trust --vcs-ref=HEAD . example
+
+      - name: Rewrite copier answers
+        run: |
+          sed -i 's|_src_path: .|_src_path: gh:DiamondLightSource/python-copier-template|' example/.copier-answers.yml
+
+      - name: Publish example
+        # We pin to the SHA, not the tag, for security reasons.
+        # https://docs.github.com/en/actions/learn-github-actions/security-hardening-for-github-actions#using-third-party-actions
+        uses: peaceiris/actions-gh-pages@373f7f263a76c20808c831209c920827a82a2847 # v3.9.3
+        with:
+          deploy_key: ${{ secrets.EXAMPLE_DEPLOY_KEY }}
+          publish_dir: example
+          external_repository: DiamondLightSource/python-copier-template-example
+          publish_branch: main
+          enable_jekyll: true  # don't put a .nojekyll

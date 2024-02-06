@@ -48,7 +48,7 @@ jobs:
     needs: check
     if: needs.check.outputs.not-in-pr
     uses: ./.github/workflows/_dist.yml
-
+  {% raw %}
   pypi:
     if: github.ref_type == 'tag'
     needs: dist
@@ -57,7 +57,7 @@ jobs:
       id-token: write
     secrets:
       PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
-
+  {% endraw %}
   release:
     if: github.ref_type == 'tag'
     needs: [dist{% if sphinx %}, docs{% endif %}]

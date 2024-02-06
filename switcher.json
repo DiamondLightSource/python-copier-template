@@ -1,6 +1,18 @@
 [
   {
+    "version": "main",
+    "url": "https://DiamondLightSource.github.io/python-copier-template/main/"
+  },
+  {
     "version": "1.0.2",
     "url": "https://DiamondLightSource.github.io/python-copier-template/1.0.2/"
+  },
+  {
+    "version": "1.0.1",
+    "url": "https://DiamondLightSource.github.io/python-copier-template/1.0.1/"
+  },
+  {
+    "version": "1.0.0",
+    "url": "https://DiamondLightSource.github.io/python-copier-template/1.0.0/"
   }
 ]

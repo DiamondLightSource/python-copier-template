@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Template Project Structure &#8212; python-copier-template 7fa46bc
+    <title>Template Project Structure &#8212; python-copier-template 1.0.2-7-gb91597e
  documentation</title>
   
   
@@ -39,7 +39,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../_static/documentation_options.js?v=f074de70"></script>
+    <script src="../_static/documentation_options.js?v=fdd95ee4"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -49,15 +49,14 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.2';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://DiamondLightSource.github.io/python-copier-template/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7fa46bc
-';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
     <link rel="icon" href="../_static/dls-logo.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Why Use a Copier Template?" href="why-use-template.html" />
-    <link rel="prev" title="12. Use containers" href="decisions/0012-containers.html" />
+    <link rel="prev" title="14. Split up CI YAML" href="decisions/0014-split-ci-yaml.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -439,6 +438,7 @@ document.write(`
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="decisions.html">Architectural Decision Records</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="decisions/0001-record-architecture-decisions.html">1. Record architecture decisions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decisions/0002-make-skeleton.html">2. Make a skeleton repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="decisions/0003-docs-structure.html">3. Standard documentation structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="decisions/0004-why-src.html">4. Use a source directory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="decisions/0005-pyproject-toml.html">5. Use pyproject.toml</a></li>
@@ -449,6 +449,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="decisions/0010-vscode-settings.html">10. Include vscode settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="decisions/0011-requirements-txt.html">11. Pinning requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="decisions/0012-containers.html">12. Use containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decisions/0013-switch-to-copier.html">13. Switch to copier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decisions/0014-split-ci-yaml.html">14. Split up CI YAML</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Template Project Structure</a></li>
@@ -560,12 +562,12 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="decisions/0012-containers.html"
+       href="decisions/0014-split-ci-yaml.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">12. Use containers</p>
+        <p class="prev-next-title">14. Split up CI YAML</p>
       </div>
     </a>
     <a class="right-next"
@@ -611,8 +613,7 @@ document.write(`
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/DiamondLightSource/python-copier-template/edit/7fa46bc
-/docs/explanations/structure.md">
+    <a href="https://github.com/DiamondLightSource/python-copier-template/edit/main/docs/explanations/structure.md">
       <i class="fa-solid fa-pencil"></i>
       
       

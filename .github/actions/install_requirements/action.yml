@@ -6,7 +6,7 @@ inputs:
     default: "dev"
   pip-install:
     description: Parameters to pass to pip install
-    default: "-e .[dev]"
+    default: "$([ -f dev-requirements.txt ] && echo '-c dev-requirements.txt') -e .[dev]"
 
 runs:
   using: composite

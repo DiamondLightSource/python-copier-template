@@ -8,15 +8,16 @@ jobs:
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
 
-      - name: Prepare release files
+      - name: Zip up docs
         run: |
-          if [ -d docs ]; then
-            cd docs && zip -r docs.zip *
-            echo 'DOCS=docs/docs.zip' >> $GITHUB_ENV
-          fi
-          if [ -d dist ]; then
-            echo 'DIST=dist/*' >> $GITHUB_ENV
+          set -vxeuo pipefail
+          if [ -d html ]; then
+            mv html $GITHUB_REF_NAME
+            zip -r docs.zip $GITHUB_REF_NAME
+            rm -rf $GITHUB_REF_NAME
           fi
 
       - name: Create GitHub Release
@@ -25,9 +26,7 @@ jobs:
         uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844 # v0.1.15
         with:
           prerelease: ${{ contains(github.ref_name, 'a') || contains(github.ref_name, 'b') || contains(github.ref_name, 'rc') }}
-          files: |
-            ${{ env.DOCS }}
-            ${{ env.DIST }}
+          files: "*"
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

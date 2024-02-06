@@ -6,28 +6,31 @@ on:
 
 jobs:
   check:
-    # TODO: Use the CI straight from the template
     uses: ./.github/workflows/_check.yml
 
-  # TODO: Use the CI straight from the template
-  test:
+  lint:
     needs: check
-    if: ${{ ! needs.check.outputs.branch-pr }}
+    if: needs.check.outputs.not-in-pr
     uses: ./.github/workflows/_tox.yml
     with:
-      tox: pre-commit,pytest
+      tox: pre-commit
+
+  test:
+    needs: check
+    if: needs.check.outputs.not-in-pr
+    uses: ./.github/workflows/_test.yml
+    with:
+      python-version: dev
+      runs-on: ubuntu-latest
 
   docs:
     needs: check
-    if: ${{ ! needs.check.outputs.branch-pr }}
+    if: needs.check.outputs.not-in-pr
     uses: ./.github/workflows/_docs.yml
-    permissions:
-      contents: write
 
   release:
     if: github.ref_type == 'tag'
     needs: docs
-    # TODO: Use the CI straight from the template
     uses: ./.github/workflows/_release.yml
     permissions:
       contents: write

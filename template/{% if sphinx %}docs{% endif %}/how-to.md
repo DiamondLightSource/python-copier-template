@@ -1,7 +1,3 @@
----
-orphan: true
----
-
 # How-to Guides
 
 Practical step-by-step guides for the more experienced user.

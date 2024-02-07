@@ -87,7 +87,7 @@ rst_epilog = """
 .. _black: https://github.com/psf/black
 .. _flake8: https://flake8.pycqa.org/en/latest/
 .. _isort: https://github.com/PyCQA/isort
-.. _mypy: http://mypy-lang.org/
+.. _pyright: https://microsoft.github.io/pyright/#/
 .. _pre-commit: https://pre-commit.com/
 """
 

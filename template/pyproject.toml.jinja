@@ -25,7 +25,7 @@ requires-python = ">=3.7"
 [project.optional-dependencies]
 dev = [
     "black",
-    "mypy",
+    "pyright",
     "pipdeptree",
     "pre-commit",
     "pydata-sphinx-theme>=0.12",
@@ -54,8 +54,8 @@ name = "{{ author_name }}"
 [tool.setuptools_scm]
 write_to = "src/{{ package_name }}/_version.py"
 
-[tool.mypy]
-ignore_missing_imports = true # Ignore missing stubs in imported modules
+[tool.pyright]
+reportMissingImports = false # Ignore missing stubs in imported modules
 
 [tool.pytest.ini_options]
 # Run pytest with all our checkers, and don't spam us with massive tracebacks on error
@@ -81,19 +81,19 @@ legacy_tox_ini = """
 [tox]
 skipsdist=True
 
-[testenv:{pre-commit,mypy,pytest,docs}]
+[testenv:{pre-commit,pyright,pytest,docs}]
 # Don't create a virtualenv for the command, requires tox-direct plugin
 direct = True
 passenv = *
 allowlist_externals =
     pytest
     pre-commit
-    mypy
+    pyright
     sphinx-build
     sphinx-autobuild
 commands =
     pytest: pytest --cov={{ package_name }} --cov-report term --cov-report xml:cov.xml {posargs}
-    mypy: mypy src tests {posargs}
+    pyright: pyright src tests {posargs}
     pre-commit: pre-commit run --all-files {posargs}
     docs: sphinx-{posargs:build -EW --keep-going} -T docs build/html
 """

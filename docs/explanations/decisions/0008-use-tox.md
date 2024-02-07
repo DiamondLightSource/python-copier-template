@@ -27,7 +27,7 @@ There are a number of things that CI needs to run:
 
 - pytest
 - black
-- mypy
+- pyright
 - flake8
 - isort
 - build documentation
@@ -45,7 +45,7 @@ under pytest that had a plugin, and isort under flake8:
     subgraph cluster_0 {
       label = "pytest"
       "pytest-black"
-      "pytest-mypy"
+      "pytest-pyright"
       subgraph cluster_1 {
         label = "pytest-flake8"
         "flake8-isort"
@@ -69,14 +69,14 @@ To address this, the tree was rearranged:
 
     pytest
     black
-    mypy
+    pyright
     subgraph cluster_1 {
       label = "flake8"
       "flake8-isort"
     }
 ```
 
-If using VSCode, this will still run black, flake8 and mypy on file save, but
+If using VSCode, this will still run black, flake8 and pyright on file save, but
 for those using other editors and for CI another solution was needed. Enter
 [pre-commit](https://pre-commit.com/). This allows hooks to be run at `git
 commit` time on just the files that have changed, as well as on all tracked
@@ -87,7 +87,7 @@ $ pre-commit install
 ```
 
 Finally tox was added to run all of the CI checks including
-the documentation build. mypy was moved out of the pre-commit and into tox
+the documentation build. pyright was moved out of the pre-commit and into tox
 because it was quite long running and
 therefore intrusive. tox can be invoked to run all the checks in
 parallel with:
@@ -109,7 +109,7 @@ The graph now looks like:
     {
         label = "tox -p"
         pytest
-        mypy
+        pyright
         "sphinx-build"
         subgraph cluster_1 {
             label = "pre-commit"
@@ -124,11 +124,11 @@ The graph now looks like:
 
 Now the workflow looks like this:
 
-- Save file, VSCode runs black, flake8 and mypy on it
+- Save file, VSCode runs black, flake8 and pyright on it
 - Run 'tox -p' and fix issues until it succeeds
 - Commit files and pre-commit runs black and flake8 on them (if the
   developer had not run tox then this catches some of the most common issues)
-- Push to remote and CI runs black, flake8, mypy once on all files
+- Push to remote and CI runs black, flake8, pyright once on all files
   (using tox), then pytest multiple times in a test matrix
 
 ## Consequences

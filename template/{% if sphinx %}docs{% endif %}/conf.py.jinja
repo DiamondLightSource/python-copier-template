@@ -108,7 +108,7 @@ rst_epilog = """
 .. _Diamond Light Source: http://www.diamond.ac.uk
 .. _black: https://github.com/psf/black
 .. _ruff: https://beta.ruff.rs/docs/
-.. _mypy: http://mypy-lang.org/
+.. _pyright: https://microsoft.github.io/pyright/#/
 .. _pre-commit: https://pre-commit.com/
 """
 

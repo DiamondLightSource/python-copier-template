@@ -1,7 +1,5 @@
 # 2. Adopt python-copier-template for project structure
 
-Date: 2022-02-18
-
 ## Status
 
 Accepted

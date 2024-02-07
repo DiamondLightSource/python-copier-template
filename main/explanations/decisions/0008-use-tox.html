@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>8. Use tox and pre-commit &#8212; python-copier-template 1.0.2-27-gd60646a
+    <title>8. Use tox and pre-commit &#8212; python-copier-template 1.0.2-31-ga0ae01d
  documentation</title>
   
   
@@ -39,7 +39,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../../_static/documentation_options.js?v=f8857b71"></script>
+    <script src="../../_static/documentation_options.js?v=321a17e0"></script>
     <script src="../../_static/doctools.js?v=888ff710"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -541,14 +541,14 @@ against the changes you are about to commit.</p>
 <ul class="simple">
 <li><p>pytest</p></li>
 <li><p>black</p></li>
-<li><p>mypy</p></li>
+<li><p>pyright</p></li>
 <li><p>flake8</p></li>
 <li><p>isort</p></li>
 <li><p>build documentation</p></li>
 </ul>
 <p>The initial approach this module took was to integrate everything
 under pytest that had a plugin, and isort under flake8:</p>
-<div class="graphviz"><object data="../../_images/graphviz-e10d73b1177bd3d81dea5149fc243ea8b20edd25.svg" type="image/svg+xml" class="graphviz">
+<div class="graphviz"><object data="../../_images/graphviz-566a33c537fed1cb04add1d611c584ab9f887c4e.svg" type="image/svg+xml" class="graphviz">
 <p class="warning">digraph initial {
 bgcolor=transparent
 graph [fontname=&quot;Lato&quot; fontsize=10 style=filled fillcolor=&quot;#8BC4E9&quot;]
@@ -557,7 +557,7 @@ node [fontname=&quot;Lato&quot; fontsize=10 shape=box style=filled fillcolor=&qu
 subgraph cluster_0 {
   label = &quot;pytest&quot;
   &quot;pytest-black&quot;
-  &quot;pytest-mypy&quot;
+  &quot;pytest-pyright&quot;
   subgraph cluster_1 {
     label = &quot;pytest-flake8&quot;
     &quot;flake8-isort&quot;
@@ -569,7 +569,7 @@ report all test failures, but made each run take longer than it needed to. Also,
 flake8 states that it <a class="reference external" href="https://flake8.pycqa.org/en/latest/user/python-api.html">does not have a public, stable, Python API</a> so did not
 recommend the approach taken by pytest-flake8.</p>
 <p>To address this, the tree was rearranged:</p>
-<div class="graphviz"><object data="../../_images/graphviz-c7e4922068220c188f3d592b12f2049ea04875de.svg" type="image/svg+xml" class="graphviz">
+<div class="graphviz"><object data="../../_images/graphviz-65ec70017dd232a73a2acfd9345fc1202d23dd6b.svg" type="image/svg+xml" class="graphviz">
 <p class="warning">digraph rearranged {
 bgcolor=transparent
 graph [fontname=&quot;Lato&quot; fontsize=10 style=filled fillcolor=&quot;#8BC4E9&quot;]
@@ -577,13 +577,13 @@ node [fontname=&quot;Lato&quot; fontsize=10 shape=box style=filled fillcolor=&qu
 
 pytest
 black
-mypy
+pyright
 subgraph cluster_1 {
   label = &quot;flake8&quot;
   &quot;flake8-isort&quot;
 }
 }</p></object></div>
-<p>If using VSCode, this will still run black, flake8 and mypy on file save, but
+<p>If using VSCode, this will still run black, flake8 and pyright on file save, but
 for those using other editors and for CI another solution was needed. Enter
 <a class="reference external" href="https://pre-commit.com/">pre-commit</a>. This allows hooks to be run at <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code> time on just the files that have changed, as well as on all tracked
 files by CI. All that is needed is a one time install of the git commit hook:</p>
@@ -591,7 +591,7 @@ files by CI. All that is needed is a one time install of the git commit hook:</p
 </pre></div>
 </div>
 <p>Finally tox was added to run all of the CI checks including
-the documentation build. mypy was moved out of the pre-commit and into tox
+the documentation build. pyright was moved out of the pre-commit and into tox
 because it was quite long running and
 therefore intrusive. tox can be invoked to run all the checks in
 parallel with:</p>
@@ -599,7 +599,7 @@ parallel with:</p>
 </pre></div>
 </div>
 <p>The graph now looks like:</p>
-<div class="graphviz"><object data="../../_images/graphviz-8493c858f07a863e5211798a0734e53dcd52c3c2.svg" type="image/svg+xml" class="graphviz">
+<div class="graphviz"><object data="../../_images/graphviz-912377259476f4a62d098926de06bc4b5c4bd08a.svg" type="image/svg+xml" class="graphviz">
 <p class="warning">digraph rearranged {
 bgcolor=transparent
 graph [fontname=&quot;Lato&quot; fontsize=10 style=filled fillcolor=&quot;#8BC4E9&quot;]
@@ -609,7 +609,7 @@ subgraph cluster_0
 {
     label = &quot;tox -p&quot;
     pytest
-    mypy
+    pyright
     &quot;sphinx-build&quot;
     subgraph cluster_1 {
         label = &quot;pre-commit&quot;
@@ -623,11 +623,11 @@ subgraph cluster_0
 }</p></object></div>
 <p>Now the workflow looks like this:</p>
 <ul class="simple">
-<li><p>Save file, VSCode runs black, flake8 and mypy on it</p></li>
+<li><p>Save file, VSCode runs black, flake8 and pyright on it</p></li>
 <li><p>Run ‘tox -p’ and fix issues until it succeeds</p></li>
 <li><p>Commit files and pre-commit runs black and flake8 on them (if the
 developer had not run tox then this catches some of the most common issues)</p></li>
-<li><p>Push to remote and CI runs black, flake8, mypy once on all files
+<li><p>Push to remote and CI runs black, flake8, pyright once on all files
 (using tox), then pytest multiple times in a test matrix</p></li>
 </ul>
 </section>

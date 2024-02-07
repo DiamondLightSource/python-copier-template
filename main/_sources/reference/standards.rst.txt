@@ -12,7 +12,7 @@ The code in this repository conforms to standards set by the following tools:
 - black_ for code formatting
 - flake8_ for style checks
 - isort_ for import ordering
-- mypy_ for static type checking
+- pyright_ for static type checking
 
 .. seealso::
 

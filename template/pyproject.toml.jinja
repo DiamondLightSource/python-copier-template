@@ -25,10 +25,12 @@ requires-python = ">=3.7"
 [project.optional-dependencies]
 dev = [
     "black",
-    "pyright",
+    "copier",
+    "myst-parser",
     "pipdeptree",
     "pre-commit",
     "pydata-sphinx-theme>=0.12",
+    "pyright",
     "pytest",
     "pytest-cov",
     "ruff",
@@ -37,8 +39,6 @@ dev = [
     "sphinx-design",
     "tox-direct",
     "types-mock",
-    "copier",
-    "myst-parser",
 ]
 
 [project.scripts]

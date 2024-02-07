@@ -54,7 +54,7 @@ commands =
 [tool.ruff]
 src = ["src", "tests"]
 line-length = 88
-select = [
+lint.select = [
     "E", # pycodestyle errors - https://beta.ruff.rs/docs/rules/#error-e
     "F", # pyflakes rules - https://beta.ruff.rs/docs/rules/#pyflakes-f
     "W", # pycodestyle warnings - https://beta.ruff.rs/docs/rules/#warning-w

@@ -31,6 +31,7 @@ jobs:
       contents: write
 
   example:
+    needs: test
     if: github.ref_name == 'main'
     uses: ./.github/workflows/_example.yml
     secrets:

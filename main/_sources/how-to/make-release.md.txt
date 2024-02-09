@@ -2,7 +2,7 @@
 
 To make a new release, please follow this checklist:
 
-- Ensure that you have previously followed `./pypi`
+- Ensure that you have previously followed [](./pypi)
 - Choose a new PEP440 compliant release number (see <https://peps.python.org/pep-0440/>)
 - Go to the GitHub [release] page
 - Choose `Draft New Release`

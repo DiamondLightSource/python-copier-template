@@ -9,6 +9,9 @@ on:
         type: string
         description: The runner to run this job on
         required: true
+    secrets:
+      CODECOV_TOKEN:
+        required: true
 
 env:
   # https://github.com/pytest-dev/pytest/issues/2042

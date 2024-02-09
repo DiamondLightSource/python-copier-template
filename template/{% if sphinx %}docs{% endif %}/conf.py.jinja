@@ -44,7 +44,12 @@ extensions = [
     "sphinx_copybutton",
     # For the card element
     "sphinx_design",
+    # So we can write markdown files
+    "myst_parser",
 ]
+
+# So we can use the ::: syntax
+myst_enable_extensions = ["colon_fence"]
 
 # If true, Sphinx will warn about all references where the target cannot
 # be found.
@@ -81,9 +86,6 @@ graphviz_output_format = "svg"
 # The name of a reST role (builtin or Sphinx extension) to use as the default
 # role, that is, for text marked up `like this`
 default_role = "any"
-
-# The suffix of source filenames.
-source_suffix = ".rst"
 
 # The master toctree document.
 master_doc = "index"

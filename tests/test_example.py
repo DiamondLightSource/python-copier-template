@@ -40,24 +40,23 @@ def make_venv(project_path: Path) -> callable:
     venv_path = project_path / "venv"
     run_pipe(f"python -m venv {venv_path}")
     run = functools.partial(run_pipe, cwd=str(project_path))
-    run(f"./venv/bin/pip install -e .[dev]")
+    run("./venv/bin/pip install -e .[dev]")
     return run
 
 
 def test_template(tmp_path: Path):
     copy_project(tmp_path)
     run = make_venv(tmp_path)
-    run(f"./venv/bin/tox -p")
-    run(f"./venv/bin/pip install build twine")
-    run(f"./venv/bin/python -m build")
-    run(f"./venv/bin/twine check --strict dist/*")
+    run("./venv/bin/tox -p")
+    run("./venv/bin/pip install build twine")
+    run("./venv/bin/python -m build")
+    run("./venv/bin/twine check --strict dist/*")
 
 
 def test_template_no_docs(tmp_path: Path):
     copy_project(tmp_path, docs_type="README")
     run = make_venv(tmp_path)
-    run(f"./venv/bin/tox -p")
-
+    run("./venv/bin/tox -p")
 
 
 def test_bad_repo_name(tmp_path: Path):

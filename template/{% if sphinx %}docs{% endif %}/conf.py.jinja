@@ -105,15 +105,6 @@ intersphinx_mapping = {"python": ("https://docs.python.org/3/", None)}
 # A dictionary of graphviz graph attributes for inheritance diagrams.
 inheritance_graph_attrs = {"rankdir": "TB"}
 
-# Common links that should be available on every page
-rst_epilog = """
-.. _Diamond Light Source: http://www.diamond.ac.uk
-.. _black: https://github.com/psf/black
-.. _ruff: https://beta.ruff.rs/docs/
-.. _pyright: https://microsoft.github.io/pyright/#/
-.. _pre-commit: https://pre-commit.com/
-"""
-
 # Ignore localhost links for periodic check that links in docs are valid
 linkcheck_ignore = [r"http://localhost:\d+/"]
 

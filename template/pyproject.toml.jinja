@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=64", "setuptools_scm[toml]>=6.2", "wheel"]
+requires = ["setuptools>=64", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -17,7 +17,7 @@ description = "{{ description }}"
 dependencies = [] # Add project dependencies here, e.g. ["click", "numpy"]
 dynamic = ["version"]
 license.file = "LICENSE"
-readme = "README.rst"
+readme = "README.md"
 requires-python = ">=3.7"
 
 [project.optional-dependencies]
@@ -58,7 +58,7 @@ reportMissingImports = false # Ignore missing stubs in imported modules
 [tool.pytest.ini_options]
 # Run pytest with all our checkers, and don't spam us with massive tracebacks on error
 addopts = """
-    --tb=native -vv --doctest-modules --doctest-glob="*.rst"
+    --tb=native -vv{% if sphinx %} --doctest-modules --doctest-glob="*.rst"{% endif %}
     """
 # https://iscinumpy.gitlab.io/post/bound-version-constraints/#watch-for-warnings
 filterwarnings = "error"
@@ -79,7 +79,7 @@ legacy_tox_ini = """
 [tox]
 skipsdist=True
 
-[testenv:{pre-commit,pyright,pytest,docs}]
+[testenv:{pre-commit,pyright,pytest{% if sphinx %},docs{% endif %}}]
 # Don't create a virtualenv for the command, requires tox-direct plugin
 direct = True
 passenv = *
@@ -87,14 +87,14 @@ allowlist_externals =
     pytest
     pre-commit
     pyright
-    sphinx-build
+{% if sphinx %}    sphinx-build
     sphinx-autobuild
-commands =
+{% endif %}commands =
     pytest: pytest --cov={{ package_name }} --cov-report term --cov-report xml:cov.xml {posargs}
     pyright: pyright src tests {posargs}
     pre-commit: pre-commit run --all-files {posargs}
-    docs: sphinx-{posargs:build -EW --keep-going} -T docs build/html
-"""
+{% if sphinx %}    docs: sphinx-{posargs:build -EW --keep-going} -T docs build/html
+{% endif %}"""
 
 [tool.ruff]
 src = ["src", "tests"]

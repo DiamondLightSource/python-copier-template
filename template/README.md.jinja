@@ -11,7 +11,7 @@ how it does it, and why people should use it.
 Source          | <{{repo_url}}>
 :---:           | :---:
 PyPI            | `pip install {{pypi_name}}`
-Documentation   | <{{docs_url}}>
+{% if sphinx %}Documentation   | <{{docs_url}}>{% endif %}
 Releases        | <{{repo_url}}/releases>
 
 This is where you should put some images or code snippets that illustrate
@@ -29,7 +29,8 @@ Or if it is a commandline tool then you might put some example commands here:
 ```
 python -m {{package_name}} --version
 ```
-
+{% if sphinx %}
 <!-- README only content. Anything below this line won't be included in index.md -->
 
 See {{docs_url}} for more detailed documentation.
+{% endif %}

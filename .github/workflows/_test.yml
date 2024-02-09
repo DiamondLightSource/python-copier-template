@@ -34,14 +34,14 @@ jobs:
 
       - if: inputs.python-version == 'dev'
         name: Write the requirements as an artifact
-        run: pip freeze --exclude-editable > dev-requirements.txt && git diff
+        run: pip freeze --exclude-editable > /tmp/dev-requirements.txt
 
       - if: inputs.python-version == 'dev'
         name: Upload dev-requirements.txt
         uses: actions/upload-artifact@v4
         with:
           name: dev-requirements
-          path: dev-requirements.txt
+          path: /tmp/dev-requirements.txt
 
       - if: inputs.python-version != 'dev'
         name: Install latest versions of python packages

@@ -1,7 +1,7 @@
 author_email: tom.cobb@diamond.ac.uk
 author_name: Tom Cobb
 component_owner: group:default/sscc
-description: An expanded python-copier-template with all the options
+description: An expanded https://github.com/DiamondLightSource/python-copier-template to illustrate how it looks with all the options enabled.
 distribution_name: dls-python-copier-template-example
 docker: true
 docs_type: sphinx

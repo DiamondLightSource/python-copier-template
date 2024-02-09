@@ -81,12 +81,9 @@ def test_example_repo_updates(tmp_path: Path):
     run("git config user.email 'you@example.com'")
     run("git config user.name 'Your Name'")
     run("git commit -am 'Update src'")
-    run("copier update --trust --vcs-ref=HEAD -A")
+    run(f"copier update --trust --vcs-ref=HEAD --data-file {TOP}/example-answers.yml")
     output = run(
         "diff -ur --exclude=.git --ignore-matching-lines='_commit: '"
         f" {generated_path} {example_path}"
     )
     assert not output, output
-
-
-# TODO: check that copier update python-copier-template-example matches generated

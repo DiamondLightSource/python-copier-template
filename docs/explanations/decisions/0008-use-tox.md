@@ -26,7 +26,7 @@ against the changes you are about to commit.
 There are a number of things that CI needs to run:
 
 - pytest
-- ruff
+- black
 - mypy
 - flake8
 - isort
@@ -44,7 +44,7 @@ under pytest that had a plugin, and isort under flake8:
 
     subgraph cluster_0 {
       label = "pytest"
-      "pytest-ruff"
+      "pytest-black"
       "pytest-mypy"
       subgraph cluster_1 {
         label = "pytest-flake8"
@@ -68,7 +68,7 @@ To address this, the tree was rearranged:
     node [fontname="Lato" fontsize=10 shape=box style=filled fillcolor="#8BC4E9"]
 
     pytest
-    ruff
+    black
     mypy
     subgraph cluster_1 {
       label = "flake8"
@@ -76,7 +76,7 @@ To address this, the tree was rearranged:
     }
 ```
 
-If using VSCode, this will still run ruff, flake8 and mypy on file save, but
+If using VSCode, this will still run black, flake8 and mypy on file save, but
 for those using other editors and for CI another solution was needed. Enter
 [pre-commit](https://pre-commit.com/). This allows hooks to be run at `git
 commit` time on just the files that have changed, as well as on all tracked
@@ -113,7 +113,7 @@ The graph now looks like:
         "sphinx-build"
         subgraph cluster_1 {
             label = "pre-commit"
-            ruff
+            black
             subgraph cluster_2 {
                 label = "flake8"
                 "flake8-isort"
@@ -124,11 +124,11 @@ The graph now looks like:
 
 Now the workflow looks like this:
 
-- Save file, VSCode runs ruff, flake8 and mypy on it
+- Save file, VSCode runs black, flake8 and mypy on it
 - Run 'tox -p' and fix issues until it succeeds
-- Commit files and pre-commit runs ruff and flake8 on them (if the
+- Commit files and pre-commit runs black and flake8 on them (if the
   developer had not run tox then this catches some of the most common issues)
-- Push to remote and CI runs ruff, flake8, mypy once on all files
+- Push to remote and CI runs black, flake8, mypy once on all files
   (using tox), then pytest multiple times in a test matrix
 
 ## Consequences

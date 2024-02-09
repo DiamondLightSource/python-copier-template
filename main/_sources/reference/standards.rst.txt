@@ -9,7 +9,7 @@ Code Standards
 
 The code in this repository conforms to standards set by the following tools:
 
-- black_ for code formatting
+- ruff_ for code formatting
 - flake8_ for style checks
 - isort_ for import ordering
 - pyright_ for static type checking

@@ -84,7 +84,7 @@ inheritance_graph_attrs = {"rankdir": "TB"}
 # Common links that should be available on every page
 rst_epilog = """
 .. _Diamond Light Source: http://www.diamond.ac.uk
-.. _black: https://github.com/psf/black
+.. _ruff: https://github.com/astral-sh/ruff
 .. _flake8: https://flake8.pycqa.org/en/latest/
 .. _isort: https://github.com/PyCQA/isort
 .. _pyright: https://microsoft.github.io/pyright/#/

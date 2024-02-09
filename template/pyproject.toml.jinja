@@ -23,17 +23,22 @@ requires-python = ">=3.7"
 [project.optional-dependencies]
 dev = [
     "copier",
+    {% if sphinx %}
     "myst-parser",
+    {% endif %}
     "pipdeptree",
     "pre-commit",
+    {% if sphinx %}
     "pydata-sphinx-theme>=0.12",
+    {% endif %}
     "pyright",
     "pytest",
     "pytest-cov",
     "ruff",
-    "sphinx-autobuild",
+    {% if sphinx %}
     "sphinx-copybutton",
     "sphinx-design",
+    {% endif %}
     "tox-direct",
     "types-mock",
 ]

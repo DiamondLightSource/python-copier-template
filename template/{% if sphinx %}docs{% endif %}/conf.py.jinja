@@ -192,4 +192,4 @@ html_show_copyright = False
 
 # Logo
 html_logo = "images/dls-logo.svg"
-html_favicon = "images/dls-favicon.ico"
+html_favicon = html_logo

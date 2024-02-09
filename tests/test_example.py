@@ -44,6 +44,9 @@ def test_template(tmp_path: Path):
     run(f"python -m venv {venv_path}")
     run(f"{venv_path}/bin/python -m pip install -e .[dev]")
     run(f"{venv_path}/bin/tox -p")
+    run(f"{venv_path}/bin/python -m pip install build twine")
+    run(f"{venv_path}/bin/python -m build")
+    run(f"{venv_path}/bin/python -m twine check --strict dist/*")
 
 
 def test_bad_repo_name(tmp_path: Path):

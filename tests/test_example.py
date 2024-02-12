@@ -83,7 +83,15 @@ def test_example_repo_updates(tmp_path: Path):
     run("git commit -am 'Update src'")
     run(f"copier update --trust --vcs-ref=HEAD --data-file {TOP}/example-answers.yml")
     output = run(
-        "diff -ur --exclude=.git --ignore-matching-lines='_commit: '"
-        f" {generated_path} {example_path}"
+        # Git directory expected to be different
+        "diff -ur --exclude=.git "
+        # The commit hash is different for some reason
+        "--ignore-matching-lines='^_commit: ' "
+        # If we tag an existing commit that has been pushed to main, then the copier
+        # update on the old commit id will be generated with the new tag name, which
+        # means the link will not be updated. As this only affects the example repo
+        # which is the only thing that points to main then we ignore it
+        "--ignore-matching-lines='^For more information on common tasks like setting' "
+        f"{generated_path} {example_path}"
     )
     assert not output, output

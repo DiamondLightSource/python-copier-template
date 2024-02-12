@@ -15,5 +15,6 @@ This will:
 ## Conflicting Files
 After choosing to overwrite the conflicting files, open your project in an editor and go through the changes and any merge conflicts ensure that you have the right files and contents.
 
-> Note: Copier does not touch any already existing files that do not conflict with the ones in the template. Therefore, you may end up with files in your project you no longer need such as old github workflows. These would need to be manually deleted.  
-
+:::{note}
+Copier does not touch any already existing files that do not conflict with the ones in the template. Therefore, you may end up with files in your project you no longer need such as old github workflows. These would need to be manually deleted.  
+:::

@@ -143,12 +143,6 @@ html_theme_options = {
     },
     "check_switcher": True,
     "navbar_end": ["theme-switcher", "icon-links", "version-switcher"],
-    "external_links": [
-        {
-            "name": "Release Notes",
-            "url": f"https://github.com/{github_user}/{github_repo}/releases",
-        }
-    ],
 }
 
 # A dictionary of values to pass into the template engine’s context for all pages

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Adopt the template into an existing repo &#8212; python-copier-template 1.1.0-4-g871b14d
+    <title>Adopt the template into an existing repo &#8212; python-copier-template 1.1.0-6-g1b41f44
  documentation</title>
   
   
@@ -39,7 +39,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../_static/documentation_options.js?v=01ecce36"></script>
+    <script src="../_static/documentation_options.js?v=300f6ea0"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -484,10 +484,7 @@ document.write(`
                   
   <section id="adopt-the-template-into-an-existing-repo">
 <h1>Adopt the template into an existing repo<a class="headerlink" href="#adopt-the-template-into-an-existing-repo" title="Link to this heading">#</a></h1>
-<p>To adopt the latest version of this template to an existing project run:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>copier<span class="w"> </span>copy<span class="w"> </span>gh:DiamondLightSource/python-copier-template<span class="w"> </span>/path/to/existing-project
-</pre></div>
-</div>
+<p>You can adopt this template into an existing repo by running <code class="docutils literal notranslate"><span class="pre">copier</span> <span class="pre">copy</span></code> in much the same way as in a new project.</p>
 <p>This will:</p>
 <ul class="simple">
 <li><p>Ask some questions about the existing project</p></li>
@@ -495,13 +492,41 @@ document.write(`
 <li><p>Ask if you would like to overwrite conflicting files (always choose yes)</p></li>
 <li><p>Record the answers in the project so they can be used in later updates</p></li>
 </ul>
-<section id="conflicting-files">
-<h2>Conflicting Files<a class="headerlink" href="#conflicting-files" title="Link to this heading">#</a></h2>
-<p>After choosing to overwrite the conflicting files, open your project in an editor and go through the changes and any merge conflicts ensure that you have the right files and contents.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Copier will <em>overwrite</em> files with the template files. Please check the changes using <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">diff</span></code> and put back anything you would like to keep from the existing project files.</p>
+</div>
+<section id="if-you-have-a-skeleton-based-project">
+<h2>If you have a skeleton-based project<a class="headerlink" href="#if-you-have-a-skeleton-based-project" title="Link to this heading">#</a></h2>
+<p>If you have a <a class="reference external" href="https://github.com/DiamondLightSource/python3-pip-skeleton">python3-pip-skeleton</a> based project then it is best to adopt the <code class="docutils literal notranslate"><span class="pre">1.0.0</span></code> release of this template, then <code class="docutils literal notranslate"><span class="pre">copier</span> <span class="pre">update</span></code> to get to the latest. This is because <code class="docutils literal notranslate"><span class="pre">copier</span> <span class="pre">update</span></code> will try and merge file changes across renames done between releases, while <code class="docutils literal notranslate"><span class="pre">copier</span> <span class="pre">copy</span></code> cannot. This looks like:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>copier<span class="w"> </span>copy<span class="w"> </span>gh:DiamondLightSource/python-copier-template<span class="w"> </span>--vcs-ref<span class="o">=</span><span class="m">1</span>.0.0<span class="w"> </span>/path/to/existing-project
+git<span class="w"> </span>diff
+<span class="c1"># Examine the changes, put back anything you want to keep</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Adopted python-copier-template 1.0.0&quot;</span>
+copier<span class="w"> </span>update<span class="w"> </span>/path/to/existing-project
+git<span class="w"> </span>diff
+<span class="c1"># Examine the changes, resolve any merge conflicts</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Updated to python-copier-template x.x.x&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="if-you-do-not-have-a-skeleton-based-project">
+<h2>If you do not have a skeleton-based project<a class="headerlink" href="#if-you-do-not-have-a-skeleton-based-project" title="Link to this heading">#</a></h2>
+<p>If you have a project with a different structure then it is best to go straight to the latest release:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>copier<span class="w"> </span>copy<span class="w"> </span>gh:DiamondLightSource/python-copier-template<span class="w"> </span>/path/to/existing-project
+git<span class="w"> </span>diff
+<span class="c1"># Examine the changes, put back anything you want to keep</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Adopted python-copier-template x.x.x&quot;</span>
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Copier does not touch any already existing files that do not conflict with the ones in the template. Therefore, you may end up with files in your project you no longer need such as old github workflows. These would need to be manually deleted.</p>
 </div>
+</section>
+<section id="getting-started-with-your-new-structure">
+<h2>Getting started with your new structure<a class="headerlink" href="#getting-started-with-your-new-structure" title="Link to this heading">#</a></h2>
+<p>You can now <a class="reference internal" href="../how-to/dev-install.html"><span class="doc std std-doc">Setup Developer Environment</span></a>, and then follow some of the other <a class="reference internal" href="../how-to.html"><span class="doc std std-doc">How-to Guides</span></a>.</p>
 </section>
 </section>
 
@@ -551,7 +576,9 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conflicting-files">Conflicting Files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#if-you-have-a-skeleton-based-project">If you have a skeleton-based project</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#if-you-do-not-have-a-skeleton-based-project">If you do not have a skeleton-based project</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started-with-your-new-structure">Getting started with your new structure</a></li>
 </ul>
   </nav></div>
 

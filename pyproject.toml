@@ -38,7 +38,7 @@ legacy_tox_ini = """
 [tox]
 skipsdist=True
 
-[testenv:{pre-commit,pytest,docs}]
+[testenv:{pre-commit,tests,docs}]
 # Don't create a virtualenv for the command, requires tox-direct plugin
 direct = True
 passenv = *
@@ -49,7 +49,7 @@ allowlist_externals =
     sphinx-autobuild
 commands =
     pre-commit: pre-commit run --all-files --show-diff-on-failure {posargs}
-    pytest: pytest {posargs}
+    tests: pytest {posargs}
     docs: sphinx-{posargs:build -EW --keep-going} -T docs build/html
 """
 

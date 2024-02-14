@@ -18,11 +18,11 @@ Copier will *overwrite* files with the template files. Please check the changes 
 If you have a [python3-pip-skeleton](https://github.com/DiamondLightSource/python3-pip-skeleton) based project then it is best to adopt the `1.0.0` release of this template, then `copier update` to get to the latest. This is because `copier update` will try and merge file changes across renames done between releases, while `copier copy` cannot. This looks like:
 
 ```shell
-copier copy gh:DiamondLightSource/python-copier-template --vcs-ref=1.0.0 /path/to/existing-project
+copier copy gh:DiamondLightSource/python-copier-template --trust --vcs-ref=1.0.0 /path/to/existing-project
 git diff
 # Examine the changes, put back anything you want to keep
 git commit -m "Adopted python-copier-template 1.0.0"
-copier update /path/to/existing-project
+copier update --trust /path/to/existing-project
 git diff
 # Examine the changes, resolve any merge conflicts
 git commit -m "Updated to python-copier-template x.x.x"
@@ -33,7 +33,7 @@ git commit -m "Updated to python-copier-template x.x.x"
 If you have a project with a different structure then it is best to go straight to the latest release:
 
 ```shell
-copier copy gh:DiamondLightSource/python-copier-template /path/to/existing-project
+copier copy --trust gh:DiamondLightSource/python-copier-template /path/to/existing-project
 git diff
 # Examine the changes, put back anything you want to keep
 git commit -m "Adopted python-copier-template x.x.x"

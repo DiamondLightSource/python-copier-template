@@ -30,6 +30,10 @@ It integrates the following tools:
 - [GitHub Actions](https://docs.github.com/en/actions) to provide CI and deployment to PyPI and GitHub Pages
 - [VSCode](https://code.visualstudio.com/docs) settings for running the above tools on save
 
+## Example
+
+You can see the template in action in the [example project](https://github.com/DiamondLightSource/python-copier-template-example). This is an up to date expansion of the template to illustrate how it looks with all the options enabled.
+
 ## Create a new project via Developer Portal
 
 > [!NOTE]

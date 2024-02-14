@@ -5,6 +5,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
 import sys
+from importlib.metadata import version
 from pathlib import Path
 from subprocess import check_output
 
@@ -16,10 +17,10 @@ import requests
 project = "python-copier-template"
 
 # The full version, including alpha/beta/rc tags.
-release = check_output(["git", "describe", "--always", "--tags"]).decode()
+release = version(project)
 
 # The short X.Y version.
-if "-" in release:
+if "+" in release:
     # Not on a tag, use branch name
     root = Path(__file__).absolute().parent.parent
     git_branch = check_output("git branch --show-current".split(), cwd=root)

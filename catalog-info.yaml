@@ -78,13 +78,14 @@ spec:
         typeChecker:
           title: Type Checker
           description: |
-            How would you like to document your project?
-            You can start with just a README and change your answer to add a sphinx project later.
+            What type checker would you like to use?
+            Pyright is recommended for new projects, but it is stricter,
+            so you might need to select mypy for existing projects.
           type: string
-          default: README
+          default: pyright
           enum:
-            - README
-            - sphinx
+            - pyright
+            - mypy
 
   # This template is meant to be used on top of an existing template.
   # By adding the following and fetching from an absolute URL you can

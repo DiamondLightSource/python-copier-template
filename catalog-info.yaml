@@ -46,10 +46,10 @@ spec:
           ui:field: RepoUrlPicker
           ui:options:
             requestUserCredentials:
-                secretsKey: USER_OAUTH_TOKEN
-                additionalScopes:
-                  github:
-                    - workflow
+              secretsKey: USER_OAUTH_TOKEN
+              additionalScopes:
+                github:
+                  - workflow
             allowedHosts:
               - github.com
         description:
@@ -75,7 +75,17 @@ spec:
           enum:
             - README
             - sphinx
-
+        typeChecker:
+          title: Type Checker
+          description: |
+            What type checker would you like to use?
+            Pyright is recommended for new projects, but it is stricter,
+            so you might need to select mypy for existing projects.
+          type: string
+          default: pyright
+          enum:
+            - pyright
+            - mypy
 
   # This template is meant to be used on top of an existing template.
   # By adding the following and fetching from an absolute URL you can
@@ -86,9 +96,9 @@ spec:
       action: fetch:copier
       input:
         url: .
-        values:        
+        values:
           destination: ${{ parameters.repoUrl | parseRepoUrl }}
-
+          # These are answers for the copier template
           package_name: ${{ parameters.repoUrl | parseRepoUrl | pick('repo') | replace('-', '_') }}
           description: ${{ parameters.description }}
           git_platform: ${{ parameters.repoUrl | parseRepoUrl | pick('host') }}
@@ -100,12 +110,13 @@ spec:
           component_owner: ${{ parameters.owner }}
           docker: ${{ parameters.docker }}
           docs_type: ${{ parameters.docs }}
+          type_checker: ${{ parameters.typeChecker }}
 
     - id: publish
       name: Publish
       action: publish:github
       input:
-        allowedHosts: ['github.com']
+        allowedHosts: ["github.com"]
         description: This is ${{ parameters.name }}
         repoUrl: ${{ parameters.repoUrl }}
         repoVisibility: public

@@ -77,6 +77,16 @@ docs_type:
         - README
         - sphinx
 
+type_checker:
+    type: str
+    help: |
+        What type checker would you like to use?
+        Pyright is recommended for new projects, but it is stricter,
+        so you might need to select mypy for existing projects.
+    choices:
+        - pyright
+        - mypy
+
 # Internal variables
 repo_url:
     type: str

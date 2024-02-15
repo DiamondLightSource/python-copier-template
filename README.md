@@ -24,7 +24,7 @@ It integrates the following tools:
 - [pip](https://pip.pypa.io) to manage installation
 - [pytest](https://docs.pytest.org) for code testing and coverage
 - [pre-commit](https://pre-commit.com) to run linting and formatting such as [ruff](https://docs.astral.sh/ruff)
-- [pyright](https://microsoft.github.io/pyright) for static type checking
+- [pyright](https://microsoft.github.io/pyright) or [mypy](https://www.mypy-lang.org) for static type checking
 - [sphinx](https://www.sphinx-doc.org) for tutorials, how-to guides, explanations and reference documentation
 - [tox](https://tox.wiki) to run the above tasks locally and in CI
 - [GitHub Actions](https://docs.github.com/en/actions) to provide CI and deployment to PyPI and GitHub Pages

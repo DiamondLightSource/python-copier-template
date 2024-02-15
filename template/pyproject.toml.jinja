@@ -51,10 +51,13 @@ name = "{{ author_name }}"
 
 [tool.setuptools_scm]
 write_to = "src/{{ package_name }}/_version.py"
-
+{% if type_checker=="pyright" %}
 [tool.pyright]
 reportMissingImports = false # Ignore missing stubs in imported modules
-
+{% endif %}{% if type_checker=="mypy" %}
+[tool.mypy]
+ignore_missing_imports = true # Ignore missing stubs in imported modules
+{% endif %}
 [tool.pytest.ini_options]
 # Run pytest with all our checkers, and don't spam us with massive tracebacks on error
 addopts = """
@@ -86,12 +89,12 @@ passenv = *
 allowlist_externals =
     pytest
     pre-commit
-    pyright
+    {{ type_checker }}
 {% if sphinx %}    sphinx-build
     sphinx-autobuild
 {% endif %}commands =
     pre-commit: pre-commit run --all-files {posargs}
-    type-checking: pyright src tests {posargs}
+    type-checking: {{ type_checker }} src tests {posargs}
     tests: pytest --cov={{ package_name }} --cov-report term --cov-report xml:cov.xml {posargs}
 {% if sphinx %}    docs: sphinx-{posargs:build -EW --keep-going} -T docs build/html
 {% endif %}"""

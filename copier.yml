@@ -57,9 +57,8 @@ component_owner:
     type: str
     help: |
         Owner of the component in the Developer Portal Software Catalogue.
-        This will normally be user:<your_fedid>
+        This will normally be group:default/<your_group>
     default: "group:default/sscc"
-    placeholder: "user:default/xxxxxxxx"
 
 # Template Options
 docker:

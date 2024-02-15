@@ -1,14 +1,24 @@
-# Creating a PyPI Token
+# Setting up PyPI publishing
 
-To publish your package on PyPI requires a PyPI account and for GitHub Actions to have a PyPI token authorizing access to that account.
+To publish your package on PyPI requires a PyPI account and for PyPI to be setup for [Trusted Publisher](https://docs.pypi.org/trusted-publishers/).
 
-The simplest approach is to set up a PyPI token that is scoped to your PyPI account and add it to the secrets for your GitHub Organization (or user). This means that all new projects created in the Organization will automatically gain permission to publish to PyPI.
+## Gather the information
 
-Alternatively you can create a project scoped token for each project. This is more work but more secure as a bad actor that obtains the key can only affect a single project.
+You will need the following information:
 
-If you do not already have a PyPI account use this link: [create_account].
+- Owner: The GitHub org that the repo is contained in, e.g. `DiamondLightSource`
+- Repository name: The GitHub repository name, e.g. `python-copier-template-example`
+- PyPI Project Name: The distribution name on PyPI, e.g. `dls-python-copier-template-example`
+- Workflow name: The workflow that does publishing, `_pypi.yml` for `python-copier-template` projects
+- Environment name: The GitHub environment that publishing is done with, `release` for `python-copier-template` projects
 
-To learn how to create a token and store it in Github see: [adding_a_token]. You can ignore the other sections of the page regarding Github Actions because these are already provided by skeleton. Note that skeleton uses `PYPI_TOKEN` as the secret name instead of `PYPI_API_TOKEN` described in the link.
+## If publishing to the DiamondLightSource PyPI organisation
 
-[adding_a_token]: https://packaging.python.org/en/latest/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/#saving-credentials-on-github
-[create_account]: https://pypi.org/account/register/
+If you are publishing to the DiamondLightSource PyPI organisation then use the above information and follow the [Developer Portal Guide on PyPI publishing](https://dev-portal.diamond.ac.uk/guide/python/how-tos/pypi/).
+
+## If publishing the PyPI project to another organisation
+
+If you are publishing to a different PyPI organisation then use the above information in one of the following guides:
+
+- [Creating a PyPI project with a trusted publisher](https://docs.pypi.org/trusted-publishers/creating-a-project-through-oidc/)
+- [Adding a trusted publisher to an existing PyPI project](https://docs.pypi.org/trusted-publishers/adding-a-publisher/)

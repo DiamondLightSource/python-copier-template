@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>8. Use tox and pre-commit &#8212; python-copier-template 1.3.1.dev3+g187eb14 documentation</title>
+    <title>16. Convert to mkdocs &#8212; python-copier-template 1.3.1.dev3+g187eb14 documentation</title>
   
   
   
@@ -44,7 +44,7 @@
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../_static/copybutton.js?v=30646c52"></script>
     <script src="../../_static/design-tabs.js?v=36754332"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'explanations/decisions/0008-use-tox';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'explanations/decisions/0016-convert-to-mkdocs';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.2';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://DiamondLightSource.github.io/python-copier-template/switcher.json';
@@ -54,8 +54,8 @@
     <link rel="icon" href="../../_static/dls-logo.svg"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="9. Sphinx theme" href="0009-sphinx-theme.html" />
-    <link rel="prev" title="7. Installing developer environment" href="0007-dev-dependencies.html" />
+    <link rel="next" title="17. Use pyright" href="0017-use-pyright.html" />
+    <link rel="prev" title="15. Use ruff" href="0015-use-ruff.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -429,7 +429,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="0005-pyproject-toml.html">5. Use pyproject.toml</a></li>
 <li class="toctree-l2"><a class="reference internal" href="0006-setuptools-scm.html">6. Use setuptools_scm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="0007-dev-dependencies.html">7. Installing developer environment</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">8. Use tox and pre-commit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0008-use-tox.html">8. Use tox and pre-commit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="0009-sphinx-theme.html">9. Sphinx theme</a></li>
 <li class="toctree-l2"><a class="reference internal" href="0010-vscode-settings.html">10. Include vscode settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="0011-requirements-txt.html">11. Pinning requirements</a></li>
@@ -437,7 +437,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="0013-switch-to-copier.html">13. Switch to copier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="0014-split-ci-yaml.html">14. Split up CI YAML</a></li>
 <li class="toctree-l2"><a class="reference internal" href="0015-use-ruff.html">15. Use ruff</a></li>
-<li class="toctree-l2"><a class="reference internal" href="0016-convert-to-mkdocs.html">16. Convert to mkdocs</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">16. Convert to mkdocs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="0017-use-pyright.html">17. Use pyright</a></li>
 </ul>
 </li>
@@ -486,7 +486,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../decisions.html" class="nav-link">Architectural Decision Records</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">8. Use tox...</li>
+    <li class="breadcrumb-item active" aria-current="page">16. Convert...</li>
   </ul>
 </nav>
 </div>
@@ -503,128 +503,31 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="use-tox-and-pre-commit">
-<h1>8. Use tox and pre-commit<a class="headerlink" href="#use-tox-and-pre-commit" title="Link to this heading">#</a></h1>
-<p>Date: 2023-01-18</p>
+  <section id="convert-to-mkdocs">
+<h1>16. Convert to mkdocs<a class="headerlink" href="#convert-to-mkdocs" title="Link to this heading">#</a></h1>
+<p>Date: 2024-02-15</p>
 <section id="status">
 <h2>Status<a class="headerlink" href="#status" title="Link to this heading">#</a></h2>
-<p>Accepted</p>
+<p>Rejected</p>
 </section>
 <section id="context">
 <h2>Context<a class="headerlink" href="#context" title="Link to this heading">#</a></h2>
-<p>We require an easy way to locally run the same checks as CI. This provides a
-rapid inner-loop developer experience.</p>
+<p>Markdown is nicer to write, we have to write using mkdocs for the developer portal and backstage likes it, should we switch to using it?</p>
+<p>It can mostly replace sphinx, but there are a few places it falls down:</p>
+<ul class="simple">
+<li><p>The API docs (mkdocstrings) have some paid for features that we already use in sphinx</p></li>
+<li><p>The plugin landscape is vast, but not well maintained</p></li>
+<li><p>The scientific python community (i.e. numpy, scipy, matplotlib, bluesky) uses sphinx exclusively</p></li>
+<li><p>There are custom directives like the ipython one that we would struggle to replace</p></li>
+</ul>
 </section>
 <section id="decision">
 <h2>Decision<a class="headerlink" href="#decision" title="Link to this heading">#</a></h2>
-<p>Use tox and pre-commit.</p>
-<p>tox is an automation tool that we use to run all checks in parallel,
-see <a class="reference external" href="https://tox.wiki/en/latest/">https://tox.wiki/en/latest/</a>.</p>
-<p>pre-commit provides a hook into git commit which runs some of the checks
-against the changes you are about to commit.</p>
-</section>
-<section id="decision-detail">
-<h2>Decision detail<a class="headerlink" href="#decision-detail" title="Link to this heading">#</a></h2>
-<p>There are a number of things that CI needs to run:</p>
-<ul class="simple">
-<li><p>pytest</p></li>
-<li><p>black</p></li>
-<li><p>mypy</p></li>
-<li><p>flake8</p></li>
-<li><p>isort</p></li>
-<li><p>build documentation</p></li>
-</ul>
-<p>The initial approach this module took was to integrate everything
-under pytest that had a plugin, and isort under flake8:</p>
-<div class="graphviz"><object data="../../_images/graphviz-e10d73b1177bd3d81dea5149fc243ea8b20edd25.svg" type="image/svg+xml" class="graphviz">
-<p class="warning">digraph initial {
-bgcolor=transparent
-graph [fontname=&quot;Lato&quot; fontsize=10 style=filled fillcolor=&quot;#8BC4E9&quot;]
-node [fontname=&quot;Lato&quot; fontsize=10 shape=box style=filled fillcolor=&quot;#8BC4E9&quot;]
-
-subgraph cluster_0 {
-  label = &quot;pytest&quot;
-  &quot;pytest-black&quot;
-  &quot;pytest-mypy&quot;
-  subgraph cluster_1 {
-    label = &quot;pytest-flake8&quot;
-    &quot;flake8-isort&quot;
-  }
-}
-}</p></object></div>
-<p>This had the advantage that a <code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">tests</span></code> run in CI would catch and
-report all test failures, but made each run take longer than it needed to. Also,
-flake8 states that it <a class="reference external" href="https://flake8.pycqa.org/en/latest/user/python-api.html">does not have a public, stable, Python API</a> so did not
-recommend the approach taken by pytest-flake8.</p>
-<p>To address this, the tree was rearranged:</p>
-<div class="graphviz"><object data="../../_images/graphviz-c7e4922068220c188f3d592b12f2049ea04875de.svg" type="image/svg+xml" class="graphviz">
-<p class="warning">digraph rearranged {
-bgcolor=transparent
-graph [fontname=&quot;Lato&quot; fontsize=10 style=filled fillcolor=&quot;#8BC4E9&quot;]
-node [fontname=&quot;Lato&quot; fontsize=10 shape=box style=filled fillcolor=&quot;#8BC4E9&quot;]
-
-pytest
-black
-mypy
-subgraph cluster_1 {
-  label = &quot;flake8&quot;
-  &quot;flake8-isort&quot;
-}
-}</p></object></div>
-<p>If using VSCode, this will still run black, flake8 and mypy on file save, but
-for those using other editors and for CI another solution was needed. Enter
-<a class="reference external" href="https://pre-commit.com/">pre-commit</a>. This allows hooks to be run at <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code> time on just the files that have changed, as well as on all tracked
-files by CI. All that is needed is a one time install of the git commit hook:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pre-commit install
-</pre></div>
-</div>
-<p>Finally tox was added to run all of the CI checks including
-the documentation build. mypy was moved out of the pre-commit and into tox
-because it was quite long running and
-therefore intrusive. tox can be invoked to run all the checks in
-parallel with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tox -p
-</pre></div>
-</div>
-<p>The graph now looks like:</p>
-<div class="graphviz"><object data="../../_images/graphviz-8493c858f07a863e5211798a0734e53dcd52c3c2.svg" type="image/svg+xml" class="graphviz">
-<p class="warning">digraph rearranged {
-bgcolor=transparent
-graph [fontname=&quot;Lato&quot; fontsize=10 style=filled fillcolor=&quot;#8BC4E9&quot;]
-node [fontname=&quot;Lato&quot; fontsize=10 shape=box style=filled fillcolor=&quot;#8BC4E9&quot;]
-
-subgraph cluster_0
-{
-    label = &quot;tox -p&quot;
-    pytest
-    mypy
-    &quot;sphinx-build&quot;
-    subgraph cluster_1 {
-        label = &quot;pre-commit&quot;
-        black
-        subgraph cluster_2 {
-            label = &quot;flake8&quot;
-            &quot;flake8-isort&quot;
-        }
-    }
-}
-}</p></object></div>
-<p>Now the workflow looks like this:</p>
-<ul class="simple">
-<li><p>Save file, VSCode runs black, flake8 and mypy on it</p></li>
-<li><p>Run ‘tox -p’ and fix issues until it succeeds</p></li>
-<li><p>Commit files and pre-commit runs black and flake8 on them (if the
-developer had not run tox then this catches some of the most common issues)</p></li>
-<li><p>Push to remote and CI runs black, flake8, mypy once on all files
-(using tox), then pytest multiple times in a test matrix</p></li>
-</ul>
+<p>We will stick with sphinx for now, but use MyST so we can write markdown with it.</p>
 </section>
 <section id="consequences">
 <h2>Consequences<a class="headerlink" href="#consequences" title="Link to this heading">#</a></h2>
-<p>Running <code class="docutils literal notranslate"><span class="pre">tox</span> <span class="pre">-p</span></code> before pushing to GitHub verifies that the CI will <em>most
-likely</em> succeed.</p>
-<p>Committing changes to git will run all of the non-time critical checks and
-help avoid some of the most common mistakes.</p>
+<p>We will keep an eye on mkdocs.</p>
 </section>
 </section>
 
@@ -639,20 +542,20 @@ help avoid some of the most common mistakes.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="0007-dev-dependencies.html"
+       href="0015-use-ruff.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">7. Installing developer environment</p>
+        <p class="prev-next-title">15. Use ruff</p>
       </div>
     </a>
     <a class="right-next"
-       href="0009-sphinx-theme.html"
+       href="0017-use-pyright.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">9. Sphinx theme</p>
+        <p class="prev-next-title">17. Use pyright</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -677,7 +580,6 @@ help avoid some of the most common mistakes.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#status">Status</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context">Context</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision">Decision</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-detail">Decision detail</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#consequences">Consequences</a></li>
 </ul>
   </nav></div>
@@ -686,7 +588,7 @@ help avoid some of the most common mistakes.</p>
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/DiamondLightSource/python-copier-template/edit/main/docs/explanations/decisions/0008-use-tox.md">
+    <a href="https://github.com/DiamondLightSource/python-copier-template/edit/main/docs/explanations/decisions/0016-convert-to-mkdocs.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -701,7 +603,7 @@ help avoid some of the most common mistakes.</p>
   <div class="sidebar-secondary-item">
 
   <div class="tocsection sourcelink">
-    <a href="../../_sources/explanations/decisions/0008-use-tox.md.txt">
+    <a href="../../_sources/explanations/decisions/0016-convert-to-mkdocs.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>

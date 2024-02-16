@@ -105,4 +105,5 @@ sphinx:
 _subdirectory: "template"
 
 _tasks:
-    - "git init --initial-branch=main"
+    - cd {{ _copier_conf.dst_path }}
+    - git init --initial-branch=main

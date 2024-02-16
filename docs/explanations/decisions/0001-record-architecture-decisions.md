@@ -1,7 +1,5 @@
 # 1. Record architecture decisions
 
-Date: 2022-02-18
-
 ## Status
 
 Accepted

@@ -64,6 +64,10 @@ def test_bad_repo_name(tmp_path: Path):
         copy_project(tmp_path, repo_name="bad:thing")
 
 
+def test_dots_in_package_name(tmp_path: Path):
+    copy_project(tmp_path, repo_name="dots.in.name")
+
+
 def test_example_repo_updates(tmp_path: Path):
     generated_path = tmp_path / "generated"
     example_url = (

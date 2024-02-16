@@ -8,7 +8,7 @@ installed are available on [Github Container Registry](https://ghcr.io/{{github_
 To pull the container from github container registry and run:
 
 ```
-$ docker run ghcr.io/{{github_org}}/{{repo_name}}:main --version
+$ docker run ghcr.io/{{github_org | lower}}/{{repo_name}}:latest --version
 ```
 
-To get a released version, use a numbered release instead of `main`.
+To get a released version, use a numbered release instead of `latest`.

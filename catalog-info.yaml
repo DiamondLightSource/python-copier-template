@@ -1,8 +1,8 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: python_copier_template
-  title: Python Copier Template
+  name: python_copier_template_url
+  title: Python Copier Template URL
   description: Create a project based on this template using Copier
   tags:
     - recommended
@@ -95,7 +95,7 @@ spec:
       name: Fetch Base
       action: fetch:copier
       input:
-        url: .
+        url: gh:DiamondLightSource/python-copier-template
         values:
           destination: ${{ parameters.repoUrl | parseRepoUrl }}
           # These are answers for the copier template

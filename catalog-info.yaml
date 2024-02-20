@@ -95,7 +95,7 @@ spec:
       name: Fetch Base
       action: fetch:copier
       input:
-        url: gh:DiamondLightSource/python-copier-template
+        url: https://github.com/DiamondLightSource/python-copier-template
         values:
           destination: ${{ parameters.repoUrl | parseRepoUrl }}
           # These are answers for the copier template

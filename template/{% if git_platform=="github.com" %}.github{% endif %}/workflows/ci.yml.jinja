@@ -58,8 +58,6 @@ jobs:
     uses: ./.github/workflows/_pypi.yml
     permissions:
       id-token: write
-    secrets:
-      PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
   {% endraw %}
   {% endif %}
   release:

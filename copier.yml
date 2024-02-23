@@ -88,7 +88,7 @@ type_checker:
 
 pypi:
     type: bool
-    help: Create a wheel and upload to PyPI?
+    help: Would you like the wheel and source distribution to be automatically uploaded to PyPI when a release is made?
 
 # Internal variables
 repo_url:

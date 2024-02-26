@@ -22,3 +22,7 @@ The template has some tests that generating from scratch and updating the [examp
 It is recommended that developers use a [vscode devcontainer](https://code.visualstudio.com/docs/devcontainers/containers). This repository contains configuration to set up a containerized development environment that suits its own needs.
 
 For more information on common tasks like setting up a developer environment, running the tests, and setting a pre-commit hook, see the [How-to guides](https://diamondlightsource.github.io/python-copier-template/main/how-to.html)
+
+## Making a Tagged GitHub Release
+
+When making changes to the `catalog-info.yaml` file, a release **must** be made. The Backstage Developer Portal produces its UI for the template using this file from the `main` branch whereas copier takes the template from the latest tag. Therefore, any differences between the copier variables could cause a breaking change so a major version release should be made.

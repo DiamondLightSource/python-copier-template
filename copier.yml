@@ -110,3 +110,10 @@ _subdirectory: "template"
 
 _tasks:
     - "git init --initial-branch=main"
+
+_migrations:
+    - version: v2.0.0
+      before:
+        - echo This update requires you do manual work on PyPI. If you do not have the time then abort this update.
+      after:
+        - echo Visit https://diamondlightsource.github.io/python-copier-template/2.0.0/how-to/pypi.html to find out how to set up PyPI trusted publishing

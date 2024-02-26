@@ -11,7 +11,13 @@ This template is a place to pull together agreed best practices from various sou
 
 ## Checking your changes before making a PR
 
-The template has some tests that generating from scratch and updating the [example](https://github.com/DiamondLightSource/python-copier-template-example) produce the same result, but it is difficult to that things like CI and docs are still generated correctly. You can ease this process by:
+The template has tests for:
+
+- Generating a new project from scratch
+- Updating the [example project](https://github.com/DiamondLightSource/python-copier-template-example)
+- Checking that both of the above produce the same results
+
+However, this does not test whether processes like CI and docs work correctly. To ensure that this can be checked, you can:
 
 - Making your changes on a branch of <https://github.com/DiamondLightSource/python-copier-template>
 - Running `copier update --vcs-ref=<branch_name>` in the repo where you would like to demonstrate the behaviour

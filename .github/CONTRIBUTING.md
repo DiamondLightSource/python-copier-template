@@ -25,4 +25,4 @@ For more information on common tasks like setting up a developer environment, ru
 
 ## Making a Tagged GitHub Release
 
-When making changes to the `catalog-info.yaml` file, a release **must** be made. The Backstage Developer Portal produces its UI for the template using this file from the `main` branch whereas copier takes the template from the latest tag. Therefore, any differences between the copier variables could cause a breaking change so a major version release should be made.
+When making changes to the `catalog-info.yaml` file, a release **must** be made. The Backstage Developer Portal produces its UI for the template using this file from the `main` branch whereas copier takes the template from the latest tag. Therefore, any differences between the copier variables could cause a breaking change so a release should be made as soon as possible.

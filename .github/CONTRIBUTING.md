@@ -17,7 +17,7 @@ The template has tests for:
 - Updating the [example project](https://github.com/DiamondLightSource/python-copier-template-example)
 - Checking that both of the above produce the same results
 
-However, this does not test whether processes like CI and docs work correctly. To ensure that this can be checked, you can:
+However, this does not test whether processes like CI and docs work correctly. You can ensure that these are checked by:
 
 - Making your changes on a branch of <https://github.com/DiamondLightSource/python-copier-template>
 - Running `copier update --vcs-ref=<branch_name>` in the repo where you would like to demonstrate the behaviour

@@ -10,12 +10,12 @@
 This is where you should write a short paragraph that describes what your module does,
 how it does it, and why people should use it.
 
-Source          | <{{repo_url}}>
-:---:           | :---:
-{% if pypi %}PyPI            | `pip install {{distribution_name}}`{% endif %}
-{% if docker %}Docker          | `docker run ghcr.io/{{github_org | lower}}/{{repo_name}}:latest`
-{% endif %}{% if sphinx %}Documentation   | <{{docs_url}}>{% endif %}
-Releases        | <{{repo_url}}/releases>
+{% if True              %}Source          | <{{repo_url}}>
+{% endif %}{% if True   %}:---:           | :---:
+{% endif %}{% if pypi   %}PyPI            | `pip install {{distribution_name}}`
+{% endif %}{% if docker %}Docker          | `docker run ghcr.io/{{github_org | lower}}/{{repo_name}}:latest`
+{% endif %}{% if sphinx %}Documentation   | <{{docs_url}}>
+{% endif                %}Releases        | <{{repo_url}}/releases>
 
 This is where you should put some images or code snippets that illustrate
 some relevant examples. If it is a library then you might put some

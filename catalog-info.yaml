@@ -88,7 +88,7 @@ spec:
             - mypy
         pypi:
           title: PyPI?
-          description: Create a wheel and upload to PyPI?
+          description: Would you like the wheel and source distribution to be automatically uploaded to PyPI when a release is made?
           type: boolean
           default: false
 

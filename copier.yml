@@ -112,7 +112,7 @@ _tasks:
     - "git init --initial-branch=main"
 
 _migrations:
-    - version: v2.0.0
+    - version: 2.0.0
       before:
         - echo This update requires you do manual work on PyPI. If you do not have the time then abort this update.
       after:

@@ -11,7 +11,13 @@ This template is a place to pull together agreed best practices from various sou
 
 ## Checking your changes before making a PR
 
-The template has some tests that generating from scratch and updating the [example](https://github.com/DiamondLightSource/python-copier-template-example) produce the same result, but it is difficult to that things like CI and docs are still generated correctly. You can ease this process by:
+The template has tests for:
+
+- Generating a new project from scratch
+- Updating the [example project](https://github.com/DiamondLightSource/python-copier-template-example)
+- Checking that both of the above produce the same results
+
+However, this does not test whether processes like CI and docs work correctly. You can ensure that these are checked by:
 
 - Making your changes on a branch of <https://github.com/DiamondLightSource/python-copier-template>
 - Running `copier update --vcs-ref=<branch_name>` in the repo where you would like to demonstrate the behaviour
@@ -22,3 +28,7 @@ The template has some tests that generating from scratch and updating the [examp
 It is recommended that developers use a [vscode devcontainer](https://code.visualstudio.com/docs/devcontainers/containers). This repository contains configuration to set up a containerized development environment that suits its own needs.
 
 For more information on common tasks like setting up a developer environment, running the tests, and setting a pre-commit hook, see the [How-to guides](https://diamondlightsource.github.io/python-copier-template/main/how-to.html)
+
+## Making a Tagged GitHub Release
+
+When making changes to the `catalog-info.yaml` file, a release **must** be made. The Backstage Developer Portal produces its UI for the template using this file from the `main` branch whereas copier takes the template from the latest tag. Therefore, any differences between the copier variables could cause a breaking change so a release should be made as soon as possible.

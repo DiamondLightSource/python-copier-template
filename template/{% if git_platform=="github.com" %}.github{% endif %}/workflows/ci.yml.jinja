@@ -51,14 +51,12 @@ jobs:
     if: needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_dist.yml
   {% if pypi %}
-  {% raw %}
   pypi:
     if: github.ref_type == 'tag'
     needs: dist
     uses: ./.github/workflows/_pypi.yml
     permissions:
       id-token: write
-  {% endraw %}
   {% endif %}
   release:
     if: github.ref_type == 'tag'

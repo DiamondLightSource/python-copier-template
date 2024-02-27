@@ -116,4 +116,4 @@ _migrations:
       before:
         - echo This update will require you to login to pypi.org and make changes before you can make a new release to PyPI. If you do not have time to do this now, press CTRL+C to abort this update.
       after:
-        - echo Visit https://diamondlightsource.github.io/python-copier-template/2.0.0/how-to/pypi.html to find out how to set up PyPI trusted publishing
+        - echo Visit https://diamondlightsource.github.io/python-copier-template/main/how-to/pypi.html to find out how to set up PyPI trusted publishing

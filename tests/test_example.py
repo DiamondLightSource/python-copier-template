@@ -47,6 +47,8 @@ def make_venv(project_path: Path) -> callable:
 def test_template(tmp_path: Path):
     copy_project(tmp_path)
     run = make_venv(tmp_path)
+    container_doc = tmp_path / "docs" / "how-to" / "run-container.md"
+    assert container_doc.exists()
     run("./venv/bin/tox -p")
     run("./venv/bin/pip install build twine")
     run("./venv/bin/python -m build")
@@ -57,6 +59,12 @@ def test_template_no_docs(tmp_path: Path):
     copy_project(tmp_path, docs_type="README")
     run = make_venv(tmp_path)
     run("./venv/bin/tox -p")
+
+
+def test_template_no_docker_has_no_docs(tmp_path: Path):
+    copy_project(tmp_path, docker=False)
+    container_doc = tmp_path / "docs" / "how-to" / "run-container.md"
+    assert not container_doc.exists()
 
 
 def test_bad_repo_name(tmp_path: Path):

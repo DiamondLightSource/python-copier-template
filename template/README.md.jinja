@@ -13,8 +13,8 @@ how it does it, and why people should use it.
 Source          | <{{repo_url}}>
 :---:           | :---:
 PyPI            | `pip install {{distribution_name}}`
-{% if docker %}Docker          | `docker run ghcr.io/{{github_org | lower}}/{{repo_name}}:latest`{% endif %}
-{% if sphinx %}Documentation   | <{{docs_url}}>{% endif %}
+{% if docker %}Docker          | `docker run ghcr.io/{{github_org | lower}}/{{repo_name}}:latest`
+{% endif %}{% if sphinx %}Documentation   | <{{docs_url}}>{% endif %}
 Releases        | <{{repo_url}}/releases>
 
 This is where you should put some images or code snippets that illustrate

@@ -6,7 +6,7 @@
     "configurations": [
         {
             "name": "Debug Unit Test",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "justMyCode": false,
             "program": "${file}",
@@ -14,6 +14,10 @@
                 "debug-test"
             ],
             "console": "integratedTerminal",
+            "env": {
+                // Enable break on exception when debugging tests (see: tests/conftest.py)
+                "PYTEST_RAISE": "1",
+            },
         }
     ]
 }

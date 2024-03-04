@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Creating a PyPI Token &#8212; python-copier-template 1.3.1.dev21+g377554a documentation</title>
+    <title>Setting up PyPI publishing &#8212; python-copier-template 1.3.1.dev37+gbac6c94 documentation</title>
   
   
   
@@ -38,7 +38,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../_static/documentation_options.js?v=65d06e4e"></script>
+    <script src="../_static/documentation_options.js?v=1bbdb31c"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -429,7 +429,7 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="lint.html">Run linting using pre-commit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lock-requirements.html">Lock requirements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="make-release.html">Make a release</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Creating a PyPI Token</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Setting up PyPI publishing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="run-tests.html">Run the tests using pytest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="static-analysis.html">Run static analysis using pyright or mypy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="update-template.html">How to update to the latest template structure</a></li>
@@ -473,7 +473,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../how-to.html" class="nav-link">How-to Guides</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">Creating a...</li>
+    <li class="breadcrumb-item active" aria-current="page">Setting up...</li>
   </ul>
 </nav>
 </div>
@@ -490,13 +490,32 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="creating-a-pypi-token">
-<h1>Creating a PyPI Token<a class="headerlink" href="#creating-a-pypi-token" title="Link to this heading">#</a></h1>
-<p>To publish your package on PyPI requires a PyPI account and for GitHub Actions to have a PyPI token authorizing access to that account.</p>
-<p>The simplest approach is to set up a PyPI token that is scoped to your PyPI account and add it to the secrets for your GitHub Organization (or user). This means that all new projects created in the Organization will automatically gain permission to publish to PyPI.</p>
-<p>Alternatively you can create a project scoped token for each project. This is more work but more secure as a bad actor that obtains the key can only affect a single project.</p>
-<p>If you do not already have a PyPI account use this link: <a class="reference external" href="https://pypi.org/account/register/">create_account</a>.</p>
-<p>To learn how to create a token and store it in Github see: <a class="reference external" href="https://packaging.python.org/en/latest/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/#saving-credentials-on-github">adding_a_token</a>. You can ignore the other sections of the page regarding Github Actions because these are already provided by skeleton. Note that skeleton uses <code class="docutils literal notranslate"><span class="pre">PYPI_TOKEN</span></code> as the secret name instead of <code class="docutils literal notranslate"><span class="pre">PYPI_API_TOKEN</span></code> described in the link.</p>
+  <section id="setting-up-pypi-publishing">
+<h1>Setting up PyPI publishing<a class="headerlink" href="#setting-up-pypi-publishing" title="Link to this heading">#</a></h1>
+<p>To publish your package on PyPI requires a PyPI account and for PyPI to be setup for <a class="reference external" href="https://docs.pypi.org/trusted-publishers/">Trusted Publisher</a>.</p>
+<section id="gather-the-information">
+<h2>Gather the information<a class="headerlink" href="#gather-the-information" title="Link to this heading">#</a></h2>
+<p>You will need the following information:</p>
+<ul class="simple">
+<li><p>Owner: The GitHub org that the repo is contained in, e.g. <code class="docutils literal notranslate"><span class="pre">DiamondLightSource</span></code></p></li>
+<li><p>Repository name: The GitHub repository name, e.g. <code class="docutils literal notranslate"><span class="pre">python-copier-template-example</span></code></p></li>
+<li><p>PyPI Project Name: The distribution name on PyPI, e.g. <code class="docutils literal notranslate"><span class="pre">dls-python-copier-template-example</span></code></p></li>
+<li><p>Workflow name: The workflow that does publishing, <code class="docutils literal notranslate"><span class="pre">_pypi.yml</span></code> for <code class="docutils literal notranslate"><span class="pre">python-copier-template</span></code> projects</p></li>
+<li><p>Environment name: The GitHub environment that publishing is done with, <code class="docutils literal notranslate"><span class="pre">release</span></code> for <code class="docutils literal notranslate"><span class="pre">python-copier-template</span></code> projects</p></li>
+</ul>
+</section>
+<section id="if-publishing-to-the-diamondlightsource-pypi-organisation">
+<h2>If publishing to the DiamondLightSource PyPI organisation<a class="headerlink" href="#if-publishing-to-the-diamondlightsource-pypi-organisation" title="Link to this heading">#</a></h2>
+<p>If you are publishing to the DiamondLightSource PyPI organisation then use the above information and follow the <a class="reference external" href="https://dev-portal.diamond.ac.uk/guide/python/how-tos/pypi/">Developer Portal Guide on PyPI publishing</a>.</p>
+</section>
+<section id="if-publishing-the-pypi-project-to-another-organisation">
+<h2>If publishing the PyPI project to another organisation<a class="headerlink" href="#if-publishing-the-pypi-project-to-another-organisation" title="Link to this heading">#</a></h2>
+<p>If you are publishing to a different PyPI organisation then use the above information in one of the following guides:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.pypi.org/trusted-publishers/creating-a-project-through-oidc/">Creating a PyPI project with a trusted publisher</a></p></li>
+<li><p><a class="reference external" href="https://docs.pypi.org/trusted-publishers/adding-a-publisher/">Adding a trusted publisher to an existing PyPI project</a></p></li>
+</ul>
+</section>
 </section>
 
 
@@ -536,6 +555,20 @@ document.write(`
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gather-the-information">Gather the information</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#if-publishing-to-the-diamondlightsource-pypi-organisation">If publishing to the DiamondLightSource PyPI organisation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#if-publishing-the-pypi-project-to-another-organisation">If publishing the PyPI project to another organisation</a></li>
+</ul>
+  </nav></div>
 
   <div class="sidebar-secondary-item">
 

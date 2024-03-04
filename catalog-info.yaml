@@ -116,6 +116,7 @@ spec:
           docker: ${{ parameters.docker }}
           docs_type: ${{ parameters.docs }}
           type_checker: ${{ parameters.typeChecker }}
+          pypi: ${{ parameters.pypi }}
 
     - id: publish
       name: Publish

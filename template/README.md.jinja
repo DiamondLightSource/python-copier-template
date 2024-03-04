@@ -1,6 +1,6 @@
 [![CI]({{repo_url}}/actions/workflows/ci.yml/badge.svg)]({{repo_url}}/actions/workflows/ci.yml)
 [![Coverage](https://codecov.io/gh/{{github_org}}/{{repo_name}}/branch/main/graph/badge.svg)](https://codecov.io/gh/{{github_org}}/{{repo_name}})
-[![PyPI](https://img.shields.io/pypi/v/{{distribution_name}}.svg)](https://pypi.org/project/{{distribution_name}})
+{% if pypi %}[![PyPI](https://img.shields.io/pypi/v/{{distribution_name}}.svg)](https://pypi.org/project/{{distribution_name}}){% endif %}
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 # {{ package_name }}
@@ -10,12 +10,12 @@
 This is where you should write a short paragraph that describes what your module does,
 how it does it, and why people should use it.
 
-Source          | <{{repo_url}}>
-:---:           | :---:
-PyPI            | `pip install {{distribution_name}}`
-{% if docker %}Docker          | `docker run ghcr.io/{{github_org | lower}}/{{repo_name}}:latest`
-{% endif %}{% if sphinx %}Documentation   | <{{docs_url}}>{% endif %}
-Releases        | <{{repo_url}}/releases>
+{% if True              %}Source          | <{{repo_url}}>
+{% endif %}{% if True   %}:---:           | :---:
+{% endif %}{% if pypi   %}PyPI            | `pip install {{distribution_name}}`
+{% endif %}{% if docker %}Docker          | `docker run ghcr.io/{{github_org | lower}}/{{repo_name}}:latest`
+{% endif %}{% if sphinx %}Documentation   | <{{docs_url}}>
+{% endif                %}Releases        | <{{repo_url}}/releases>
 
 This is where you should put some images or code snippets that illustrate
 some relevant examples. If it is a library then you might put some

@@ -1,5 +1,5 @@
 <img src="https://raw.githubusercontent.com/DiamondLightSource/python3-pip-skeleton-cli/main/docs/images/dls-logo.svg"
-     style="background: none" width="200px" height="200px" align="right">
+     style="background: none" width="120px" height="120px" align="right">
 
 [![CI](https://github.com/DiamondLightSource/python-copier-template/actions/workflows/ci.yml/badge.svg)](https://github.com/DiamondLightSource/python-copier-template/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)

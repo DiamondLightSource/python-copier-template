@@ -21,11 +21,11 @@ If you have a [python3-pip-skeleton](https://github.com/DiamondLightSource/pytho
 copier copy gh:DiamondLightSource/python-copier-template --trust --vcs-ref=1.0.0 /path/to/existing-project
 git diff
 # Examine the changes, put back anything you want to keep
-git commit -m "Adopted python-copier-template 1.0.0"
+git commit -m "Adopt python-copier-template 1.0.0"
 copier update --trust /path/to/existing-project
 git diff
 # Examine the changes, resolve any merge conflicts
-git commit -m "Updated to python-copier-template x.x.x"
+git commit -m "Update to python-copier-template x.x.x"
 ```
 
 ## If you do not have a skeleton-based project
@@ -36,7 +36,7 @@ If you have a project with a different structure then it is best to go straight 
 copier copy --trust gh:DiamondLightSource/python-copier-template /path/to/existing-project
 git diff
 # Examine the changes, put back anything you want to keep
-git commit -m "Adopted python-copier-template x.x.x"
+git commit -m "Adopt python-copier-template x.x.x"
 ```
 
 :::{note}

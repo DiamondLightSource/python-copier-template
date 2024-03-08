@@ -1,7 +1,9 @@
 # Project Details
 package_name:
     type: str
-    help: Name of the python import package
+    help: |
+        Name of the python import package. 
+        Must be a valid python identifier, i.e. my_package
     validator: >-
         {% if not (package_name | regex_search('^[a-zA-Z][a-zA-Z_0-9]+$')) %}
         {{package_name}} is not a valid python package name
@@ -29,7 +31,9 @@ github_org:
 
 repo_name:
     type: str
-    help: Name of the repository
+    help: |
+        Name of the repository.
+        Generally the package name with underscores replaced by dashes.
     default: "{{ package_name | replace('_', '-') }}"
     validator: >-
         {% if not (repo_name | regex_search('^[a-zA-Z][a-zA-Z_\\.\\-0-9]+$')) %}
@@ -40,7 +44,8 @@ distribution_name:
     type: str
     help: |
         Name of the python distribution package that will be created.
-        This is what people will `pip install`
+        This is what people will `pip install`.
+        It is generally the same as the repo name unless there is a name clash on PyPI.
     default: "{{ repo_name }}"
 
 author_name:

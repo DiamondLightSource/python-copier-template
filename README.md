@@ -43,7 +43,7 @@ Visit <https://dev-portal.diamond.ac.uk/create> and you will see a list of templ
 
 ## Create a new project from the commandline
 
-You will need to `pip install copier` inside an activated `venv`, then you can create a new module via:
+You will need to `pip install copier` inside an activated `venv` from python3.8 or later, then you can create a new module via:
 
 ```
 mkdir /path/to/my-project

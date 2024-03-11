@@ -55,6 +55,12 @@ def test_template(tmp_path: Path):
     run("./venv/bin/twine check --strict dist/*")
 
 
+def test_template_mypy(tmp_path: Path):
+    copy_project(tmp_path, type_checker="mypy")
+    run = make_venv(tmp_path)
+    run("./venv/bin/tox -p")
+
+
 def test_template_no_docs(tmp_path: Path):
     copy_project(tmp_path, docs_type="README")
     run = make_venv(tmp_path)

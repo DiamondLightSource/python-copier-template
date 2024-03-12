@@ -149,7 +149,7 @@ html_theme_options = {
 # A dictionary of values to pass into the template engine’s context for all pages
 html_context = {
     "github_user": github_user,
-    "github_repo": project,
+    "github_repo": github_repo,
     "github_version": version,
     "doc_path": "docs",
 }

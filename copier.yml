@@ -45,7 +45,7 @@ distribution_name:
     help: |
         Name of the python distribution package that will be created.
         This is what people will `pip install`.
-        It is generally the same as the repo name unless there is a name clash on PyPI.
+        Generally the same as the repo name unless there is a name clash on PyPI.
     default: "{{ repo_name }}"
 
 author_name:

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Create a new repo from the template &#8212; python-copier-template 2.0.2.dev7+g5a03fd8 documentation</title>
+    <title>Create a new repo from the template &#8212; python-copier-template 2.0.2.dev11+ge07e5cf documentation</title>
   
   
   
@@ -38,7 +38,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../_static/documentation_options.js?v=46df53c2"></script>
+    <script src="../_static/documentation_options.js?v=7350eb21"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -485,7 +485,7 @@ document.write(`
 <h1>Create a new repo from the template<a class="headerlink" href="#create-a-new-repo-from-the-template" title="Link to this heading">#</a></h1>
 <p>Once you have followed the <a class="reference internal" href="installation.html"><span class="doc std std-doc">Install template pre-requisites</span></a> tutorial, you can use <code class="docutils literal notranslate"><span class="pre">copier</span></code> to make a new project from the template:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mkdir /path/to/my-project
-$ copier copy gh:DiamondLightSource/python-copier-template /path/to/my-project
+$ copier copy --trust gh:DiamondLightSource/python-copier-template /path/to/my-project
 </pre></div>
 </div>
 <p>This will:</p>
@@ -493,16 +493,26 @@ $ copier copy gh:DiamondLightSource/python-copier-template /path/to/my-project
 <li><p>Ask some questions about the project to be created</p></li>
 <li><p>Expand the template with the answers give</p></li>
 <li><p>Record the answers in the project so they can be used in later updates</p></li>
+<li><p>Create a git repository if the directory is not already one</p></li>
 </ul>
+<section id="committing-the-results">
+<h2>Committing the results<a class="headerlink" href="#committing-the-results" title="Link to this heading">#</a></h2>
+<p>You can now check what the template has created, tweak the results if desired, and commit the results:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd /path/to/my-project
+$ git add .
+$ git commit -m &quot;Expand from python-copier-template x.x.x&quot;
+</pre></div>
+</div>
+</section>
 <section id="uploading-to-github">
 <h2>Uploading to GitHub<a class="headerlink" href="#uploading-to-github" title="Link to this heading">#</a></h2>
 <p>You can now <a class="reference external" href="https://github.com/new">create a new blank project on GitHub</a>. Choose the same GitHub owner and repo name that you answered in the questions earlier. GitHub will now give you the commands needed to upload your repo from GitHub</p>
 </section>
-<section id="setings">
-<h2>Setings<a class="headerlink" href="#setings" title="Link to this heading">#</a></h2>
-<p>You can now go to the <code class="docutils literal notranslate"><span class="pre">Settings</span></code> and set:</p>
+<section id="settings">
+<h2>Settings<a class="headerlink" href="#settings" title="Link to this heading">#</a></h2>
+<p>You can now go to the cogwheel on the main page next to the “About” header, and set the project description to match the answer you gave.</p>
+<p>Then go to the <code class="docutils literal notranslate"><span class="pre">Settings</span></code> tab and set:</p>
 <ul class="simple">
-<li><p>The project description to match the answer you gave</p></li>
 <li><p>Enable Pages if you chose to use sphinx for your documentation</p></li>
 </ul>
 </section>
@@ -558,8 +568,9 @@ $ copier copy gh:DiamondLightSource/python-copier-template /path/to/my-project
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#committing-the-results">Committing the results</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uploading-to-github">Uploading to GitHub</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setings">Setings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#settings">Settings</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started-with-your-new-repo">Getting started with your new repo</a></li>
 </ul>
   </nav></div>

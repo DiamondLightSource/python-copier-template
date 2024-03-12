@@ -22,6 +22,8 @@ pip install -e '.[dev]'
 :::
 
 :::{tab-item} VSCode devcontainer
+If you are at DLS, then first [setup podman and its fix for devcontainer features](https://dev-portal.diamond.ac.uk/guide/containers/tutorials/podman/#enable-use-of-vscode-features)
+
 ```
 code .
 # Click on 'Reopen in Container' when prompted

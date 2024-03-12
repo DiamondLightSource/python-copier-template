@@ -17,7 +17,7 @@ You can choose to either develop on the host machine using a `venv` (which requi
 ```
 python3 -m venv venv
 source venv/bin/activate
-pip install -c requirements/constraints.txt -e .[dev]
+pip install -e '.[dev]'
 ```
 :::
 

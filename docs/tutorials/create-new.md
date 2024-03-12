@@ -31,7 +31,7 @@ You can now [create a new blank project on GitHub](https://github.com/new). Choo
 
 You can now go to the cogwheel on the main page next to the "About" header, and set the project description to match the answer you gave.
 
-Then go to the `Settings` and set:
+Then go to the `Settings` tab and set:
 
 - Enable Pages if you chose to use sphinx for your documentation
 

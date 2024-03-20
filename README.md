@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/DiamondLightSource/python3-pip-skeleton-cli/main/docs/images/dls-logo.svg"
+<img src="https://raw.githubusercontent.com/DiamondLightSource/python-copier-template/main/docs/images/dls-logo.svg"
      style="background: none" width="120px" height="120px" align="right">
 
 [![CI](https://github.com/DiamondLightSource/python-copier-template/actions/workflows/ci.yml/badge.svg)](https://github.com/DiamondLightSource/python-copier-template/actions/workflows/ci.yml)

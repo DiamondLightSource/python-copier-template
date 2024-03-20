@@ -55,9 +55,12 @@ def get_versions(ref: str, add: Optional[str]) -> List[str]:
 
 def write_json(path: Path, repository: str, versions: str):
     org, repo_name = repository.split("/")
+    pages_url = f"https://{org}.github.io"
+    if repo_name != f"{org}.github.io":
+        # Only add the repo name if it isn't the source for the org pages site
+        pages_url += f"/{repo_name}"
     struct = [
-        {"version": version, "url": f"https://{org}.github.io/{repo_name}/{version}/"}
-        for version in versions
+        {"version": version, "url": f"{pages_url}/{version}/"} for version in versions
     ]
     text = json.dumps(struct, indent=2)
     print(f"JSON switcher:\n{text}")

@@ -116,7 +116,8 @@ def test_example_repo_updates(tmp_path: Path):
 
 
 def test_gitignore_same():
-    with open(TOP / ".gitignore") as top_gi, open(
-        TOP / "template" / ".gitignore"
-    ) as template_gi:
+    with (
+        open(TOP / ".gitignore") as top_gi,
+        open(TOP / "template" / ".gitignore") as template_gi,
+    ):
         assert top_gi.read() == template_gi.read()

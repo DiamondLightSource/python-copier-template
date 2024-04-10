@@ -6,7 +6,6 @@ from pathlib import Path
 import pytest
 import yaml
 from copier import run_copy
-from prompt_toolkit.validation import ValidationError
 
 TOP = Path(__file__).absolute().parent.parent
 
@@ -74,7 +73,7 @@ def test_template_no_docker_has_no_docs(tmp_path: Path):
 
 
 def test_bad_repo_name(tmp_path: Path):
-    with pytest.raises(ValidationError, match="bad:thing is not a valid repo name"):
+    with pytest.raises(ValueError, match="bad:thing is not a valid repo name"):
         copy_project(tmp_path, repo_name="bad:thing")
 
 

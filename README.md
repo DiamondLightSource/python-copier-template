@@ -56,4 +56,3 @@ You can also use it via `pipx run copier` if you have that installed.
 <!-- README only content. Anything below this line won't be included in index.md -->
 
 See https://DiamondLightSource.github.io/python-copier-template for more detailed documentation.
-

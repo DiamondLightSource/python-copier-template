@@ -6,9 +6,6 @@ html_theme.sidebar_secondary.remove: true
 :end-before: <!-- README only content
 ```
 
-[plot]: images/plot_spec.png
-
-
 How the documentation is structured
 -----------------------------------
 

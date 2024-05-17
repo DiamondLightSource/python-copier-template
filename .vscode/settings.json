@@ -9,4 +9,10 @@
     "[python]": {
         "editor.defaultFormatter": "charliermarsh.ruff",
     },
+    "python.linting.mypyEnabled": true,
+    "python.linting.enabled": true,
+    "python.testing.pytestArgs": [
+        "tests", "src", "docs"
+    ],
+    "python.languageServer": "Pylance",
 }

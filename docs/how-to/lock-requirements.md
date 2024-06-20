@@ -32,6 +32,16 @@ To apply a lockfile:
 
 The CI looks for a `dev-requirements.txt` in the root and will pass it to pip as a constraint when installing the dev environment. If a package is required to be installed by `pyproject.toml` then `pip` will use the version specified in `dev-requirements.txt`.
 
+## Updating the lockfile
+
+1. Open the repo in a devcontainer
+1. Delete dev-requirements.txt
+1. Restart your dev container
+1. Check the tests run
+1. Then run `pip freeze --exclude-editable > dev-requirements.txt`
+1. Check the new file into Git
+1. Push and merge the changes
+
 ## Removing dependency locking from CI
 
 Once the reasons for locking the build have been resolved it is a good idea to go back to an unlocked build. This is because you get an early indication of any incoming problems.

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Lock requirements &#8212; python-copier-template 2.1.1.dev29+g29d564e documentation</title>
+    <title>Lock requirements &#8212; python-copier-template 2.1.1.dev31+g27fc1de documentation</title>
   
   
   
@@ -38,7 +38,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../_static/documentation_options.js?v=f8006fd1"></script>
+    <script src="../_static/documentation_options.js?v=7280013d"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -498,6 +498,18 @@ document.write(`
 </ul>
 <p>The CI looks for a <code class="docutils literal notranslate"><span class="pre">dev-requirements.txt</span></code> in the root and will pass it to pip as a constraint when installing the dev environment. If a package is required to be installed by <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> then <code class="docutils literal notranslate"><span class="pre">pip</span></code> will use the version specified in <code class="docutils literal notranslate"><span class="pre">dev-requirements.txt</span></code>.</p>
 </section>
+<section id="updating-the-lockfile">
+<h2>Updating the lockfile<a class="headerlink" href="#updating-the-lockfile" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Open the repo in a devcontainer</p></li>
+<li><p>Delete dev-requirements.txt</p></li>
+<li><p>Restart your dev container</p></li>
+<li><p>Check the tests run</p></li>
+<li><p>Then run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">freeze</span> <span class="pre">--exclude-editable</span> <span class="pre">&gt;</span> <span class="pre">dev-requirements.txt</span></code></p></li>
+<li><p>Check the new file into Git</p></li>
+<li><p>Push and merge the changes</p></li>
+</ol>
+</section>
 <section id="removing-dependency-locking-from-ci">
 <h2>Removing dependency locking from CI<a class="headerlink" href="#removing-dependency-locking-from-ci" title="Link to this heading">#</a></h2>
 <p>Once the reasons for locking the build have been resolved it is a good idea to go back to an unlocked build. This is because you get an early indication of any incoming problems.</p>
@@ -554,6 +566,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-the-lock-files">Finding the lock files</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-the-lock-file">Applying the lock file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-the-lockfile">Updating the lockfile</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#removing-dependency-locking-from-ci">Removing dependency locking from CI</a></li>
 </ul>
   </nav></div>

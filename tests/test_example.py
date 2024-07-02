@@ -120,3 +120,32 @@ def test_gitignore_same():
         open(TOP / "template" / ".gitignore") as template_gi,
     ):
         assert top_gi.read() == template_gi.read()
+
+
+def test_private_member_access(tmp_path: Path):
+    code = """
+class MyClass:
+    def __init__(self):
+        self.foo: int = 1
+        self._bar: int = 2
+
+obj = MyClass()
+print(obj.foo)
+print(obj._bar)
+"""
+
+    copy_project(tmp_path)
+    run = make_venv(tmp_path)
+
+    # Private member access should be allowed in tests
+    test_file = tmp_path / "tests" / "test_private_access.py"
+    with test_file.open("w") as stream:
+        stream.write(code)
+    run("ruff check")
+
+    # Private member access should not be allowed in src
+    src_file = tmp_path / "src" / "python_copier_template_example" / "private_access.py"
+    with src_file.open("w") as stream:
+        stream.write(code)
+    with pytest.raises(AssertionError, match="SLF001 Private member accessed: `_bar`"):
+        run("ruff check")

@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=64", "setuptools_scm[toml]>=6.2"]
+requires = ["setuptools>=64", "setuptools_scm[toml]>=8"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -49,7 +49,7 @@ name = "{{ author_name }}"
 
 
 [tool.setuptools_scm]
-write_to = "src/{{ package_name }}/_version.py"
+version_file = "src/{{ package_name }}/_version.py"
 {% if type_checker=="pyright" %}
 [tool.pyright]
 reportMissingImports = false # Ignore missing stubs in imported modules

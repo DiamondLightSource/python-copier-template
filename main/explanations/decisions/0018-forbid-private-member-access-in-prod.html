@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="en" data-content_root="../../" >
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Template Project Structure &#8212; python-copier-template 2.1.1.dev36+g445567b documentation</title>
+    <title>18. Forbid Private Member Access in Production Code &#8212; python-copier-template 2.1.1.dev36+g445567b documentation</title>
   
   
   
@@ -18,44 +18,44 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=353484ad"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=30646c52"></script>
-    <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'explanations/structure';</script>
+    <script src="../../_static/documentation_options.js?v=353484ad"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=30646c52"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'explanations/decisions/0018-forbid-private-member-access-in-prod';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://DiamondLightSource.github.io/python-copier-template/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
-    <link rel="icon" href="../_static/dls-logo.svg"/>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Why Use a Copier Template?" href="why-use-template.html" />
-    <link rel="prev" title="18. Forbid Private Member Access in Production Code" href="decisions/0018-forbid-private-member-access-in-prod.html" />
+    <link rel="icon" href="../../_static/dls-logo.svg"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Template Project Structure" href="../structure.html" />
+    <link rel="prev" title="17. Use pyright" href="0017-use-pyright.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -87,7 +87,7 @@
     <div class="search-button__overlay"></div>
     <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
-      action="../search.html"
+      action="../../search.html"
       method="get">
   <i class="fa-solid fa-magnifying-glass"></i>
   <input type="search"
@@ -124,7 +124,7 @@
     
   
 
-<a class="navbar-brand logo" href="../index.html">
+<a class="navbar-brand logo" href="../../index.html">
   
   
   
@@ -135,8 +135,8 @@
       
     
     
-    <img src="../_static/dls-logo.svg" class="logo__image only-light" alt=""/>
-    <script>document.write(`<img src="../_static/dls-logo.svg" class="logo__image only-dark" alt=""/>`);</script>
+    <img src="../../_static/dls-logo.svg" class="logo__image only-light" alt=""/>
+    <script>document.write(`<img src="../../_static/dls-logo.svg" class="logo__image only-dark" alt=""/>`);</script>
   
   
     <p class="title logo__title">python-copier-template</p>
@@ -154,28 +154,28 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../tutorials.html">
+  <a class="nav-link nav-internal" href="../../tutorials.html">
     Tutorials
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../how-to.html">
+  <a class="nav-link nav-internal" href="../../how-to.html">
     How-to Guides
   </a>
 </li>
 
 
 <li class="nav-item current active">
-  <a class="nav-link nav-internal" href="../explanations.html">
+  <a class="nav-link nav-internal" href="../../explanations.html">
     Explanations
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../reference.html">
+  <a class="nav-link nav-internal" href="../../reference.html">
     Reference
   </a>
 </li>
@@ -305,28 +305,28 @@ document.write(`
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../tutorials.html">
+  <a class="nav-link nav-internal" href="../../tutorials.html">
     Tutorials
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../how-to.html">
+  <a class="nav-link nav-internal" href="../../how-to.html">
     How-to Guides
   </a>
 </li>
 
 
 <li class="nav-item current active">
-  <a class="nav-link nav-internal" href="../explanations.html">
+  <a class="nav-link nav-internal" href="../../explanations.html">
     Explanations
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../reference.html">
+  <a class="nav-link nav-internal" href="../../reference.html">
     Reference
   </a>
 </li>
@@ -403,29 +403,29 @@ document.write(`
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="decisions.html">Architectural Decision Records</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="decisions/0001-record-architecture-decisions.html">1. Record architecture decisions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decisions/0002-make-skeleton.html">2. Make a skeleton repository</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decisions/0003-docs-structure.html">3. Standard documentation structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decisions/0004-why-src.html">4. Use a source directory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decisions/0005-pyproject-toml.html">5. Use pyproject.toml</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decisions/0006-setuptools-scm.html">6. Use setuptools_scm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decisions/0007-dev-dependencies.html">7. Installing developer environment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decisions/0008-use-tox.html">8. Use tox and pre-commit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decisions/0009-sphinx-theme.html">9. Sphinx theme</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decisions/0010-vscode-settings.html">10. Include vscode settings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decisions/0011-requirements-txt.html">11. Pinning requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decisions/0012-containers.html">12. Use containers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decisions/0013-switch-to-copier.html">13. Switch to copier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decisions/0014-split-ci-yaml.html">14. Split up CI YAML</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decisions/0015-use-ruff.html">15. Use ruff</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decisions/0016-convert-to-mkdocs.html">16. Convert to mkdocs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decisions/0017-use-pyright.html">17. Use pyright</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decisions/0018-forbid-private-member-access-in-prod.html">18. Forbid Private Member Access in Production Code</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../decisions.html">Architectural Decision Records</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="0001-record-architecture-decisions.html">1. Record architecture decisions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0002-make-skeleton.html">2. Make a skeleton repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0003-docs-structure.html">3. Standard documentation structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0004-why-src.html">4. Use a source directory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0005-pyproject-toml.html">5. Use pyproject.toml</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0006-setuptools-scm.html">6. Use setuptools_scm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0007-dev-dependencies.html">7. Installing developer environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0008-use-tox.html">8. Use tox and pre-commit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0009-sphinx-theme.html">9. Sphinx theme</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0010-vscode-settings.html">10. Include vscode settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0011-requirements-txt.html">11. Pinning requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0012-containers.html">12. Use containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0013-switch-to-copier.html">13. Switch to copier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0014-split-ci-yaml.html">14. Split up CI YAML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0015-use-ruff.html">15. Use ruff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0016-convert-to-mkdocs.html">16. Convert to mkdocs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0017-use-pyright.html">17. Use pyright</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">18. Forbid Private Member Access in Production Code</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Template Project Structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="why-use-template.html">Why Use a Copier Template?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../structure.html">Template Project Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../why-use-template.html">Why Use a Copier Template?</a></li>
 </ul>
 </div>
 </nav></div>
@@ -459,14 +459,17 @@ document.write(`
   <ul class="bd-breadcrumbs">
     
     <li class="breadcrumb-item breadcrumb-home">
-      <a href="../index.html" class="nav-link" aria-label="Home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
     
-    <li class="breadcrumb-item"><a href="../explanations.html" class="nav-link">Explanations</a></li>
+    <li class="breadcrumb-item"><a href="../../explanations.html" class="nav-link">Explanations</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">Template...</li>
+    
+    <li class="breadcrumb-item"><a href="../decisions.html" class="nav-link">Architectural Decision Records</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">18. Forbid...</li>
   </ul>
 </nav>
 </div>
@@ -483,42 +486,25 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="template-project-structure">
-<h1>Template Project Structure<a class="headerlink" href="#template-project-structure" title="Link to this heading">#</a></h1>
-<p>The template has the following folders at the root level.</p>
-<section id="src">
-<h2>src<a class="headerlink" href="#src" title="Link to this heading">#</a></h2>
-<p>This folder contains the source code for the project. Typically this contains a single folder with the package name for the project and the folder contains python modules files.</p>
-<p>See <a class="reference internal" href="decisions/0004-why-src.html#src"><span class="std std-ref">4. Use a source directory</span></a> for details.</p>
+  <section id="forbid-private-member-access-in-production-code">
+<h1>18. Forbid Private Member Access in Production Code<a class="headerlink" href="#forbid-private-member-access-in-production-code" title="Link to this heading">#</a></h1>
+<p>Date: 2024-07-02</p>
+<section id="status">
+<h2>Status<a class="headerlink" href="#status" title="Link to this heading">#</a></h2>
+<p>Accepted</p>
 </section>
-<section id="tests">
-<h2>tests<a class="headerlink" href="#tests" title="Link to this heading">#</a></h2>
-<p>This folder holds all of the tests that will be run by pytest, both locally and in CI.</p>
-<p>See <a class="reference internal" href="../how-to/run-tests.html#using-pytest"><span class="std std-ref">Run the tests using pytest</span></a></p>
+<section id="context">
+<h2>Context<a class="headerlink" href="#context" title="Link to this heading">#</a></h2>
+<p>Most programming languages forbid access to private member variables at compile time to guarantee encapsulation. Python only does this by convention. Ruff now provides a rule (SLF001) that forbids it.
+See https://github.com/DiamondLightSource/python-copier-template/issues/154 for further discussion.</p>
 </section>
-<section id="docs">
-<h2>docs<a class="headerlink" href="#docs" title="Link to this heading">#</a></h2>
-<p>This folder contains the source for sphinx documentation.</p>
-<p>See <a class="reference internal" href="decisions/0003-docs-structure.html#documentation-structure"><span class="std std-ref">3. Standard documentation structure</span></a> for details.</p>
+<section id="decision">
+<h2>Decision<a class="headerlink" href="#decision" title="Link to this heading">#</a></h2>
+<p>We will enable SLF001 for the <code class="docutils literal notranslate"><span class="pre">src</span></code> directory but not the <code class="docutils literal notranslate"><span class="pre">tests</span></code> directory, as we want to keep production code clean without raising the barrier to entry for writing tests.</p>
 </section>
-<section id="github">
-<h2>.github<a class="headerlink" href="#github" title="Link to this heading">#</a></h2>
-<p>Configuration for the Continuous Integration Workflow on github</p>
-</section>
-<section id="vscode-specific-folders">
-<h2>VSCode specific folders<a class="headerlink" href="#vscode-specific-folders" title="Link to this heading">#</a></h2>
-<section id="devcontainer">
-<h3>.devcontainer<a class="headerlink" href="#devcontainer" title="Link to this heading">#</a></h3>
-<p>Configuration for running the developer container for this project in VSCode.</p>
-</section>
-<section id="vscode">
-<h3>.vscode<a class="headerlink" href="#vscode" title="Link to this heading">#</a></h3>
-<p>VSCode settings for this project:</p>
-<ul class="simple">
-<li><p>enable static analysis in the editor</p></li>
-<li><p>enables python debugging.</p></li>
-</ul>
-</section>
+<section id="consequences">
+<h2>Consequences<a class="headerlink" href="#consequences" title="Link to this heading">#</a></h2>
+<p>Any private member access in <code class="docutils literal notranslate"><span class="pre">src</span></code> will cause CI to fail, the ultimate override of <code class="docutils literal notranslate"><span class="pre">noqa</span></code> remains available.</p>
 </section>
 </section>
 
@@ -533,20 +519,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="decisions/0018-forbid-private-member-access-in-prod.html"
+       href="0017-use-pyright.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">18. Forbid Private Member Access in Production Code</p>
+        <p class="prev-next-title">17. Use pyright</p>
       </div>
     </a>
     <a class="right-next"
-       href="why-use-template.html"
+       href="../structure.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Why Use a Copier Template?</p>
+        <p class="prev-next-title">Template Project Structure</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -568,15 +554,10 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#src">src</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tests">tests</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docs">docs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github">.github</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vscode-specific-folders">VSCode specific folders</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#devcontainer">.devcontainer</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vscode">.vscode</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#status">Status</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context">Context</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision">Decision</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#consequences">Consequences</a></li>
 </ul>
   </nav></div>
 
@@ -584,7 +565,7 @@ document.write(`
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/DiamondLightSource/python-copier-template/edit/main/docs/explanations/structure.md">
+    <a href="https://github.com/DiamondLightSource/python-copier-template/edit/main/docs/explanations/decisions/0018-forbid-private-member-access-in-prod.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -599,7 +580,7 @@ document.write(`
   <div class="sidebar-secondary-item">
 
   <div class="tocsection sourcelink">
-    <a href="../_sources/explanations/structure.md.txt">
+    <a href="../../_sources/explanations/decisions/0018-forbid-private-member-access-in-prod.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
@@ -618,8 +599,8 @@ document.write(`
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">

@@ -149,3 +149,17 @@ print(obj._bar)
         stream.write(code)
     with pytest.raises(AssertionError, match="SLF001 Private member accessed: `_bar`"):
         run("ruff check")
+
+
+def test_works_in_pyright_strict_mode(tmp_path: Path):
+    copy_project(tmp_path)
+    pyproject_toml = tmp_path / "pyproject.toml"
+
+    # Enable strict mode
+    run_pipe(
+        f'sed -i \'/\\[tool.pyright\\]/a\\strict = ["src", "tests"]\' {pyproject_toml}'
+    )
+
+    # Ensure pyright is still happy
+    run = make_venv(tmp_path)
+    run(f"./venv/bin/pyright {tmp_path}")

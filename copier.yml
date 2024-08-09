@@ -62,8 +62,7 @@ component_owner:
     type: str
     help: |
         Owner of the component in the Developer Portal Software Catalogue.
-        This will normally be group:default/<your_group>
-    default: "group:default/sscc"
+        This will normally be group:default/<your group>
 
 # Template Options
 docker:

@@ -64,6 +64,28 @@ component_owner:
         Owner of the component in the Developer Portal Software Catalogue.
         This will normally be group:default/<your group>
 
+component_type:
+    type: str
+    help: |
+        Type of the component in the Developer Portal Software Catalogue.
+        Most likely service, library or application (without quotes).
+
+component_lifecycle:
+    type: str
+    help: |
+        Project's current lifecycle stage, to be displayed in the Developer 
+        Portal Software Catalogue.
+    choices:
+        - alpha
+        - beta
+        - deprecated
+        - development
+        - experimental
+        - production
+        - test
+        - unknown
+    default: experimental
+
 # Template Options
 docker:
     type: bool

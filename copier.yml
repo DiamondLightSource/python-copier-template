@@ -61,7 +61,8 @@ author_email:
 component_owner:
     type: str
     help: |
-        Owner of the component in the Developer Portal Software Catalogue.
+        The unique name of the person or group who owns this component in 
+        the Developer Portal Software Catalogue.
         This will normally be group:default/<your group>
 
 component_type:

@@ -70,6 +70,12 @@ component_type:
     help: |
         Type of the component in the Developer Portal Software Catalogue.
         Most likely service, library or application (without quotes).
+    choices:
+        - library
+        - service
+        - user-interface
+        - website
+    default: library
 
 component_lifecycle:
     type: str
@@ -77,14 +83,9 @@ component_lifecycle:
         Project's current lifecycle stage, to be displayed in the Developer 
         Portal Software Catalogue.
     choices:
-        - alpha
-        - beta
-        - deprecated
-        - development
         - experimental
         - production
-        - test
-        - unknown
+        - deprecated
     default: experimental
 
 # Template Options

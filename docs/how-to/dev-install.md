@@ -31,7 +31,7 @@ If you are at DLS, then first [setup podman and its fix for devcontainer feature
 code .
 ```
 
-Click on 'Reopen in Container' when prompted on startup or, if vscode is already running, open the command menu with CTRL+SHIFT+P, search for and run "Reopen in Container".
+Click on 'Reopen in Container' when prompted on startup or, if vscode is already running, open the command menu with CTRL+SHIFT+P, search for and run 'Reopen in Container'.
 Open a new terminal
 :::
 

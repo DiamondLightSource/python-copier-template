@@ -22,12 +22,17 @@ pip install -e '.[dev]'
 :::
 
 :::{tab-item} VSCode devcontainer
-If you are at DLS, then first [setup podman and its fix for devcontainer features](https://dev-portal.diamond.ac.uk/guide/containers/tutorials/podman/#enable-use-of-vscode-features)
+
+Ensure you have the [vscode devcontainer extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) installed.
+
+If you are at DLS, then first [setup podman and its fix for devcontainer features](https://dev-portal.diamond.ac.uk/guide/containers/tutorials/podman/#enable-use-of-vscode-features) and then follow [these instructions](https://dev-portal.diamond.ac.uk/guide/containers/tutorials/devcontainer/) for setting up devcontainers on a DLS workstation.
 
 ```
 code .
-# Click on 'Reopen in Container' when prompted
-# Open a new terminal
+```
+
+Click on 'Reopen in Container' when prompted on startup or, if vscode is already running, open the command menu with CTRL+SHIFT+P, search for and run 'Reopen in Container'.
+Open a new terminal
 :::
 
 ::::

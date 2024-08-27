@@ -63,7 +63,12 @@ component_owner:
     help: |
         The unique name of the person or group who owns this component in 
         the Developer Portal Software Catalogue.
-        This will normally be group:default/<your group>
+        This will normally be group:default/<your_group>. For a full list of groups visit 
+        https://dev-portal.diamond.ac.uk/catalog?filters%5Bkind%5D=group&filters%5Buser%5D=all
+        and hover over each group link to see its group ID, e.g.
+        https://dev-portal.diamond.ac.uk/catalog/default/group/accelerator-controls
+        would go here as group:default/accelerator-controls.
+        
 
 component_type:
     type: str

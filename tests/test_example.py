@@ -163,3 +163,26 @@ def test_works_in_pyright_strict_mode(tmp_path: Path):
     # Ensure pyright is still happy
     run = make_venv(tmp_path)
     run(f"./venv/bin/pyright {tmp_path}")
+
+
+def test_catalog_info(tmp_path: Path):
+    copy_project(tmp_path)
+    catalog_info_path = tmp_path / "catalog-info.yaml"
+    with catalog_info_path.open("r") as stream:
+        catalog_info = yaml.safe_load(stream)
+    assert catalog_info == {
+        "apiVersion": "backstage.io/v1alpha1",
+        "kind": "Component",
+        "metadata": {
+            "name": "dls-python-copier-template-example",
+            "title": "python-copier-template-example",
+            "description": "An expanded "
+            "https://github.com/DiamondLightSource/python-copier-template "
+            "to illustrate how it looks with all the options enabled.",
+        },
+        "spec": {
+            "type": "service",
+            "lifecycle": "experimental",
+            "owner": "group:default/daq",
+        },
+    }

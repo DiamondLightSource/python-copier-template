@@ -61,9 +61,37 @@ author_email:
 component_owner:
     type: str
     help: |
-        Owner of the component in the Developer Portal Software Catalogue.
-        This will normally be group:default/<your_group>
-    default: "group:default/sscc"
+        The unique name of the person or group who owns this component in 
+        the Developer Portal Software Catalogue.
+        This will normally be group:default/<your_group>. For a full list of groups visit 
+        https://dev-portal.diamond.ac.uk/catalog?filters%5Bkind%5D=group&filters%5Buser%5D=all
+        and hover over each group link to see its group ID, e.g.
+        https://dev-portal.diamond.ac.uk/catalog/default/group/accelerator-controls
+        would go here as group:default/accelerator-controls.
+        
+
+component_type:
+    type: str
+    help: |
+        Type of the component in the Developer Portal Software Catalogue.
+        Most likely service, library or application (without quotes).
+    choices:
+        - library
+        - service
+        - user-interface
+        - website
+    default: library
+
+component_lifecycle:
+    type: str
+    help: |
+        Project's current lifecycle stage, to be displayed in the Developer 
+        Portal Software Catalogue.
+    choices:
+        - experimental
+        - production
+        - deprecated
+    default: experimental
 
 # Template Options
 docker:

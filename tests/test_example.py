@@ -157,7 +157,8 @@ def test_works_in_pyright_strict_mode(tmp_path: Path):
 
     # Enable strict mode
     run_pipe(
-        f'sed -i \'/\\[tool.pyright\\]/a\\strict = ["src", "tests"]\' {pyproject_toml}'
+        'sed -i \'s|typeCheckingMode = "standard"|typeCheckingMode = "strict"|\''
+        f" {pyproject_toml}"
     )
 
     # Ensure pyright is still happy

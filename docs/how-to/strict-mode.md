@@ -4,11 +4,11 @@ For projects using pyright you can enable strict mode for stricter than normal t
 
 ## Configuration
 
-Add the `strict` line to `pyproject.toml` as follows:
+Change the `typeCheckingMode` line to `"strict"` in `pyproject.toml` as follows:
 
 ```toml
 [tool.pyright]
-strict = ["src", "tests"]
+typeCheckingMode = "strict"
 reportMissingImports = false # Ignore missing stubs in imported modules
 ```
 

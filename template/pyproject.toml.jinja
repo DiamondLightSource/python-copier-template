@@ -52,6 +52,7 @@ name = "{{ author_name }}"
 version_file = "src/{{ package_name }}/_version.py"
 {% if type_checker=="pyright" %}
 [tool.pyright]
+typeCheckingMode = "standard"
 reportMissingImports = false # Ignore missing stubs in imported modules
 {% endif %}{% if type_checker=="mypy" %}
 [tool.mypy]

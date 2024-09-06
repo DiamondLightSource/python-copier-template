@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Enable Pyright’s Strict Mode &#8212; python-copier-template 2.2.1.dev16+gef12f1b documentation</title>
+    <title>Enable Pyright’s Strict Mode &#8212; python-copier-template 2.2.1.dev18+gca3deba documentation</title>
   
   
   
@@ -38,7 +38,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=6a25e075"></script>
+    <script src="../_static/documentation_options.js?v=1f25c94d"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -479,9 +479,9 @@ document.write(`
 <p>For projects using pyright you can enable strict mode for stricter than normal type checking. See <a class="reference external" href="https://github.com/microsoft/pyright/blob/main/docs/configuration.md">the docs</a> for a full breakdown. The primary benefits are increased confidence in code that has been more thoroughly analyzed and a shorter development time thanks to fast feedback from the type checker.</p>
 <section id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">#</a></h2>
-<p>Add the <code class="docutils literal notranslate"><span class="pre">strict</span></code> line to <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> as follows:</p>
+<p>Change the <code class="docutils literal notranslate"><span class="pre">typeCheckingMode</span></code> line to <code class="docutils literal notranslate"><span class="pre">&quot;strict&quot;</span></code> in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> as follows:</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.pyright]</span>
-<span class="n">strict</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;src&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;tests&quot;</span><span class="p">]</span>
+<span class="n">typeCheckingMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;strict&quot;</span>
 <span class="n">reportMissingImports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="c1"># Ignore missing stubs in imported modules</span>
 </pre></div>
 </div>

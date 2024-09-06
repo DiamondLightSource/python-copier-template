@@ -166,6 +166,25 @@ def test_works_in_pyright_strict_mode(tmp_path: Path):
     run(f"./venv/bin/pyright {tmp_path}")
 
 
+def test_works_with_pydocstyle(tmp_path: Path):
+    copy_project(tmp_path)
+    pyproject_toml = tmp_path / "pyproject.toml"
+    text = (
+        pyproject_toml.read_text()
+        .replace('"C4",', '"C4", "D",')  # Enable all pydocstyle
+        .replace(
+            '"tests/**/*" = ["SLF001"]',
+            # But exclude on tests and allow o put their own docstring on __init__.py
+            '"tests/**/*" = ["SLF001", "D"]\n"__init__.py" = ["D104"]',
+        )
+    )
+    pyproject_toml.write_text(text)
+
+    # Ensure ruff is still happy
+    run = make_venv(tmp_path)
+    run("ruff check")
+
+
 def test_catalog_info(tmp_path: Path):
     copy_project(tmp_path)
     catalog_info_path = tmp_path / "catalog-info.yaml"

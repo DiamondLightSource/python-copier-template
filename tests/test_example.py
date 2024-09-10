@@ -21,6 +21,7 @@ def copy_project(project_path: Path, **kwargs):
         vcs_ref="HEAD",
         unsafe=True,
     )
+    run_pipe("git add .", cwd=str(project_path))
 
 
 def run_pipe(cmd: str, cwd=None):
@@ -43,7 +44,7 @@ def make_venv(project_path: Path) -> callable:
     return run
 
 
-def test_template(tmp_path: Path):
+def test_template_defaults(tmp_path: Path):
     copy_project(tmp_path)
     run = make_venv(tmp_path)
     container_doc = tmp_path / "docs" / "how-to" / "run-container.md"
@@ -52,6 +53,53 @@ def test_template(tmp_path: Path):
     run("./venv/bin/pip install build twine")
     run("./venv/bin/python -m build")
     run("./venv/bin/twine check --strict dist/*")
+
+
+def test_template_with_extra_code_and_api_docs(tmp_path: Path):
+    copy_project(tmp_path)
+    run = make_venv(tmp_path)
+    # add some code
+    init = tmp_path / "src" / "python_copier_template_example" / "__init__.py"
+    init.write_text(
+        init.read_text().replace(
+            "__all__ = [",
+            '''
+class TopCls:
+    """A top level class."""
+
+
+__all__ = ["TopCls", "extra_pkg", ''',
+        )
+    )
+    extra_pkg = tmp_path / "src" / "python_copier_template_example" / "extra_pkg"
+    extra_pkg.mkdir()
+    (extra_pkg / "__init__.py").write_text('"""Extra Package."""\n')
+    code = '''"""A module."""
+
+
+class Thing:
+    """A docstring."""
+'''
+    (extra_pkg / "extra_module.py").write_text(code)
+    # Add to make sure pre-commit doesn't moan
+    run("git add .")
+    # Build
+    run("./venv/bin/tox -p")
+    # Check it generates the right output
+    api_dir = tmp_path / "build" / "html" / "_api"
+    top_html = api_dir / "python_copier_template_example.html"
+    assert "extra_pkg" in top_html.read_text()
+    assert "Extra Package." in top_html.read_text()
+    assert "TopCls" in top_html.read_text()
+    assert "A top level class." in top_html.read_text()
+    assert "__version__" in top_html.read_text()
+    assert "setuptools_scm" in top_html.read_text()
+    package_html = api_dir / "python_copier_template_example.extra_pkg.html"
+    assert "extra_module" in package_html.read_text()
+    assert "A module." in package_html.read_text()
+    module_html = api_dir / "python_copier_template_example.extra_pkg.extra_module.html"
+    assert "Thing" in module_html.read_text()
+    assert "A docstring." in module_html.read_text()
 
 
 def test_template_mypy(tmp_path: Path):

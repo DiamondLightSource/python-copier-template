@@ -33,6 +33,8 @@ else:
 extensions = [
     # Use this for generating API docs
     "sphinx.ext.autodoc",
+    # and making summary tables at the top of API docs
+    "sphinx.ext.autosummary",
     # This can parse google style docstrings
     "sphinx.ext.napoleon",
     # For linking to external sphinx documentation
@@ -80,6 +82,12 @@ autodoc_member_order = "bysource"
 
 # Don't inherit docstrings from baseclasses
 autodoc_inherit_docstrings = False
+
+# Document only what is in __all__
+autosummary_ignore_module_all = False
+
+# Add any paths that contain templates here, relative to this directory.
+templates_path = ["_templates"]
 
 # Output graphviz directive produced images in a scalable format
 graphviz_output_format = "svg"

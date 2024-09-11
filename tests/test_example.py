@@ -114,10 +114,12 @@ def test_template_no_docs(tmp_path: Path):
     run("./venv/bin/tox -p")
 
 
-def test_template_no_docker_has_no_docs(tmp_path: Path):
+def test_template_no_docker_has_no_docs_and_works(tmp_path: Path):
     copy_project(tmp_path, docker=False)
     container_doc = tmp_path / "docs" / "how-to" / "run-container.md"
     assert not container_doc.exists()
+    run = make_venv(tmp_path)
+    run("./venv/bin/tox -p")
 
 
 def test_bad_repo_name(tmp_path: Path):

@@ -49,6 +49,8 @@ def test_template_defaults(tmp_path: Path):
     run = make_venv(tmp_path)
     container_doc = tmp_path / "docs" / "how-to" / "run-container.md"
     assert container_doc.exists()
+    catalog_info = tmp_path / "catalog-info.yaml"
+    assert catalog_info.exists()
     run("./venv/bin/tox -p")
     run("./venv/bin/pip install build twine")
     run("./venv/bin/python -m build")
@@ -112,6 +114,12 @@ def test_template_no_docs(tmp_path: Path):
     copy_project(tmp_path, docs_type="README")
     run = make_venv(tmp_path)
     run("./venv/bin/tox -p")
+
+
+def test_template_in_different_org_has_no_catalog(tmp_path: Path):
+    copy_project(tmp_path, github_org="bluesky")
+    catalog_info = tmp_path / "catalog-info.yaml"
+    assert not catalog_info.exists()
 
 
 def test_template_no_docker_has_no_docs_and_works(tmp_path: Path):

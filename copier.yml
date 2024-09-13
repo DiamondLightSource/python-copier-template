@@ -2,7 +2,7 @@
 package_name:
     type: str
     help: |
-        Name of the python import package. 
+        Name of the python import package.
         Must be a valid python identifier, i.e. my_package
     validator: >-
         {% if not (package_name | regex_search('^[a-zA-Z][a-zA-Z_0-9]+$')) %}
@@ -58,20 +58,22 @@ author_email:
     help: Your email address
     placeholder: email@diamond.ac.uk
 
+# Catalog info
 component_owner:
     type: str
+    when: "{{ github_org == 'DiamondLightSource' }}"
     help: |
-        The unique name of the person or group who owns this component in 
+        The unique name of the person or group who owns this component in
         the Developer Portal Software Catalogue.
-        This will normally be group:default/<your_group>. For a full list of groups visit 
+        This will normally be group:default/<your_group>. For a full list of groups visit
         https://dev-portal.diamond.ac.uk/catalog?filters%5Bkind%5D=group&filters%5Buser%5D=all
         and hover over each group link to see its group ID, e.g.
         https://dev-portal.diamond.ac.uk/catalog/default/group/accelerator-controls
         would go here as group:default/accelerator-controls.
-        
 
 component_type:
     type: str
+    when: "{{ github_org == 'DiamondLightSource' }}"
     help: |
         Type of the component in the Developer Portal Software Catalogue.
         Most likely service, library or application (without quotes).
@@ -84,8 +86,9 @@ component_type:
 
 component_lifecycle:
     type: str
+    when: "{{ github_org == 'DiamondLightSource' }}"
     help: |
-        Project's current lifecycle stage, to be displayed in the Developer 
+        Project's current lifecycle stage, to be displayed in the Developer
         Portal Software Catalogue.
     choices:
         - experimental
@@ -147,6 +150,6 @@ _tasks:
 _migrations:
     - version: 2.0.0
       before:
-        - echo This update will require you to login to pypi.org and make changes before you can make a new release to PyPI. If you do not have time to do this now, press CTRL+C to abort this update.
+          - echo This update will require you to login to pypi.org and make changes before you can make a new release to PyPI. If you do not have time to do this now, press CTRL+C to abort this update.
       after:
-        - echo Visit https://diamondlightsource.github.io/python-copier-template/main/how-to/pypi.html to find out how to set up PyPI trusted publishing
+          - echo Visit https://diamondlightsource.github.io/python-copier-template/main/how-to/pypi.html to find out how to set up PyPI trusted publishing

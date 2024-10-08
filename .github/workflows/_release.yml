@@ -11,6 +11,9 @@ jobs:
         with:
           merge-multiple: true
 
+      - name: Dependencies license compliance checker
+        uses: pilosus/action-pip-license-checker@v2.0.0
+
       - name: Zip up docs
         run: |
           set -vxeuo pipefail

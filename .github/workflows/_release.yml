@@ -12,7 +12,27 @@ jobs:
           merge-multiple: true
 
       - name: Dependencies license compliance checker
-        uses: pilosus/action-pip-license-checker@v2.0.0
+        id: license_check_report
+        uses: pilosus/action-pip-license-checker@cc7a461bfa27b44ad187b8578c881ef5138c13fd
+        with:
+          external: "licenses.csv"
+          external-format: "csv"
+          external-options: "{:skip-header false :package-column-index 0 :license-column-index 2}"
+          report-format: "json-pretty"
+          formatter: "%-65s %-65s %-20s %-40s"
+          totals: true
+          headers: true
+          fail: "StrongCopyleft,NetworkCopyleft,Other,Error"
+          verbose: 1
+      - name: Save report
+        if: ${{ always() }}
+        run: echo "${{ steps.license_check_report.outputs.report }}" > license-report.json
+      - name: Upload artifact
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: license-report
+          path: license-report.json
 
       - name: Zip up docs
         run: |

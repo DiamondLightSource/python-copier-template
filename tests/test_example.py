@@ -52,6 +52,7 @@ def test_template_defaults(tmp_path: Path):
     catalog_info = tmp_path / "catalog-info.yaml"
     assert catalog_info.exists()
     run("./venv/bin/tox -p")
+    run("./venv/bin/tox -e docs build -- -b linkcheck")
     run("./venv/bin/pip install build twine")
     run("./venv/bin/python -m build")
     run("./venv/bin/twine check --strict dist/*")

@@ -9,7 +9,7 @@ requires-python = ">=3.10"
 
 [project.optional-dependencies]
 dev = [
-    "copier",
+    "copier < 9.4",  # https://github.com/copier-org/copier/issues/1819
     "myst-parser",
     "pre-commit",
     "pydata-sphinx-theme>=0.12",

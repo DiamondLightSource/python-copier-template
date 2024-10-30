@@ -52,7 +52,10 @@ def test_template_defaults(tmp_path: Path):
     catalog_info = tmp_path / "catalog-info.yaml"
     assert catalog_info.exists()
     run("./venv/bin/tox -p")
-    run("./venv/bin/tox -e docs build -- -b linkcheck")
+    if not run_pipe("git tag --points-at HEAD"):
+        # Only run linkcheck if not on a tag, as the CI might not have pushed
+        # the docs for this tag yet, so we will fail
+        run("./venv/bin/tox -e docs build -- -b linkcheck")
     run("./venv/bin/pip install build twine")
     run("./venv/bin/python -m build")
     run("./venv/bin/twine check --strict dist/*")

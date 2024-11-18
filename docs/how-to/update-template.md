@@ -27,7 +27,7 @@ The following steps are recommended to update your project, especially for infre
         - `ctrl+shift+p` -> `Remote-Containers: Rebuild Without Cache and Reopen in Container`
     - for local development
         - `pip install -e .[dev] --force-reinstall`
-- validate your project agains the latest tools
+- validate your project against the latest tools
     - `tox -p`
 - fix issues found by the above
 - commit the changes

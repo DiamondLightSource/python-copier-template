@@ -20,7 +20,7 @@ Once they are all fixed, make a commit.
 
 ## Recommended Workflow
 
-The following steps are recommended to update your project, especially for infreqently updated projects:
+The following steps are recommended to update your project, especially for infrequently updated projects:
 
 - first make sure all the tools are updated to latest versions
     - for devcontainers

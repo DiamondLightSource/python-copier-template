@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>How to update to the latest template structure &#8212; python-copier-template 2.4.1.dev6+g0f64ce8 documentation</title>
+    <title>How to update to the latest template structure &#8212; python-copier-template 2.5.1.dev1+g36eb592 documentation</title>
   
   
   
@@ -41,7 +41,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="../_static/documentation_options.js?v=057bbfef"></script>
+    <script src="../_static/documentation_options.js?v=1afbaef6"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -444,6 +444,8 @@
                   
   <section id="how-to-update-to-the-latest-template-structure">
 <h1>How to update to the latest template structure<a class="headerlink" href="#how-to-update-to-the-latest-template-structure" title="Link to this heading">#</a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
 <p>To track changes to the upstream template, run</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">copier</span> <span class="n">update</span> <span class="o">--</span><span class="n">trust</span>
 </pre></div>
@@ -454,6 +456,47 @@
 </pre></div>
 </div>
 <p>Once they are all fixed, make a commit.</p>
+</section>
+<section id="recommended-workflow">
+<h2>Recommended Workflow<a class="headerlink" href="#recommended-workflow" title="Link to this heading">#</a></h2>
+<p>The following steps are recommended to update your project, especially for infrequently updated projects:</p>
+<ul class="simple">
+<li><p>first make sure all the tools are updated to latest versions</p>
+<ul>
+<li><p>for devcontainers</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ctrl+shift+p</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Remote-Containers:</span> <span class="pre">Rebuild</span> <span class="pre">Without</span> <span class="pre">Cache</span> <span class="pre">and</span> <span class="pre">Reopen</span> <span class="pre">in</span> <span class="pre">Container</span></code></p></li>
+</ul>
+</li>
+<li><p>for local development</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.[dev]</span> <span class="pre">--force-reinstall</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>validate your project against the latest tools</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">tox</span> <span class="pre">-p</span></code></p></li>
+</ul>
+</li>
+<li><p>fix issues found by the above</p></li>
+<li><p>commit the changes</p></li>
+<li><p>update the template</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">copier</span> <span class="pre">update</span> <span class="pre">--trust</span></code></p></li>
+</ul>
+</li>
+<li><p>fix any merge conflicts</p></li>
+<li><p>validate that the project still works</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">tox</span> <span class="pre">-p</span></code></p></li>
+</ul>
+</li>
+<li><p>fix any issues found by the above</p></li>
+<li><p>commit the changes</p></li>
+</ul>
+</section>
 </section>
 
 
@@ -494,6 +537,19 @@
                 <dialog id="pst-secondary-sidebar-modal"></dialog>
                 <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recommended-workflow">Recommended Workflow</a></li>
+</ul>
+  </nav></div>
 
   <div class="sidebar-secondary-item">
 

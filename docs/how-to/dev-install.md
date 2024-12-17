@@ -15,7 +15,7 @@ You can choose to either develop on the host machine using a `venv` (which requi
 
 :::{tab-item} Local virtualenv
 ```
-python3 -m venv venv
+python -m venv venv
 source venv/bin/activate
 pip install -e '.[dev]'
 ```

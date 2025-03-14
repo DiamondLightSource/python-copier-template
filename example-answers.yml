@@ -12,4 +12,5 @@ github_org: DiamondLightSource
 package_name: python_copier_template_example
 repo_name: python-copier-template-example
 type_checker: pyright
+strict_typing: false
 pypi: true

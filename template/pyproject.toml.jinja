@@ -51,9 +51,11 @@ name = "{{ author_name }}"
 [tool.setuptools_scm]
 version_file = "src/{{ package_name }}/_version.py"
 {% if type_checker=="pyright" %}
-[tool.pyright]
+[tool.pyright]{% if strict_typing %}
+typeCheckingMode = "strict"
+{% else %}
 typeCheckingMode = "standard"
-reportMissingImports = false # Ignore missing stubs in imported modules
+{% endif %}reportMissingImports = false # Ignore missing stubs in imported modules
 {% endif %}{% if type_checker=="mypy" %}
 [tool.mypy]
 ignore_missing_imports = true # Ignore missing stubs in imported modules

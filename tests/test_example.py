@@ -48,9 +48,11 @@ def test_template_defaults(tmp_path: Path):
     copy_project(tmp_path)
     run = make_venv(tmp_path)
     container_doc = tmp_path / "docs" / "how-to" / "run-container.md"
+    pyproject_toml = tmp_path / "pyproject.toml"
     assert container_doc.exists()
     catalog_info = tmp_path / "catalog-info.yaml"
     assert catalog_info.exists()
+    assert 'typeCheckingMode = "standard"' in pyproject_toml.read_text()
     run("./venv/bin/tox -p")
     if not run_pipe("git tag --points-at HEAD"):
         # Only run linkcheck if not on a tag, as the CI might not have pushed
@@ -213,19 +215,24 @@ print(obj._bar)
         run("ruff check")
 
 
-def test_works_in_pyright_strict_mode(tmp_path: Path):
-    copy_project(tmp_path)
+def test_pyright_works_in_strict_typing_mode(tmp_path: Path):
+    copy_project(tmp_path, type_checker="pyright", strict_typing=True)
     pyproject_toml = tmp_path / "pyproject.toml"
 
-    # Enable strict mode
-    run_pipe(
-        'sed -i \'s|typeCheckingMode = "standard"|typeCheckingMode = "strict"|\''
-        f" {pyproject_toml}"
-    )
+    # Check strict mode is configured
+    assert 'typeCheckingMode = "strict"' in pyproject_toml.read_text()
 
     # Ensure pyright is still happy
     run = make_venv(tmp_path)
     run(f"./venv/bin/pyright {tmp_path}")
+
+
+def test_ignores_mypy_strict_mode(tmp_path: Path):
+    copy_project(tmp_path, type_checker="mypy", strict_typing=True)
+    pyproject_toml = tmp_path / "pyproject.toml"
+
+    # Check strict mode is not configured
+    assert "typeCheckingMode =" not in pyproject_toml.read_text()
 
 
 def test_works_with_pydocstyle(tmp_path: Path):

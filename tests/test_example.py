@@ -52,7 +52,7 @@ def test_template_defaults(tmp_path: Path):
     assert container_doc.exists()
     catalog_info = tmp_path / "catalog-info.yaml"
     assert catalog_info.exists()
-    assert 'typeCheckingMode = "standard"' in pyproject_toml.read_text()
+    assert 'typeCheckingMode = "strict"' in pyproject_toml.read_text()
     run("./venv/bin/tox -p")
     if not run_pipe("git tag --points-at HEAD"):
         # Only run linkcheck if not on a tag, as the CI might not have pushed
@@ -70,8 +70,16 @@ def test_template_with_extra_code_and_api_docs(tmp_path: Path):
     init = tmp_path / "src" / "python_copier_template_example" / "__init__.py"
     init.write_text(
         init.read_text().replace(
-            "__all__ = [",
+            """
+from ._version import __version__
+
+__all__ = [""",
             '''
+from python_copier_template_example import extra_pkg
+
+from ._version import __version__
+
+
 class TopCls:
     """A top level class."""
 
@@ -215,12 +223,12 @@ print(obj._bar)
         run("ruff check")
 
 
-def test_pyright_works_in_strict_typing_mode(tmp_path: Path):
-    copy_project(tmp_path, type_checker="pyright", strict_typing=True)
+def test_pyright_works_in_standard_typing_mode(tmp_path: Path):
+    copy_project(tmp_path, type_checker="pyright", strict_typing=False)
     pyproject_toml = tmp_path / "pyproject.toml"
 
-    # Check strict mode is configured
-    assert 'typeCheckingMode = "strict"' in pyproject_toml.read_text()
+    # Check standard mode is configured
+    assert 'typeCheckingMode = "standard"' in pyproject_toml.read_text()
 
     # Ensure pyright is still happy
     run = make_venv(tmp_path)

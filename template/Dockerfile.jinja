@@ -17,13 +17,16 @@ FROM developer AS build
 COPY . /context
 WORKDIR /context
 RUN touch dev-requirements.txt && pip install -c dev-requirements.txt .
+RUN pip install debugpy
 
 # The runtime stage copies the built venv into a slim runtime container
 FROM python:${PYTHON_VERSION}-slim AS runtime
-# Add apt-get system dependecies for runtime here if needed
+# Add apt-get system dependencies for runtime here if needed
 COPY --from=build /venv/ /venv/
 ENV PATH=/venv/bin:$PATH
 
-# change this entrypoint if it is not the same as the repo
-ENTRYPOINT ["{{ repo_name }}"]
-CMD ["--version"]{% endif %}
+# change CMD if it is not the same as the repo
+ENTRYPOINT ["python" "-m"]
+# Allows for modifying the ENTRYPOINT for debugging, e.g.
+#ENTRYPOINT ["python", "-m", "debugpy", "-m"]
+CMD ["{{ repo_name }}", "--version"]{% endif %}

@@ -41,6 +41,13 @@ jobs:
     permissions:
       contents: read
       packages: write
+{% endif %}{% if helm %}
+  helm:
+    needs: container
+    uses: ./.github/workflows/_helm.yml
+    permissions:
+      contents: read
+      packages: write
 {% endif %}{% if sphinx %}
   docs:
     needs: check

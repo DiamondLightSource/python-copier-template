@@ -105,7 +105,7 @@ docker:
 
 helm:
     type: bool
-    when: "{{ github_org == 'DiamondLightSource' && docker}}"
+    when: "{{ github_org == 'DiamondLightSource'}}  and docker"
     help: |
         Would you like to publish a Helm chart?
         You should select this if you are making a long-running service.

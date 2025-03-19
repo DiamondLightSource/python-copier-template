@@ -26,7 +26,7 @@ COPY --from=build /venv/ /venv/
 ENV PATH=/venv/bin:$PATH
 
 # change CMD if it is not the same as the repo
-ENTRYPOINT ["python" "-m"]
+ENTRYPOINT ["python"]
 # Allows for modifying the ENTRYPOINT for debugging, e.g.
-#ENTRYPOINT ["python", "-m", "debugpy", "-m"]
-CMD ["{{ repo_name }}", "--version"]{% endif %}
+#ENTRYPOINT ["python", "-m", "debugpy"]
+CMD ["-m", "{{ repo_name }}", "--version"]{% endif %}

@@ -103,6 +103,14 @@ docker:
         Would you like to publish your project in a Docker container?
         You should select this if you are making a service.
 
+helm:
+    type: bool
+    when: "{{ github_org == 'DiamondLightSource' && docker}}"
+    help: |
+        Would you like to publish a Helm chart?
+        You should select this if you are making a long-running service.
+        This requires that releases use Semantic Versioning
+
 docs_type:
     type: str
     help: |

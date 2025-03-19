@@ -1,3 +1,7 @@
+env:
+  CHART_NAME: {{ repo_name }}
+{% raw %}
+
 on:
   workflow_call:
 
@@ -20,6 +24,9 @@ jobs:
         uses: Azure/setup-helm@v4
         id: install
 
+      - name: Lint Helm chart
+        run: helm lint helm/{{ repo_name }}
+
       - name: Log in to GitHub Container Registry
         if: github.ref_type == 'tag'
         run: |
@@ -28,6 +35,7 @@ jobs:
       - name: package chart and push it
         if: github.ref_type == 'tag'
         run: |
-          helm dependencies update helm/{{ repo_name }}
-          helm package helm/{{ repo_name }} {% raw %}--version ${{ steps.meta.outputs.version }} --app-version ${{ steps.meta.outputs.version }}{% endraw %} -d /tmp/
-          helm push /tmp/{{ repo_name }}-{% raw %}${{ steps.meta.outputs.version }}.tgz oci://ghcr.io/${{ github.repository_owner }}{% endraw %}/charts
+          helm dependencies update helm/${{ env.CHART_NAME }}
+          helm package helm/${{ env.CHART_NAME }} --version ${{ steps.meta.outputs.version }} --app-version ${{ steps.meta.outputs.version }} -d /tmp/
+          helm push /tmp/${{ env.CHART_NAME }}-${{ steps.meta.outputs.version }}.tgz oci://ghcr.io/${{ github.repository_owner }}/charts
+{% endraw %}

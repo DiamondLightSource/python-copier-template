@@ -4,6 +4,8 @@ repos:
     hooks:
       - id: check-added-large-files
       - id: check-yaml
+        # These yaml files output valid yaml only after templating
+        exclude: ^helm/{{ repo_name }}/templates/
       - id: check-merge-conflict
       - id: end-of-file-fixer
 

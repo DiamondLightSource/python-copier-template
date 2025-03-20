@@ -5,7 +5,11 @@ repos:
       - id: check-added-large-files
       - id: check-yaml
         # These yaml files output valid yaml only after templating
-        exclude: ^helm/{{ repo_name }}/templates/
+        ignore:
+          - "template/{% if helm %}helm{% endif %}/{{ chart_name }}/templates/"
+          - "template/{% if helm %}helm{% endif %}/{{ chart_name }}/Chart.yaml"
+          - "{% if helm %}helm{% endif %}/{{ chart_name }}/templates/"
+          - "{% if helm %}helm{% endif %}/{{ chart_name }}/Chart.yaml"
       - id: check-merge-conflict
       - id: end-of-file-fixer
 

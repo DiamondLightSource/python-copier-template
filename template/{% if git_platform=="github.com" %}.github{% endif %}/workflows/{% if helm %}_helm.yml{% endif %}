@@ -1,8 +1,4 @@
-env:
-  CHART_NAME: {{ repo_name }}
-{% raw %}
-
-on:
+{% raw -%}on:
   workflow_call:
 
 jobs:
@@ -10,35 +6,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Assign environment variables
+        # This is required because oci requires the repository is lowercase
+        run: |
+          echo "CHART_REPO=ghcr.io/${OWNER@L}" >>${GITHUB_ENV}
+          echo "CHART_NAME=${CHART@L}" >>${GITHUB_ENV}
+        env:
+          OWNER: "${{ github.repository_owner }}"
+          CHART: {% endraw %}{{ chart_name }}{% raw %}
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Create tags for publishing image
+      - name: Create tag for publishing chart
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
             type=semver,pattern={{version}}
-            type=ref,event=tag
-            type=raw,value=latest
 
       - name: Install Helm
         uses: Azure/setup-helm@v4
         id: install
 
       - name: Lint Helm chart
-        run: helm lint helm/{{ repo_name }}
+        run: helm lint helm/${{ env.CHART_NAME }}
 
       - name: Log in to GitHub Container Registry
         if: github.ref_type == 'tag'
         run: |
-          echo ${{ secrets.GITHUB_TOKEN }} | helm registry login ghcr.io/${{ github.repository }} --username ${{ github.repository_owner }} --password-stdin
+          echo ${{ secrets.GITHUB_TOKEN }} | helm registry login ${{ env.CHART_REPO }} --username ${{ github.repository_owner }} --password-stdin
 
-      - name: package chart and push it
+      - name: Publish Helm chart to container registry
         if: github.ref_type == 'tag'
         run: |
           helm dependencies update helm/${{ env.CHART_NAME }}
           helm package helm/${{ env.CHART_NAME }} --version ${{ steps.meta.outputs.version }} --app-version ${{ steps.meta.outputs.version }} -d /tmp/
-          helm push /tmp/${{ env.CHART_NAME }}-${{ steps.meta.outputs.version }}.tgz oci://ghcr.io/${{ github.repository_owner }}/charts
-{% endraw %}
+          helm push /tmp/${{ env.CHART_NAME }}-${{ steps.meta.outputs.version }}.tgz oci://${{ env.CHART_REPO }}/charts{% endraw %}

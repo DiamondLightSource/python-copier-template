@@ -111,6 +111,18 @@ helm:
         You should select this if you are making a long-running service.
         This requires that releases use Semantic Versioning
 
+chart_name:
+    type: str
+    when: helm
+    default: "{{ package_name | replace('_', '') | lower() }}"
+    help: |
+        Chart names must be lower case letters and numbers. Words may be separated with dashes (-)
+        But dashes may cause issues with templating.
+    validator: >-
+        {% if not (package_name | regex_search('^[a-z0-9]+(?:-?[a-z0-9])+$')) %}
+        {{chart_name}} is not a valid Helm chart name
+        {% endif %}
+
 docs_type:
     type: str
     help: |

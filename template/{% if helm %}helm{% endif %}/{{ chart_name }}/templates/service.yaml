@@ -1,0 +1,15 @@
+{% raw -%}apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "{% endraw %}{{ chart_name }}{% raw %}.fullname" . }}
+  labels:
+    {{- include "{% endraw %}{{ chart_name }}{% raw %}.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "{% endraw %}{{ chart_name }}{% raw %}.selectorLabels" . | nindent 4 }}{% endraw %}

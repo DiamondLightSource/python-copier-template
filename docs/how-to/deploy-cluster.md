@@ -1,10 +1,7 @@
-# How to deploy containers to Kubernetes cluster
+# Deploy with Helm
 
-If your project is a service with a `Dockerfile`, you may wish to deploy it in a Kubernetes cluster.
-
-## Creating a Helm chart
-
-Helm bundles multiple Kubernetes resources into a single top level resource, `Chart`, and templates resources to inject specified `values`.
+If your project is a service, you may wish to deploy it into a Kubernetes cluster using Helm. 
+If enabled, a `helm/` directory is created, which bundles Kubernetes resources into a top level resource, `Chart`, and templates resources to inject specified `values`.
 
 ```
     service/
@@ -14,35 +11,20 @@ Helm bundles multiple Kubernetes resources into a single top level resource, `Ch
     └── templates/    # Templated Kubernetes resources
 ```
 
-`templates/` may include at least:
+`templates/` includes among others:
 - `deployment.yaml`: creates a pod including your container image
 - `service.yaml`: manages Kubernetes networking, potentially exposing your service
 - `ingress.yaml`:  optionally maps a DNS entry to the Kubernetes networking
 
-Using `helm create` ensures your service is using the latest standards, therefore Helm resources are not included in this template.
-To avoid collisions and to maintain a neat repository, it is recommended to run `helm create <service name>` inside a directory named `helm/` in the root of your repository.
-
-Assuming your container is published to the GitHub container registry, modify your `values.yaml` to deploy your built container.
+Assuming your container is published to the GitHub container registry, `values.yaml` will be pre-configured to use your built container and enable debugging.
 
 ```yaml
 image:
-  repository: ghcr.io/<organisation>/<service>
+  repository: ghcr.io/{{ organisation }}/{{ repo_name }}
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
-```
 
-The container will use the `ENTRYPOINT` and `CMD` defined in your `Dockerfile`.
-
-It is recommended to preserve all of the templates within `templates/`: resources you do not need can be disabled from `values.yaml` while maintaining the ability to deploy or extend the chart.
-
-## Enabling container debugging
-
-The generated `Dockerfile` installs debugpy and with a few modifications can enable remote debugging of a service deployed inside a cluster.
-
-Adding the following to your `values.yaml` gives a standard way of enabling/disabling debugging and documenting the configuration.
-
-```yaml
 # Use `kubectl port forward` to access from your machine
 debug:
   # Whether the container should start in debug mode
@@ -53,39 +35,32 @@ debug:
   port: 5678
 ```
 
+To enable debugging, the CMD arguments of the Dockerfile have been overwritten by the analogous `args` from Kubernetes.
 The `ENTRYPOINT` and `CMD` concepts in the Dockerfile are analogous to Kubernetes' `command` and `args`.
 If `command` is set, it overrides `ENTRYPOINT` and uses `args` if set, ignoring `CMD`.
 If `args` is set, `ENTRYPOINT` remains and `CMD` is replaced.
 
-Assuming your `Dockerfile` contains the following, or analogous:
-
-```Dockerfile
-ENTRYPOINT ["python"]
-CMD ["-m", "service", "--version"]
-```
-
-Modifying `deployment.yaml` in the following way allows for your service to enable debugging via the configuration added to `values.yaml`.
 
 ```yaml
-      containers:
-        - ...
-          args:
-          {{- if .Values.debug.enabled}}
-          - "-Xfrozen_modules=off"
-          - "-m"
-          - "debugpy"
-          {{- if .Values.debug.suspend }}
-          - "--wait-for-client"
-          {{- end }}
-          - "--listen"
-          - "0.0.0.0:{{ .Values.debug.port }}"
-          {{- end }}
-          - "-m"
-          - "service"
-          - "--version"
+  args:
+  {{- if .Values.debug.enabled}}
+  - "-Xfrozen_modules=off"
+  - "-m"
+  - "debugpy"
+  {{- if .Values.debug.suspend }}
+  - "--wait-for-client"
+  {{- end }}
+  - "--listen"
+  - "0.0.0.0:{{ .Values.debug.port }}"
+  {{- end }}
+  - "-m"
+  - "service"
+  - "--version"
 ```
 
-## Connecting to debug mode container
+It is recommended to preserve all of the templates within `templates/`: resources you do not need can be disabled from `values.yaml` while maintaining the ability to deploy or extend the chart.
+
+## Connecting to a container in debug mode
 
 `kubectl port forward` forwards your development machine's port 5678 to the container's:
 

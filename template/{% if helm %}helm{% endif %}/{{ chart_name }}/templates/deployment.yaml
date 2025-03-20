@@ -35,6 +35,20 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          args:
+          {{- if .Values.debug.enabled}}
+          - "-Xfrozen_modules=off"
+          - "-m"
+          - "debugpy"
+          {{- if .Values.debug.suspend }}
+          - "--wait-for-client"
+          {{- end }}
+          - "--listen"
+          - "0.0.0.0:{{ .Values.debug.port }}"
+          {{- end }}
+          - "-m"
+          - {% endraw %}"{{ repo_name }}"{% raw %}
+          - "--version"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http

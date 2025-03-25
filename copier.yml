@@ -122,6 +122,18 @@ type_checker:
         - pyright
         - mypy
 
+strict_typing:
+    type: bool
+    when: >-
+        {{ type_checker == 'pyright' }}
+    default: true
+    help: |
+        Would you like to run pyright in strict mode?
+        The recommended approach is to start with strict mode and disable it if it 
+        becomes too costly to maintain. 
+        See https://diamondlightsource.github.io/python-copier-template/main/how-to/strict-mode.html 
+        for more information.
+
 pypi:
     type: bool
     help: Would you like the wheel and source distribution to be automatically uploaded to PyPI when a release is made?

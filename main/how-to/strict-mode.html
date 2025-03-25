@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Enable Pyright’s Strict Mode &#8212; python-copier-template 2.6.1.dev8+g1357917 documentation</title>
+    <title>Use Pyright’s Strict Mode &#8212; python-copier-template 2.6.1.dev12+g6efc60c documentation</title>
   
   
   
@@ -41,7 +41,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=660b879a"></script>
+    <script src="../_static/documentation_options.js?v=add93d4a"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -386,7 +386,7 @@
 <li class="toctree-l1"><a class="reference internal" href="readme-images.html">How to add images to the README</a></li>
 <li class="toctree-l1"><a class="reference internal" href="run-tests.html">Run the tests using pytest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="static-analysis.html">Run static analysis using pyright or mypy</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Enable Pyright’s Strict Mode</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Use Pyright’s Strict Mode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="update-template.html">How to update to the latest template structure</a></li>
 </ul>
 </div>
@@ -431,7 +431,7 @@
     
     <li class="breadcrumb-item"><a href="../how-to.html" class="nav-link">How-to Guides</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Enable Pyright’s Strict Mode</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Use Pyright’s Strict Mode</span></li>
   </ul>
 </nav>
 </div>
@@ -448,21 +448,17 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="enable-pyright-s-strict-mode">
-<h1>Enable Pyright’s Strict Mode<a class="headerlink" href="#enable-pyright-s-strict-mode" title="Link to this heading">#</a></h1>
-<p>For projects using pyright you can enable strict mode for stricter than normal type checking. See <a class="reference external" href="https://github.com/microsoft/pyright/blob/main/docs/configuration.md">the docs</a> for a full breakdown. The primary benefits are increased confidence in code that has been more thoroughly analyzed and a shorter development time thanks to fast feedback from the type checker.</p>
-<section id="configuration">
-<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">#</a></h2>
-<p>Change the <code class="docutils literal notranslate"><span class="pre">typeCheckingMode</span></code> line to <code class="docutils literal notranslate"><span class="pre">&quot;strict&quot;</span></code> in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> as follows:</p>
-<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.pyright]</span>
-<span class="n">typeCheckingMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;strict&quot;</span>
-<span class="n">reportMissingImports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="c1"># Ignore missing stubs in imported modules</span>
-</pre></div>
-</div>
+  <section id="use-pyright-s-strict-mode">
+<h1>Use Pyright’s Strict Mode<a class="headerlink" href="#use-pyright-s-strict-mode" title="Link to this heading">#</a></h1>
+<p>For projects using pyright you can enable strict mode for stricter than normal type checking. See <a class="reference external" href="https://github.com/microsoft/pyright/blob/main/docs/configuration.md">the docs</a> for a full breakdown.</p>
+<section id="how-to-enable">
+<h2>How to Enable<a class="headerlink" href="#how-to-enable" title="Link to this heading">#</a></h2>
+<p>When creating a template, select <code class="docutils literal notranslate"><span class="pre">pyright</span></code> as the type checker and type <code class="docutils literal notranslate"><span class="pre">y</span></code> when prompted to enable strict mode.</p>
 </section>
-<section id="third-party-libraries">
-<h2>Third Party Libraries<a class="headerlink" href="#third-party-libraries" title="Link to this heading">#</a></h2>
-<p>Strict mode does not usually work well with libraries that do not have <a class="reference external" href="https://github.com/microsoft/pyright/blob/main/docs/type-stubs.md">type stubs</a>, you will likely need a <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">type:</span> <span class="pre">ignore</span></code> on any line that directly uses the library code. This may limit the usefulness of pyright but it can still be worth doing to ensure your own code is internally consistent.</p>
+<section id="who-should-use-strict-mode">
+<h2>Who Should Use Strict Mode?<a class="headerlink" href="#who-should-use-strict-mode" title="Link to this heading">#</a></h2>
+<p>Strict mode enforces good practices such as type hints on function signatures, providing increased confidence in code that has been more thoroughly analyzed and a shorter development time thanks to fast feedback from the type checker. Starting a new project and continually keeping it passing provides a long-term benefit when it comes to maintanability and robustness. However, adopting strict mode on top of legacy projects is likely to lead to lots of errors to work through - probably thousands. Additionally it does not usually work well with libraries that do not have <a class="reference external" href="https://github.com/microsoft/pyright/blob/main/docs/type-stubs.md">type stubs</a>, you will likely need a <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">type:</span> <span class="pre">ignore</span></code> on any line that directly uses the library code. This may limit the usefulness of pyright but it can still be worth doing to ensure your own code is internally consistent.</p>
+<p>The recommended approach for brand new projects is to enable strict mode and stick with it for as long as is practical, moving away if it starts to cause more hindrance than help (e.g. because too many major dependencies do not support it).</p>
 </section>
 </section>
 
@@ -513,8 +509,8 @@
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration">Configuration</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#third-party-libraries">Third Party Libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-enable">How to Enable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#who-should-use-strict-mode">Who Should Use Strict Mode?</a></li>
 </ul>
   </nav></div>
 

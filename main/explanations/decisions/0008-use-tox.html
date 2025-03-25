@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>8. Use tox and pre-commit &#8212; python-copier-template 2.6.1.dev8+g1357917 documentation</title>
+    <title>8. Use tox and pre-commit &#8212; python-copier-template 2.6.1.dev12+g6efc60c documentation</title>
   
   
   
@@ -41,7 +41,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=660b879a"></script>
+    <script src="../../_static/documentation_options.js?v=add93d4a"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -493,7 +493,7 @@ against the changes you are about to commit.</p>
 </ul>
 <p>The initial approach this module took was to integrate everything
 under pytest that had a plugin, and isort under flake8:</p>
-<div class="graphviz"><object data="../../_images/graphviz-e10d73b1177bd3d81dea5149fc243ea8b20edd25.svg" type="image/svg+xml" class="graphviz">
+<div class="graphviz"><object data="../../_images/graphviz-73aea2e234f54821c63c96e3a6004114dca9996d.svg" type="image/svg+xml" class="graphviz">
 <p class="warning">digraph initial {
 bgcolor=transparent
 graph [fontname=&quot;Lato&quot; fontsize=10 style=filled fillcolor=&quot;#8BC4E9&quot;]
@@ -514,7 +514,7 @@ report all test failures, but made each run take longer than it needed to. Also,
 flake8 states that it <a class="reference external" href="https://flake8.pycqa.org/en/latest/user/python-api.html">does not have a public, stable, Python API</a> so did not
 recommend the approach taken by pytest-flake8.</p>
 <p>To address this, the tree was rearranged:</p>
-<div class="graphviz"><object data="../../_images/graphviz-c7e4922068220c188f3d592b12f2049ea04875de.svg" type="image/svg+xml" class="graphviz">
+<div class="graphviz"><object data="../../_images/graphviz-f8f8f3ff66103f1bf4daa971c51029c76330d56d.svg" type="image/svg+xml" class="graphviz">
 <p class="warning">digraph rearranged {
 bgcolor=transparent
 graph [fontname=&quot;Lato&quot; fontsize=10 style=filled fillcolor=&quot;#8BC4E9&quot;]
@@ -544,7 +544,7 @@ parallel with:</p>
 </pre></div>
 </div>
 <p>The graph now looks like:</p>
-<div class="graphviz"><object data="../../_images/graphviz-8493c858f07a863e5211798a0734e53dcd52c3c2.svg" type="image/svg+xml" class="graphviz">
+<div class="graphviz"><object data="../../_images/graphviz-681b9931eef03e3784be859f4b8e5486f1cc8e4a.svg" type="image/svg+xml" class="graphviz">
 <p class="warning">digraph rearranged {
 bgcolor=transparent
 graph [fontname=&quot;Lato&quot; fontsize=10 style=filled fillcolor=&quot;#8BC4E9&quot;]

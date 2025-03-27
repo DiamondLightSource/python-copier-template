@@ -1,4 +1,3 @@
-
 # How to check code coverage
 
 Code coverage is reported to the command line and to a `cov.xml` file by the command `tox -e tests`. The file is uploaded to the Codecov service in CI.

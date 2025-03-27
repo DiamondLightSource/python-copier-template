@@ -6,6 +6,7 @@ component_lifecycle: experimental
 description: An expanded https://github.com/DiamondLightSource/python-copier-template to illustrate how it looks with all the options enabled.
 distribution_name: dls-python-copier-template-example
 docker: true
+helm: false
 docs_type: sphinx
 git_platform: github.com
 github_org: DiamondLightSource

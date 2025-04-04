@@ -19,8 +19,11 @@ dev = [
     "sphinx-copybutton",
     "sphinx-design",
     "tox",
-    "tox-direct",
 ]
+
+# # Without this, setuptools apparently try to scan the whole image's filesystem while working in /
+# [tool.setuptools.packages.find]
+# where = []
 
 [tool.setuptools_scm]
 
@@ -32,27 +35,54 @@ addopts = """
 # Doctest python code in docs, python code in src docstrings, test functions in tests
 testpaths = "tests"
 
-# tox must currently be configured via an embedded ini string
-# See: https://github.com/tox-dev/tox/issues/999
-[tool.tox]
-legacy_tox_ini = """
-[tox]
-skipsdist=True
 
-[testenv:{pre-commit,tests,docs}]
-# Don't create a virtualenv for the command, requires tox-direct plugin
-direct = True
-passenv = *
-allowlist_externals =
-    pre-commit
-    pytest
-    sphinx-build
-    sphinx-autobuild
-commands =
-    pre-commit: pre-commit run --all-files --show-diff-on-failure {posargs}
-    tests: pytest {posargs}
-    docs: sphinx-{posargs:build -EW --keep-going} -T docs build/html
-"""
+[tool.tox]
+skipsdist = true
+
+[tool.tox.env.pre-commit]
+description = "Run pre-commit"
+direct = true
+allowlist_externals = ["pre-commit"]
+commands = [
+    [
+        "pre-commit",
+        "run",
+        #"--all-files",
+        "--show-diff-on-failure",
+        "{posargs}",
+    ],
+]
+
+[tool.tox.env.tests]
+description = "Run tests"
+direct = true
+allowlist_externals = ["pytest"]
+commands = [
+    [
+        "pytest",
+        "--cov=phoebus_guibuilder",
+        "--cov-report",
+        "term",
+        "--cov-report",
+        "xml:cov.xml",
+        "{posargs}",
+    ],
+]
+
+[tool.tox.env.docs]
+description = "Run docs"
+direct = true
+allowlist_externals = ["sphinx-build", "sphinx-autobuild"]
+commands = [
+    [
+        "sphinx-{posargs:build}",
+        "-EW",
+        "--keep-going",
+        "-T",
+        "docs",
+        "build/html",
+    ],
+]
 
 [tool.ruff]
 src = ["src", "tests"]

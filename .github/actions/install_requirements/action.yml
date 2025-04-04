@@ -4,9 +4,6 @@ inputs:
   python-version:
     description: Python version to install, default is from Dockerfile
     default: "dev"
-  pip-install:
-    description: Parameters to pass to pip install
-    default: "$([ -f dev-requirements.txt ] && echo '-c dev-requirements.txt') -e .[dev]"
 
 runs:
   using: composite
@@ -20,15 +17,25 @@ runs:
         echo "PYTHON_VERSION=$PYTHON_VERSION" >> "$GITHUB_ENV"
       shell: bash
 
-    - name: Setup python
-      uses: actions/setup-python@v5
+    - name: Install uv and set the python version
+      uses: astral-sh/setup-uv@v5
       with:
         python-version: ${{ env.PYTHON_VERSION }}
+        enable-cache: true
+        cache-dependency-glob: "uv.lock"
 
-    - name: Install packages
-      run: pip install ${{ inputs.pip-install }}
+    - name: Install dependencies
+      run: uv sync
       shell: bash
 
     - name: Report what was installed
-      run: pip freeze
+      run: uv pip list
+      shell: bash
+
+    - name: Add venv path to Github environment
+      run: echo "VENV_PATH=.venv" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Add venv path to Github Path
+      run: echo "${{ env.VENV_PATH }}/bin:$PATH" >> $GITHUB_PATH
       shell: bash

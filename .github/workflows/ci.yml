@@ -11,37 +11,45 @@ jobs:
   lint:
     needs: check
     if: needs.check.outputs.branch-pr == ''
-    uses: ./.github/workflows/_tox.yml
+    uses: ./.github/workflows/_hatch.yml
     with:
-      tox: pre-commit
+      hatch: precommit,type-check
 
   test:
     needs: check
     if: needs.check.outputs.branch-pr == ''
+    strategy:
+      matrix:
+        runs-on: ["ubuntu-latest"] # can add windows-latest, macos-latest
+        python-version: ["3.11"]
+        include:
+          # Include one that runs in the dev environment
+          - runs-on: "ubuntu-latest"
+            python-version: "dev"
+      fail-fast: false
     uses: ./.github/workflows/_test.yml
     with:
-      python-version: dev
-      runs-on: ubuntu-latest
+      runs-on: ${{ matrix.runs-on }}
+      python-version: ${{ matrix.python-version }}
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
-  docs:
+  container:
     needs: check
     if: needs.check.outputs.branch-pr == ''
-    uses: ./.github/workflows/_docs.yml
+    uses: ./.github/workflows/_container.yml
     permissions:
-      contents: write
+      contents: read
+      packages: write
 
-  example:
-    needs: test
-    if: github.ref_name == 'main'
-    uses: ./.github/workflows/_example.yml
-    secrets:
-      EXAMPLE_DEPLOY_KEY: ${{ secrets.EXAMPLE_DEPLOY_KEY }}
+  dist:
+    needs: check
+    if: needs.check.outputs.branch-pr == ''
+    uses: ./.github/workflows/_dist.yml
 
   release:
     if: github.ref_type == 'tag'
-    needs: docs
+    needs: [dist]
     uses: ./.github/workflows/_release.yml
     permissions:
       contents: write

@@ -5,9 +5,18 @@ FROM python:${PYTHON_VERSION} AS developer
 
 # Add any system dependencies for the developer/build environment here
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    graphviz \
+    graphviz vim \
     && rm -rf /var/lib/apt/lists/*
+# Install uv using the official installer script
+RUN curl -LsSf https://astral.sh/uv/install.sh | \
+    env UV_INSTALL_DIR="/usr/local/bin" sh
 
-# Set up a virtual environment and put it in PATH
-RUN python -m venv /venv
-ENV PATH=/venv/bin:$PATH
+# Configure environment
+ENV UV_CHECK_UPDATE=false
+# Configure UV to use system Python
+# ENV UV_SYSTEM_PYTHON=1
+
+# Creates virtual environment
+RUN uv venv --seed venv
+ENV VIRTUAL_ENV=/venv
+ENV PATH=$VIRTUAL_ENV/bin:$PATH

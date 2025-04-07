@@ -8,20 +8,7 @@ First clone the repository locally using [Git](https://git-scm.com/downloads). T
 
 ## Install dependencies
 
-You can choose to either develop on the host machine using a `venv` (which requires python 3.10 or later) or to run in a container under [VSCode](https://code.visualstudio.com/)
-
-<!-- https://sphinx-design.readthedocs.io/en/latest/tabs.html# -->
-::::{tab-set}
-
-:::{tab-item} Local virtualenv
-```
-python3 -m venv venv
-source venv/bin/activate
-pip install -e '.[dev]'
-```
-:::
-
-:::{tab-item} VSCode devcontainer
+It is recommended that developers use a [vscode devcontainer](https://code.visualstudio.com/docs/devcontainers/containers). This repository contains configuration to set up a containerized development environment that suits its own needs.
 
 Ensure you have the [vscode devcontainer extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) installed.
 
@@ -32,10 +19,8 @@ code .
 ```
 
 Click on 'Reopen in Container' when prompted on startup or, if vscode is already running, open the command menu with CTRL+SHIFT+P, search for and run 'Reopen in Container'.
-Open a new terminal
-:::
 
-::::
+Open a new terminal
 
 ## Build and test
 

@@ -11,9 +11,9 @@ jobs:
   lint:
     needs: check
     if: needs.check.outputs.branch-pr == ''
-    uses: ./.github/workflows/_hatch.yml
+    uses: ./.github/workflows/_tox.yml
     with:
-      hatch: precommit,type-check
+      tox: precommit,type-check
 
   test:
     needs: check

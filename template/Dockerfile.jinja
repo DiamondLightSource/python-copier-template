@@ -5,24 +5,36 @@ FROM python:${PYTHON_VERSION} AS developer
 
 # Add any system dependencies for the developer/build environment here
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    graphviz \
+    graphviz vim \
     && rm -rf /var/lib/apt/lists/*
+# Install uv using the official installer script
+RUN curl -LsSf https://astral.sh/uv/install.sh | \
+    env UV_INSTALL_DIR="/usr/local/bin" sh
 
-# Set up a virtual environment and put it in PATH
-RUN python -m venv /venv
-ENV PATH=/venv/bin:$PATH{% if docker %}
+# Configure environment
+ENV UV_CHECK_UPDATE=false
+# Configure UV to use system Python
+# ENV UV_SYSTEM_PYTHON=1
+
+# Creates virtual environment
+RUN uv venv --seed venv
+ENV VIRTUAL_ENV=/venv
+ENV PATH=$VIRTUAL_ENV/bin:$PATH{% if docker %}
 
 # The build stage installs the context into the venv
 FROM developer AS build
 COPY . /context
 WORKDIR /context
-RUN touch dev-requirements.txt && pip install -c dev-requirements.txt .
+
+# install dependencies and project into the local packages directory
+RUN touch dev-requirements.txt && uv pip install -c dev-requirements.txt .
 
 # The runtime stage copies the built venv into a slim runtime container
 FROM python:${PYTHON_VERSION}-slim AS runtime
 # Add apt-get system dependecies for runtime here if needed
 COPY --from=build /venv/ /venv/
-ENV PATH=/venv/bin:$PATH
+ENV VIRTUAL_ENV=/venv
+ENV PATH=$VIRTUAL_ENV/bin:$PATH
 
 # change this entrypoint if it is not the same as the repo
 ENTRYPOINT ["{{ repo_name }}"]

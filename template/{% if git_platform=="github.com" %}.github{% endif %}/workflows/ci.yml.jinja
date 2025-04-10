@@ -54,14 +54,14 @@ jobs:
   {% if pypi %}
   pypi:
     if: github.ref_type == 'tag'
-    needs: dist
+    needs: [dist, test]
     uses: ./.github/workflows/_pypi.yml
     permissions:
       id-token: write
   {% endif %}
   release:
     if: github.ref_type == 'tag'
-    needs: [dist{% if sphinx %}, docs{% endif %}]
+    needs: [dist, test{% if sphinx %}, docs{% endif %}]
     uses: ./.github/workflows/_release.yml
     permissions:
       contents: write

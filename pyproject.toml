@@ -6,9 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "python-copier-template"
 dynamic = ["version"]
 requires-python = ">=3.11"
-
-[project.optional-dependencies]
-dev = [
+optional-dependencies = { dev = [
     "copier",
     "myst-parser",
     "pre-commit",
@@ -19,7 +17,7 @@ dev = [
     "sphinx-copybutton",
     "sphinx-design",
     "tox-uv",
-]
+] }
 
 # # Without this, setuptools apparently try to scan the whole image's filesystem while working in /
 # [tool.setuptools.packages.find]

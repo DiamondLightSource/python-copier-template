@@ -26,14 +26,14 @@ dev = [
     {% endif %}"pipdeptree",
     "pre-commit",
     {% if sphinx %}"pydata-sphinx-theme>=0.12",
-    {% endif %}{% if type_checker=="pyright" %}"pyright",
-    {% endif %}"pytest",
+    {% endif %} {% if type_checker=="pyright" %}"pyright",
+    {% endif %}"pytest>8.3.4",
     "pytest-cov",
     "ruff",
     {% if sphinx %}"sphinx-autobuild",
     "sphinx-copybutton",
     "sphinx-design",
-    {% endif %}"tox-direct",
+    {% endif %}"tox-uv",
     "types-mock",
 ]
 
@@ -77,30 +77,60 @@ data_file = "/tmp/{{ package_name }}.coverage"
 # Tests are run from installed location, map back to the src directory
 source = ["src", "**/site-packages/"]
 
-# tox must currently be configured via an embedded ini string
-# See: https://github.com/tox-dev/tox/issues/999
 [tool.tox]
-legacy_tox_ini = """
-[tox]
-skipsdist=True
+skipsdist = true
 
-[testenv:{pre-commit,type-checking,tests{% if sphinx %},docs{% endif %}}]
-# Don't create a virtualenv for the command, requires tox-direct plugin
-direct = True
-passenv = *
-allowlist_externals =
-    pytest
-    pre-commit
-    {{ type_checker }}
-{% if sphinx %}    sphinx-build
-    sphinx-autobuild
-{% endif %}commands =
-    pre-commit: pre-commit run --all-files --show-diff-on-failure {posargs}
-    type-checking: {{ type_checker }} src tests {posargs}
-    tests: pytest --cov={{ package_name }} --cov-report term --cov-report xml:cov.xml {posargs}
-{% if sphinx %}    docs: sphinx-{posargs:build -EW --keep-going} -T docs build/html
-{% endif %}"""
+[tool.tox.env.pre-commit]
+description = "Run pre-commit"
+direct = true
+allowlist_externals = ["pre-commit"]
+commands = [
+    [
+        "pre-commit",
+        "run",
+        #"--all-files",
+        "--show-diff-on-failure",
+        "{posargs}",
+    ],
+]
 
+[tool.tox.env.type-checking]
+description = "Run type-checking"
+direct = true
+allowlist_externals = ["{{ type_checker }}"]
+commands = [["{{ type_checker }}", "src", "{posargs}"]]
+
+[tool.tox.env.tests]
+description = "Run tests"
+direct = true
+allowlist_externals = ["pytest"]
+commands = [
+    [
+        "pytest",
+        "--cov={{ package_name}}",
+        "--cov-report",
+        "term",
+        "--cov-report",
+        "xml:cov.xml",
+        "{posargs}",
+    ],
+]
+
+{% if sphinx %}[tool.tox.env.docs]
+description = "Run docs"
+direct = true
+allowlist_externals = ["sphinx-build", "sphinx-autobuild"]
+commands = [
+    [
+        "sphinx-{posargs:build}",
+        "-EW",
+        "--keep-going",
+        "-T",
+        "docs",
+        "build/html",
+    ],
+]
+{% endif %}
 [tool.ruff]
 src = ["src", "tests"]
 line-length = 88

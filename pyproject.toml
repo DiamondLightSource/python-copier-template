@@ -57,17 +57,7 @@ commands = [
 description = "Run tests"
 direct = true
 allowlist_externals = ["pytest"]
-commands = [
-    [
-        "pytest",
-        "--cov=phoebus_guibuilder",
-        "--cov-report",
-        "term",
-        "--cov-report",
-        "xml:cov.xml",
-        "{posargs}",
-    ],
-]
+commands = [["pytest", "{posargs}"]]
 
 [tool.tox.env.docs]
 description = "Run docs"

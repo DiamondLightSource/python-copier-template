@@ -14,8 +14,8 @@ ENV PATH=/venv/bin:$PATH{% if docker %}
 
 # The build stage installs the context into the venv
 FROM developer AS build
-COPY . /context
-WORKDIR /context
+COPY --chmod=777 . /workspaces/{{ repo_name }}
+WORKDIR /workspaces/{{ repo_name }}
 RUN touch dev-requirements.txt && pip install -c dev-requirements.txt .
 
 FROM build AS debug

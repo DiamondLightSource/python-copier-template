@@ -25,7 +25,7 @@ runs:
         cache-dependency-glob: "uv.lock"
 
     - name: Install dependencies
-      run: uv sync
+      run: uv sync --extra dev
       shell: bash
 
     - name: Report what was installed

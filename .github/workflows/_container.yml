@@ -46,6 +46,26 @@ jobs:
             type=ref,event=tag
             type=raw,value=latest
 
+      - name: Create tags for publishing debug image
+        id: debug-meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=ref,event=tag,suffix=-debug
+            type=raw,value=latest-debug
+
+      - name: Build and publish debug image to container registry
+        if: github.ref_type == 'tag'
+        uses: docker/build-push-action@v6
+        env:
+          DOCKER_BUILD_RECORD_UPLOAD: false
+        with:
+          context: .
+          push: true
+          target: debug
+          tags: ${{ steps.debug-meta.outputs.tags }}
+
       - name: Push cached image to container registry
         if: github.ref_type == 'tag'
         uses: docker/build-push-action@v6

@@ -51,4 +51,4 @@ jobs:
     needs: release
     uses: ./.github/workflows/_account_sync.yml
     permissions:
-      contents: write
+      packages: write

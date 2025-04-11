@@ -42,9 +42,9 @@ jobs:
       contents: read
       packages: write
   
-  push container:
+  push_container:
     needs: [container, test]
-    uses: ./github/workflows/_push_container.yml
+    uses: ./.github/workflows/_push_container.yml
     permissions:
       contents: read
       packages: write

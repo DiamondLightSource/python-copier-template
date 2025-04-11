@@ -43,6 +43,7 @@ jobs:
       packages: write
   
   push_container:
+    if: github.ref_type == 'tag'
     needs: [container, test]
     uses: ./.github/workflows/_push_container.yml
     permissions:

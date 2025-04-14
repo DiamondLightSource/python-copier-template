@@ -34,22 +34,23 @@ jobs:
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
-  container:
+  docs:
     needs: check
     if: needs.check.outputs.branch-pr == ''
-    uses: ./.github/workflows/_container.yml
+    uses: ./.github/workflows/_docs.yml
     permissions:
-      contents: read
-      packages: write
+      contents: write
 
-  dist:
-    needs: check
-    if: needs.check.outputs.branch-pr == ''
-    uses: ./.github/workflows/_dist.yml
+  example:
+    needs: test
+    if: github.ref_name == 'main'
+    uses: ./.github/workflows/_example.yml
+    secrets:
+      EXAMPLE_DEPLOY_KEY: ${{ secrets.EXAMPLE_DEPLOY_KEY }}
 
   release:
     if: github.ref_type == 'tag'
-    needs: [dist]
+    needs: docs
     uses: ./.github/workflows/_release.yml
     permissions:
       contents: write

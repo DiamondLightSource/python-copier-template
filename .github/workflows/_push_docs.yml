@@ -6,6 +6,87 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Avoid git conflicts when tag and branch pushed at same time
+        if: github.ref_type == 'tag'
+        run: sleep 60
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Need this to get version number from last tag
+          fetch-depth: 0
+
+      - name: Avoid git conflicts when tag and branch pushed at same time
+        if: github.ref_type == 'tag'
+        run: sleep 60
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Need this to get version number from last tag
+          fetch-depth: 0
+
+      - name: Avoid git conflicts when tag and branch pushed at same time
+        if: github.ref_type == 'tag'
+        run: sleep 60
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Need this to get version number from last tag
+          fetch-depth: 0
+
+      - name: Avoid git conflicts when tag and branch pushed at same time
+        if: github.ref_type == 'tag'
+        run: sleep 60
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Need this to get version number from last tag
+          fetch-depth: 0
+
+      - name: Avoid git conflicts when tag and branch pushed at same time
+        if: github.ref_type == 'tag'
+        run: sleep 60
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Need this to get version number from last tag
+          fetch-depth: 0
+
+      - name: Avoid git conflicts when tag and branch pushed at same time
+        if: github.ref_type == 'tag'
+        run: sleep 60
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Need this to get version number from last tag
+          fetch-depth: 0
+
+      - name: Avoid git conflicts when tag and branch pushed at same time
+        if: github.ref_type == 'tag'
+        run: sleep 60
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Need this to get version number from last tag
+          fetch-depth: 0
+
+      - name: Avoid git conflicts when tag and branch pushed at same time
+        if: github.ref_type == 'tag'
+        run: sleep 60
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Need this to get version number from last tag
+          fetch-depth: 0
+
+
       - name: Download built docs artifact
         uses: actions/download-artifact@v4
         with:

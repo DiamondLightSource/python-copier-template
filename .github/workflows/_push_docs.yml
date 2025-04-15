@@ -6,10 +6,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Avoid git conflicts when tag and branch pushed at same time
-        if: github.ref_type == 'tag'
-        run: sleep 60
-
       - name: Checkout
         uses: actions/checkout@v4
         with:

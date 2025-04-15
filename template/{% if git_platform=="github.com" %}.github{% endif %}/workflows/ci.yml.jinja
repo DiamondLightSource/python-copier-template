@@ -54,6 +54,12 @@ jobs:
     needs: check
     if: needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_docs.yml
+  
+  push_docs:
+    needs: docs
+    uses: ./.github/workflows/_push_docs.yml
+    permissions:
+      contents: write
 {% endif %}
   dist:
     needs: check

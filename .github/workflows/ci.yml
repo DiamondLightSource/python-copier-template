@@ -33,7 +33,7 @@ jobs:
       contents: write
 
   push_docs:
-    needs: docs
+    needs: [test, docs]
     uses: ./.github/workflows/_push_docs.yml
     permissions:
       contents: write

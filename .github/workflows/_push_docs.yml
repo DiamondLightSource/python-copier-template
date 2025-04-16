@@ -2,7 +2,7 @@ on:
   workflow_call:
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
 
     steps:

@@ -10,7 +10,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: container
-          path: container
+          path: ${{ runner.temp }}
+      
+      - name: Load image
+        run: |
+          docker load --input ${{ runner.temp}}/myimage.tar
           
       - name: Create tags for publishing image
         id: meta

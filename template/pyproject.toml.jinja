@@ -17,16 +17,15 @@ dynamic = ["version"]
 license.file = "LICENSE"
 readme = "README.md"
 requires-python = ">=3.10"
-
-[project.optional-dependencies]
-dev = [
+optional-dependencies = { dev = [
+    "build",
     "copier",
     {% if type_checker=="mypy" %}"mypy",
     {% endif %}{% if sphinx %}"myst-parser",
     {% endif %}"pipdeptree",
     "pre-commit",
     {% if sphinx %}"pydata-sphinx-theme>=0.12",
-    {% endif %} {% if type_checker=="pyright" %}"pyright",
+    {% endif %}{% if type_checker=="pyright" %}"pyright",
     {% endif %}"pytest>8.3.4",
     "pytest-cov",
     "ruff",
@@ -34,18 +33,13 @@ dev = [
     "sphinx-copybutton",
     "sphinx-design",
     {% endif %}"tox-uv",
+    "twine",
     "types-mock",
-]
-
-[project.scripts]
-{{ repo_name }} = "{{ package_name }}.__main__:main"
-
-[project.urls]
-GitHub = "{{ repo_url }}"
-
-[[project.authors]] # Further authors may be added by duplicating this section
-email = "{{ author_email }}"
-name = "{{ author_name }}"
+] }
+scripts = { {{ repo_name }} = "{{ package_name }}.__main__:main" }
+urls = { GitHub = "{{ repo_url }}" }
+# Further authors may be added by appending to this list
+authors = [ { email = "{{ author_email }}", name = "{{ author_name }}" } ]
 
 
 [tool.setuptools_scm]
@@ -79,10 +73,17 @@ source = ["src", "**/site-packages/"]
 
 [tool.tox]
 skipsdist = true
+requires = ["tox-uv>=1.25.0"]
+# envs to runs automatically with tox -p
+env_list = ["pre-commit", "type-checking", "docs"] # "tests"]
+
+[tool.tox.env]
+passenv = { "*" = "" }
+# Include setuptools, pip, ... in the tox envs
+uv_seed = { enabled = true }
 
 [tool.tox.env.pre-commit]
 description = "Run pre-commit"
-direct = true
 allowlist_externals = ["pre-commit"]
 commands = [
     [
@@ -96,13 +97,13 @@ commands = [
 
 [tool.tox.env.type-checking]
 description = "Run type-checking"
-direct = true
 allowlist_externals = ["{{ type_checker }}"]
+# needed otherwise throws reportUnknownMemberType errors
+deps = ["pytest"]
 commands = [["{{ type_checker }}", "src", "{posargs}"]]
 
 [tool.tox.env.tests]
 description = "Run tests"
-direct = true
 allowlist_externals = ["pytest"]
 commands = [
     [
@@ -118,16 +119,17 @@ commands = [
 
 {% if sphinx %}[tool.tox.env.docs]
 description = "Run docs"
-direct = true
 allowlist_externals = ["sphinx-build", "sphinx-autobuild"]
 commands = [
     [
-        "sphinx-{posargs:build}",
-        "-EW",
-        "--keep-going",
+        "sphinx-build",
         "-T",
         "docs",
         "build/html",
+        { replace = "posargs", default = [
+            "-EW",
+            "--keep-going",
+        ], extend = true },
     ],
 ]
 {% endif %}

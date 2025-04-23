@@ -20,13 +20,14 @@ requires-python = ">=3.11"
 
 [project.optional-dependencies]
 dev = [
+    "build",
     "copier",
     {% if type_checker=="mypy" %}"mypy",
     {% endif %}{% if sphinx %}"myst-parser",
     {% endif %}"pipdeptree",
     "pre-commit",
     {% if sphinx %}"pydata-sphinx-theme>=0.12",
-    {% endif %} {% if type_checker=="pyright" %}"pyright",
+    {% endif %}{% if type_checker=="pyright" %}"pyright",
     {% endif %}"pytest>8.3.4",
     "pytest-cov",
     "ruff",
@@ -34,6 +35,7 @@ dev = [
     "sphinx-copybutton",
     "sphinx-design",
     {% endif %}"tox-uv",
+    "twine",
     "types-mock",
 ]
 
@@ -79,10 +81,17 @@ source = ["src", "**/site-packages/"]
 
 [tool.tox]
 skipsdist = true
+requires = ["tox-uv>=1.25.0"]
+# envs to runs automatically with tox -p
+env_list = ["pre-commit", "type-checking", "docs"] # "tests"]
+
+[tool.tox.env]
+passenv = { "*" = "" }
+# Include setuptools, pip, ... in the tox envs
+uv_seed = { enabled = true }
 
 [tool.tox.env.pre-commit]
 description = "Run pre-commit"
-direct = true
 allowlist_externals = ["pre-commit"]
 commands = [
     [
@@ -90,44 +99,55 @@ commands = [
         "run",
         #"--all-files",
         "--show-diff-on-failure",
-        "{posargs}",
+        { replace = "posargs", default = [], extend = true },
     ],
 ]
 
 [tool.tox.env.type-checking]
 description = "Run type-checking"
-direct = true
 allowlist_externals = ["{{ type_checker }}"]
-commands = [["{{ type_checker }}", "src", "{posargs}"]]
+# needed otherwise throws reportUnknownMemberType errors
+deps = ["pytest"]
+commands = [
+    [
+        "{{ type_checker }}",
+        "src",
+        "tests",
+        { replace = "posargs", default = [
+        ], extend = true },
+    ],
+]
 
 [tool.tox.env.tests]
 description = "Run tests"
-direct = true
 allowlist_externals = ["pytest"]
 commands = [
     [
         "pytest",
-        "--cov={{ package_name}}",
+        "-vv",
+        "--cov={{ package_name }}",
         "--cov-report",
         "term",
         "--cov-report",
         "xml:cov.xml",
-        "{posargs}",
+        { replace = "posargs", default = [
+        ], extend = true },
     ],
 ]
 
 {% if sphinx %}[tool.tox.env.docs]
 description = "Run docs"
-direct = true
 allowlist_externals = ["sphinx-build", "sphinx-autobuild"]
 commands = [
     [
-        "sphinx-{posargs:build}",
-        "-EW",
-        "--keep-going",
+        "sphinx-build",
         "-T",
         "docs",
         "build/html",
+        { replace = "posargs", default = [
+            "-EW",
+            "--keep-going",
+        ], extend = true },
     ],
 ]
 {% endif %}

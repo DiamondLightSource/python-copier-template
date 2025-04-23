@@ -17,6 +17,7 @@ optional-dependencies = { dev = [
     "sphinx-copybutton",
     "sphinx-design",
     "tox-uv",
+    "twine>=6.1.0",
 ] }
 
 # # Without this, setuptools apparently try to scan the whole image's filesystem while working in /
@@ -36,10 +37,17 @@ testpaths = "tests"
 
 [tool.tox]
 skipsdist = true
+requires = ["tox-uv>=1.25.0"]
+# envs to runs automatically with tox -p
+env_list = ["pre-commit", "tests", "docs"]
+
+[tool.tox.env]
+passenv = { "*" = "" }
+# Include setuptools, pip, ... in the tox envs
+uv_seed = { enabled = true }
 
 [tool.tox.env.pre-commit]
 description = "Run pre-commit"
-direct = true
 allowlist_externals = ["pre-commit"]
 commands = [
     [
@@ -53,22 +61,22 @@ commands = [
 
 [tool.tox.env.tests]
 description = "Run tests"
-direct = true
 allowlist_externals = ["pytest"]
 commands = [["pytest", "{posargs}"]]
 
 [tool.tox.env.docs]
 description = "Run docs"
-direct = true
 allowlist_externals = ["sphinx-build", "sphinx-autobuild"]
 commands = [
     [
-        "sphinx-{posargs:build}",
-        "-EW",
-        "--keep-going",
+        "sphinx-build",
         "-T",
         "docs",
         "build/html",
+        { replace = "posargs", default = [
+            "-EW",
+            "--keep-going",
+        ], extend = true },
     ],
 ]
 

@@ -31,6 +31,7 @@ jobs:
         with:
           context: .
           # Need load and tags so we can test it below
+          load: true
           tags: tag_for_testing
           outputs: type=docker,dest=${{ runner.temp }}/myimage.tar
 

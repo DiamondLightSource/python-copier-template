@@ -32,8 +32,8 @@ RUN touch dev-requirements.txt && uv pip install -c dev-requirements.txt .
 # The runtime stage copies the built venv into a slim runtime container
 FROM python:${PYTHON_VERSION}-slim AS runtime
 # Add apt-get system dependecies for runtime here if needed
-COPY --from=build /venv/ /venv/
-ENV VIRTUAL_ENV=/venv
+COPY --from=build /venv/ .venv/
+ENV VIRTUAL_ENV=./.venv
 ENV PATH=$VIRTUAL_ENV/bin:$PATH
 
 # change this entrypoint if it is not the same as the repo

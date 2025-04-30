@@ -41,6 +41,8 @@ urls = { GitHub = "{{ repo_url }}" }
 # Further authors may be added by appending to this list
 authors = [ { email = "{{ author_email }}", name = "{{ author_name }}" } ]
 
+[tool.uv]
+default-groups = []
 
 [tool.setuptools_scm]
 version_file = "src/{{ package_name }}/_version.py"
@@ -53,6 +55,8 @@ typeCheckingMode = "standard"
 {% endif %}{% if type_checker=="mypy" %}
 [tool.mypy]
 ignore_missing_imports = true # Ignore missing stubs in imported modules
+explicit_package_bases = true
+#no_namespace_packages = true
 {% endif %}
 [tool.pytest.ini_options]
 # Run pytest with all our checkers, and don't spam us with massive tracebacks on error
@@ -108,6 +112,7 @@ allowlist_externals = ["pytest"]
 commands = [
     [
         "pytest",
+        "-vv",
         "--cov={{ package_name}}",
         "--cov-report",
         "term",

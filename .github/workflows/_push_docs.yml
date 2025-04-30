@@ -2,24 +2,40 @@ on:
   workflow_call:
 
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Avoid git conflicts when tag and branch pushed at same time
+        if: github.ref_type == 'tag'
+        run: sleep 60
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
           # Need this to get version number from last tag
           fetch-depth: 0
 
-      - name: Download built docs artifact
-        uses: actions/download-artifact@v4
+      - name: Install system packages
+        run: sudo apt-get install graphviz
+
+      - name: Install python packages
+        uses: ./.github/actions/install_requirements
+
+      - name: Build docs
+        run: tox -e docs
+
+      - name: Remove environment.pickle
+        run: rm build/html/.doctrees/environment.pickle
+
+      - name: Upload built docs artifact
+        uses: actions/upload-artifact@v4
         with:
           name: docs
           path: build
 
       - name: Sanitize ref name for docs version
-        run: echo "DOCS_VERSION=${GITHUB_REF_NAME//[^A-Za-z-1-9._-]/_}" >> $GITHUB_ENV
+        run: echo "DOCS_VERSION=${GITHUB_REF_NAME//[^A-Za-z0-9._-]/_}" >> $GITHUB_ENV
 
       - name: Move to versioned directory
         run: mv build/html .github/pages/$DOCS_VERSION
@@ -28,6 +44,7 @@ jobs:
         run: python .github/pages/make_switcher.py --add $DOCS_VERSION ${{ github.repository }} .github/pages/switcher.json
 
       - name: Publish Docs to gh-pages
+        if: github.ref_type == 'tag' || github.ref_name == 'main'
         # We pin to the SHA, not the tag, for security reasons.
         # https://docs.github.com/en/actions/learn-github-actions/security-hardening-for-github-actions#using-third-party-actions
         uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e # v4.0.0

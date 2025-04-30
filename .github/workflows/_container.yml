@@ -36,9 +36,3 @@ jobs:
 
       - name: Test cli works in cached runtime image
         run: docker run --rm tag_for_testing --version
-      
-      - name: Upload container as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: container
-          path: ${{ runner.temp }}/myimage.tar

@@ -28,12 +28,6 @@ jobs:
       - name: Remove environment.pickle
         run: rm build/html/.doctrees/environment.pickle
 
-      - name: Upload built docs artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: docs
-          path: build
-
       - name: Sanitize ref name for docs version
         run: echo "DOCS_VERSION=${GITHUB_REF_NAME//[^A-Za-z0-9._-]/_}" >> $GITHUB_ENV
 

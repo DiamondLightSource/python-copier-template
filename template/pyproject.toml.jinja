@@ -95,7 +95,7 @@ commands = [
         "run",
         #"--all-files",
         "--show-diff-on-failure",
-        "{posargs}",
+        { replace = "posargs", default = [], extend = true },
     ],
 ]
 
@@ -104,7 +104,15 @@ description = "Run type-checking"
 allowlist_externals = ["{{ type_checker }}"]
 # needed otherwise throws reportUnknownMemberType errors
 deps = ["pytest"]
-commands = [["{{ type_checker }}", "src", "{posargs}"]]
+commands = [
+    [
+        "{{ type_checker }}",
+        "src",
+        "tests",
+        { replace = "posargs", default = [
+        ], extend = true },
+    ],
+]
 
 [tool.tox.env.tests]
 description = "Run tests"
@@ -113,12 +121,13 @@ commands = [
     [
         "pytest",
         "-vv",
-        "--cov={{ package_name}}",
+        "--cov=python_copier_template_example",
         "--cov-report",
         "term",
         "--cov-report",
         "xml:cov.xml",
-        "{posargs}",
+        { replace = "posargs", default = [
+        ], extend = true },
     ],
 ]
 

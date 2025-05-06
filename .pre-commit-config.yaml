@@ -9,13 +9,14 @@ repos:
 
   - repo: https://github.com/astral-sh/uv-pre-commit
     # uv version.
-    rev: 0.6.14
+    rev: 0.7.2
     hooks:
       - id: uv-lock
+      # Synchronize dependencies upon branch checkout, pull or rebase
+      # requires extra hook types to be installed!!!
+      # - id: uv-sync
 
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    # Ruff version.
-    rev: v0.11.4
+  - repo: local
     hooks:
       # Run the linter.
       - id: ruff

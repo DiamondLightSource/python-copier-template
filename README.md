@@ -48,7 +48,7 @@ You will need to `pip install copier` inside an activated `venv` from python3.10
 ```
 mkdir /path/to/my-project
 # The --trust argument is required to run setup tasks such as initializing a git repository
-copier copy --trust gh:DiamondLightSource/python-copier-template /path/to/my-project
+copier copy --trust https://github.com/DiamondLightSource/python-copier-template.git /path/to/my-project
 ```
 
 You can also use it via `pipx run copier` if you have that installed.

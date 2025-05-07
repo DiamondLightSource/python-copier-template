@@ -41,26 +41,11 @@ jobs:
     permissions:
       contents: read
       packages: write
-  
-  push_container:
-    if: github.ref_type == 'tag'
-    needs: [container, test]
-    uses: ./.github/workflows/_push_container.yml
-    permissions:
-      contents: read
-      packages: write
 {% endif %}{% if sphinx %}
   docs:
     needs: check
     if: needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_docs.yml
-  
-  push_docs:
-    needs: [test, docs]
-    if: github.ref_type == 'tag' || github.ref_name == 'main'
-    uses: ./.github/workflows/_push_docs.yml
-    permissions:
-      contents: write
 {% endif %}
   dist:
     needs: check

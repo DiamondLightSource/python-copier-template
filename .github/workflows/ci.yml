@@ -32,13 +32,6 @@ jobs:
     permissions:
       contents: write
 
-  push_docs:
-    needs: [test, docs]
-    if: github.ref_type == 'tag' || github.ref_name == 'main'
-    uses: ./.github/workflows/_push_docs.yml
-    permissions:
-      contents: write
-
   example:
     needs: test
     if: github.ref_name == 'main'

@@ -40,7 +40,7 @@ jobs:
       EXAMPLE_DEPLOY_KEY: ${{ secrets.EXAMPLE_DEPLOY_KEY }}
 
   release:
-    if: github.ref_type == 'tag'
+    if: needs.test.result && github.ref_type == 'tag'
     needs: [test, docs]
     uses: ./.github/workflows/_release.yml
     permissions:

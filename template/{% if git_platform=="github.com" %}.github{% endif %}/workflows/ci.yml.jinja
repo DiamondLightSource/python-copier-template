@@ -49,7 +49,7 @@ jobs:
 {% endif %}
   dist:
     needs: check
-    if: needs.check.outputs.branch-pr == ''
+    if: needs.test.output && needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_dist.yml
   {% if pypi %}
   pypi:
@@ -60,7 +60,7 @@ jobs:
       id-token: write
   {% endif %}
   release:
-    if: github.ref_type == 'tag'
+    if: needs.test.output && github.ref_type == 'tag'
     needs: [dist, test{% if sphinx %}, docs{% endif %}]
     uses: ./.github/workflows/_release.yml
     permissions:

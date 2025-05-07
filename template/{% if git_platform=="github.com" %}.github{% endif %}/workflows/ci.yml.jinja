@@ -35,7 +35,7 @@ jobs:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 {% endraw %}{% if docker %}
   container:
-    needs: check
+    needs: [check, test]
     if: needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_container.yml
     permissions:
@@ -43,7 +43,7 @@ jobs:
       packages: write
 {% endif %}{% if sphinx %}
   docs:
-    needs: check
+    needs: [check, test]
     if: needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_docs.yml
 {% endif %}

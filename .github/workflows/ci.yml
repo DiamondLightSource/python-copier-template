@@ -26,7 +26,7 @@ jobs:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   docs:
-    needs: check
+    needs: [check, test]
     if: needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_docs.yml
     permissions:

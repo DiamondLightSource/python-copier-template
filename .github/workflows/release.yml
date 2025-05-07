@@ -2,9 +2,8 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
+    tags:
+      - '*'
 
 jobs:
   lint:
@@ -25,9 +24,8 @@ jobs:
     permissions:
       contents: write
 
-  example:
-    needs: test
-    if: github.ref_name == 'main'
-    uses: ./.github/workflows/_example.yml
-    secrets:
-      EXAMPLE_DEPLOY_KEY: ${{ secrets.EXAMPLE_DEPLOY_KEY }}
+  release:
+    needs: docs
+    uses: ./.github/workflows/_release.yml
+    permissions:
+      contents: write

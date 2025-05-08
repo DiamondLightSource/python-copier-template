@@ -58,7 +58,7 @@ jobs:
     uses: ./.github/workflows/_dist.yml
   {% if pypi %}
   pypi:
-    if: needs.dist.result == 'success' && github.ref_type == 'tag'
+    if: needs.dist.result == 'success' && needs.test.result == 'success' && github.ref_type == 'tag'
     needs: [dist, test]
     uses: ./.github/workflows/_pypi.yml
     permissions:

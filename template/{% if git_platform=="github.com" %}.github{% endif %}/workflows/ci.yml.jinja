@@ -39,7 +39,7 @@ jobs:
     if: always() && needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_container.yml
     with:
-      publish: ${{needs.test.result == 'success'}}
+      publish: ${{jobs.test.result == 'success'}}
     permissions:
       contents: read
       packages: write
@@ -49,7 +49,7 @@ jobs:
     if: always() && needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_docs.yml
     with:
-      publish: ${{needs.test.result == 'success'}}
+      publish: ${{jobs.test.result == 'success'}}
 
 {% endif %}
   dist:

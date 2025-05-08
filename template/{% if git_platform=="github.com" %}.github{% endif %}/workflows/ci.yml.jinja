@@ -53,7 +53,7 @@ jobs:
 
 {% endif %}
   dist:
-    needs: check
+    needs: [check, test]
     if: needs.test.result == 'success' && needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_dist.yml
   {% if pypi %}

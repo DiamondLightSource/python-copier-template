@@ -3,7 +3,7 @@ on:
     inputs:
       publish:
         type: boolean
-        description: If true, publishes docs to gh-pages
+        description: If true, pushes image to container registry
 
 jobs:
   build:

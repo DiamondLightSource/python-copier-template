@@ -53,13 +53,13 @@ jobs:
 
 {% endif %}
   dist:
-    needs: [check, test]
-    if: needs.test.result == 'success' && needs.check.outputs.branch-pr == ''
+    needs: check
+    if: needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_dist.yml
   {% if pypi %}
   pypi:
     if: needs.dist.result == 'success' && github.ref_type == 'tag'
-    needs: [dist]
+    needs: [dist, test]
     uses: ./.github/workflows/_pypi.yml
     permissions:
       id-token: write

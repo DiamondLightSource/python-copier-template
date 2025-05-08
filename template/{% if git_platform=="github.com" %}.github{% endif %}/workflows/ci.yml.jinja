@@ -33,25 +33,25 @@ jobs:
       python-version: ${{ matrix.python-version }}
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-{% endraw %}{% if docker %}
+{% endraw %}{% if docker %}{% raw %}
   container:
     needs: [check, test]
     if: always() && needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_container.yml
     with:
-      publish: ${{needs.test.result == 'success'}}
+      publish: ${{ needs.test.result == 'success' }}
     permissions:
       contents: read
       packages: write
-{% endif %}{% if sphinx %}
+{% endraw %}{% endif %}{% if sphinx %}{% raw %}
   docs:
     needs: [check, test]
     if: always() && needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_docs.yml
     with:
-      publish: ${{needs.test.result == 'success'}}
+      publish: ${{ needs.test.result == 'success' }}
 
-{% endif %}
+{% endraw %}{% endif %}
   dist:
     needs: check
     if: needs.check.outputs.branch-pr == ''

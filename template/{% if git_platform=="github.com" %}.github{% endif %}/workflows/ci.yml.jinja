@@ -36,7 +36,7 @@ jobs:
 {% endraw %}{% if docker %}
   container:
     needs: [check, test]
-    if: needs.check.outputs.branch-pr == ''
+    if: always() && needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_container.yml
     with:
       publish: ${{needs.test.result == 'success'}}
@@ -46,7 +46,7 @@ jobs:
 {% endif %}{% if sphinx %}
   docs:
     needs: [check, test]
-    if: needs.check.outputs.branch-pr == ''
+    if: always() && needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_docs.yml
     with:
       publish: ${{needs.test.result == 'success'}}

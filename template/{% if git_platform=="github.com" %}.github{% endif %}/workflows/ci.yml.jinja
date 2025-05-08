@@ -38,6 +38,8 @@ jobs:
     needs: [check, test]
     if: needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_container.yml
+    with:
+      publish: ${{needs.test.result == 'success'}}
     permissions:
       contents: read
       packages: write

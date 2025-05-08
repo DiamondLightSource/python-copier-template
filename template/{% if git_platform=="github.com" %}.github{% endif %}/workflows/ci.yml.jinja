@@ -59,7 +59,7 @@ jobs:
   {% if pypi %}
   pypi:
     if: github.ref_type == 'tag'
-    needs: [dist, test]
+    needs: [dist]
     uses: ./.github/workflows/_pypi.yml
     permissions:
       id-token: write

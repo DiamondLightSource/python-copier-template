@@ -43,7 +43,7 @@ jobs:
 
   release:
     needs: [test, docs]
-    if: needs.test.result == 'success' && github.ref_type == 'tag'
+    if: github.ref_type == 'tag'
     uses: ./.github/workflows/_release.yml
     permissions:
       contents: write

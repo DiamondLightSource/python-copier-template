@@ -66,7 +66,7 @@ jobs:
   {% endif %}
   release:
     needs: [dist, test{% if sphinx %}, docs{% endif %}]
-    if: needs.test.result == 'success' && github.ref_type == 'tag'
+    if: needs.dist.result == 'success' && needs.test.result == 'success' && github.ref_type == 'tag'
     uses: ./.github/workflows/_release.yml
     permissions:
       contents: write

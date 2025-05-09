@@ -26,9 +26,11 @@ jobs:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   docs:
-    needs: check
-    if: needs.check.outputs.branch-pr == ''
+    needs: [check, test]
+    if: always() && needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_docs.yml
+    with:
+      publish: ${{needs.test.result == 'success'}}
     permissions:
       contents: write
 
@@ -40,8 +42,8 @@ jobs:
       EXAMPLE_DEPLOY_KEY: ${{ secrets.EXAMPLE_DEPLOY_KEY }}
 
   release:
+    needs: [test, docs]
     if: github.ref_type == 'tag'
-    needs: docs
     uses: ./.github/workflows/_release.yml
     permissions:
       contents: write

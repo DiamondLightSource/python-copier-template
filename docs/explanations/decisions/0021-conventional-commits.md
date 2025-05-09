@@ -1,4 +1,4 @@
-# 3. Short descriptive title
+# 21. Semantic Versioning and Conventional Commits
 
 Date: 2025-04-07
 

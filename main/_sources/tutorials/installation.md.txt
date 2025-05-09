@@ -5,7 +5,7 @@ to create new projects from the template, update existing projects in line with 
 
 ## Check your version of python
 
-You will need python 3.10 or later. You can check your version of python by
+You will need python 3.11 or later. You can check your version of python by
 typing into a terminal:
 
 ```

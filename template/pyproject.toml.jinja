@@ -17,9 +17,7 @@ dynamic = ["version"]
 license.file = "LICENSE"
 readme = "README.md"
 requires-python = ">=3.10"
-
-[project.optional-dependencies]
-dev = [
+optional-dependencies = { dev = [
     "build",
     "copier",
     {% if type_checker=="mypy" %}"mypy",
@@ -37,17 +35,11 @@ dev = [
     {% endif %}"tox-uv",
     "twine",
     "types-mock",
-]
-
-[project.scripts]
-{{ repo_name }} = "{{ package_name }}.__main__:main"
-
-[project.urls]
-GitHub = "{{ repo_url }}"
-
-[[project.authors]] # Further authors may be added by duplicating this section
-email = "{{ author_email }}"
-name = "{{ author_name }}"
+] }
+scripts = { {{ repo_name }} = "{{ package_name }}.__main__:main" }
+urls = { GitHub = "{{ repo_url }}" }
+# Further authors may be added by appending to this list
+authors = [ { email = "{{ author_email }}", name = "{{ author_name }}" } ]
 
 [tool.uv]
 default-groups = []
@@ -63,6 +55,8 @@ typeCheckingMode = "standard"
 {% endif %}{% if type_checker=="mypy" %}
 [tool.mypy]
 ignore_missing_imports = true # Ignore missing stubs in imported modules
+explicit_package_bases = true
+#no_namespace_packages = true
 {% endif %}
 [tool.pytest.ini_options]
 # Run pytest with all our checkers, and don't spam us with massive tracebacks on error
@@ -101,7 +95,7 @@ commands = [
         "run",
         #"--all-files",
         "--show-diff-on-failure",
-        { replace = "posargs", default = [], extend = true },
+        "{posargs}",
     ],
 ]
 
@@ -110,15 +104,7 @@ description = "Run type-checking"
 allowlist_externals = ["{{ type_checker }}"]
 # needed otherwise throws reportUnknownMemberType errors
 deps = ["pytest"]
-commands = [
-    [
-        "{{ type_checker }}",
-        "src",
-        "tests",
-        { replace = "posargs", default = [
-        ], extend = true },
-    ],
-]
+commands = [["{{ type_checker }}", "src", "{posargs}"]]
 
 [tool.tox.env.tests]
 description = "Run tests"
@@ -127,13 +113,12 @@ commands = [
     [
         "pytest",
         "-vv",
-        "--cov=python_copier_template_example",
+        "--cov={{ package_name}}",
         "--cov-report",
         "term",
         "--cov-report",
         "xml:cov.xml",
-        { replace = "posargs", default = [
-        ], extend = true },
+        "{posargs}",
     ],
 ]
 

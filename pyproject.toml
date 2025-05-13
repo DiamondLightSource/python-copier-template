@@ -6,7 +6,9 @@ build-backend = "setuptools.build_meta"
 name = "python-copier-template"
 dynamic = ["version"]
 requires-python = ">=3.11"
-optional-dependencies = { dev = [
+
+[project.optional-dependencies]
+dev = [
     "copier",
     "myst-parser",
     "pre-commit",
@@ -18,11 +20,7 @@ optional-dependencies = { dev = [
     "sphinx-design",
     "tox-uv",
     "twine>=6.1.0",
-] }
-
-# # Without this, setuptools apparently try to scan the whole image's filesystem while working in /
-# [tool.setuptools.packages.find]
-# where = []
+]
 
 [tool.setuptools_scm]
 
@@ -55,14 +53,14 @@ commands = [
         "run",
         #"--all-files",
         "--show-diff-on-failure",
-        "{posargs}",
+        { replace = "posargs", default = [], extend = true },
     ],
 ]
 
 [tool.tox.env.tests]
 description = "Run tests"
 allowlist_externals = ["pytest"]
-commands = [["pytest", "{posargs}"]]
+commands = [["pytest", { replace = "posargs", default = [], extend = true }]]
 
 [tool.tox.env.docs]
 description = "Run docs"

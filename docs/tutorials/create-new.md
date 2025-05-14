@@ -4,7 +4,7 @@ Once you have followed the [](./installation) tutorial, you can use `copier` to 
 
 ```
 $ mkdir /path/to/my-project
-$ copier copy --trust gh:DiamondLightSource/python-copier-template /path/to/my-project
+$ copier copy --trust https://github.com/DiamondLightSource/python-copier-template.git /path/to/my-project
 ```
 
 This will:

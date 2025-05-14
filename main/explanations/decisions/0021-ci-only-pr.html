@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>13. Switch to copier &#8212; python-copier-template 3.0.1.dev3+ge07bbe8 documentation</title>
+    <title>21. Run CI on pull requests and main branch only &#8212; python-copier-template 3.0.1.dev3+ge07bbe8 documentation</title>
   
   
   
@@ -47,7 +47,7 @@
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../_static/copybutton.js?v=30646c52"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'explanations/decisions/0013-switch-to-copier';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'explanations/decisions/0021-ci-only-pr';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://DiamondLightSource.github.io/python-copier-template/switcher.json';
@@ -58,8 +58,8 @@
     <link rel="icon" href="../../_static/dls-logo.svg"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="14. Split up CI YAML" href="0014-split-ci-yaml.html" />
-    <link rel="prev" title="12. Use containers" href="0012-containers.html" />
+    <link rel="next" title="Template Project Structure" href="../structure.html" />
+    <link rel="prev" title="20. Support devcontainers as the opinionated way to contribute" href="0020-support-devcontainers.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="main" />
@@ -386,7 +386,7 @@
 <li class="toctree-l2"><a class="reference internal" href="0010-vscode-settings.html">10. Include vscode settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="0011-requirements-txt.html">11. Pinning requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="0012-containers.html">12. Use containers</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">13. Switch to copier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0013-switch-to-copier.html">13. Switch to copier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="0014-split-ci-yaml.html">14. Split up CI YAML</a></li>
 <li class="toctree-l2"><a class="reference internal" href="0015-use-ruff.html">15. Use ruff</a></li>
 <li class="toctree-l2"><a class="reference internal" href="0016-convert-to-mkdocs.html">16. Convert to mkdocs</a></li>
@@ -394,7 +394,7 @@
 <li class="toctree-l2"><a class="reference internal" href="0018-forbid-private-member-access-in-prod.html">18. Forbid Private Member Access in Production Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="0019-autosummary-api-docs.html">19. Use autosummary to create API docs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="0020-support-devcontainers.html">20. Support devcontainers as the opinionated way to contribute</a></li>
-<li class="toctree-l2"><a class="reference internal" href="0021-ci-only-pr.html">21. Run CI on pull requests and main branch only</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">21. Run CI on pull requests and main branch only</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../structure.html">Template Project Structure</a></li>
@@ -445,7 +445,7 @@
     
     <li class="breadcrumb-item"><a href="../decisions.html" class="nav-link">Architectural Decision Records</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">13. Switch to copier</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">21. Run CI on pull requests and main branch only</span></li>
   </ul>
 </nav>
 </div>
@@ -462,24 +462,27 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="switch-to-copier">
-<h1>13. Switch to copier<a class="headerlink" href="#switch-to-copier" title="Link to this heading">#</a></h1>
-<p>Date: 2024-01-18</p>
+  <section id="run-ci-on-pull-requests-and-main-branch-only">
+<h1>21. Run CI on pull requests and main branch only<a class="headerlink" href="#run-ci-on-pull-requests-and-main-branch-only" title="Link to this heading">#</a></h1>
+<p>Date: 2025-05-06</p>
 <section id="status">
 <h2>Status<a class="headerlink" href="#status" title="Link to this heading">#</a></h2>
 <p>Accepted</p>
 </section>
 <section id="context">
 <h2>Context<a class="headerlink" href="#context" title="Link to this heading">#</a></h2>
-<p>The previous attempt, <a class="reference external" href="https://github.com/DiamondLightSource/python3-pip-skeleton">python3-pip-skeleton</a> was a repo that can be forked and updates merged into projects tracking it. This was initially encouraging, but led to downstream confusion on who had actually contributed to the repository, as well as messy merges when text that contained the project name (like documentation) was changed upstream.</p>
+<p>CI has been being run on branches that do not have open pull requests, which has: added spurious jobs to the organisation’s compute limit; made workflow definitions more complex; made the results page harder to parse; and allowed known working development branches to become stale or forgotten.</p>
+<p>Running CI only on branches that have open pull requests will: reduce compute jobs created for code that is known to not be working; simplify workflow definitions; simplify the CI results page; encourage early creation of pull requests, adding visibility to development.</p>
+<p>Draft pull requests will still have CI jobs run, ensuring that code quality is maintained while allowing reviewers to ignore changes that are not ready for human review.</p>
 </section>
 <section id="decision">
 <h2>Decision<a class="headerlink" href="#decision" title="Link to this heading">#</a></h2>
-<p>Use <a class="reference external" href="https://copier.readthedocs.io/">copier</a> which gives the best of both worlds, a templating engine to expand the template, then an update mechanism to apply diffs of the updated template to the project.</p>
+<p>CI will only be run on all PRs when changes are made, and on the main branch when PRs are merged into it: not on branches that do not have open PRs.
+Opening a draft PR will allow CI to be run, with the understanding that the PR may not be ready for review.</p>
 </section>
 <section id="consequences">
 <h2>Consequences<a class="headerlink" href="#consequences" title="Link to this heading">#</a></h2>
-<p>We will need to create and document an adoption process for existing skeleton projects to move to this copier template</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">check</span></code> job will be removed and CI will run on all PRs and on the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch.</p>
 </section>
 </section>
 
@@ -494,20 +497,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="0012-containers.html"
+       href="0020-support-devcontainers.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">12. Use containers</p>
+        <p class="prev-next-title">20. Support devcontainers as the opinionated way to contribute</p>
       </div>
     </a>
     <a class="right-next"
-       href="0014-split-ci-yaml.html"
+       href="../structure.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">14. Split up CI YAML</p>
+        <p class="prev-next-title">Template Project Structure</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -541,7 +544,7 @@
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/DiamondLightSource/python-copier-template/edit/main/docs/explanations/decisions/0013-switch-to-copier.md">
+    <a href="https://github.com/DiamondLightSource/python-copier-template/edit/main/docs/explanations/decisions/0021-ci-only-pr.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -557,7 +560,7 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/explanations/decisions/0013-switch-to-copier.md.txt"
+      <li><a href="../../_sources/explanations/decisions/0021-ci-only-pr.md.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div></div>

@@ -847,7 +847,7 @@ wheels = [
 name = "python-copier-template"
 source = { editable = "." }
 
-[package.optional-dependencies]
+[package.dev-dependencies]
 dev = [
     { name = "copier" },
     { name = "myst-parser" },
@@ -863,20 +863,21 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [
-    { name = "copier", marker = "extra == 'dev'" },
-    { name = "myst-parser", marker = "extra == 'dev'" },
-    { name = "pre-commit", marker = "extra == 'dev'" },
-    { name = "pydata-sphinx-theme", marker = "extra == 'dev'", specifier = ">=0.12" },
-    { name = "pytest", marker = "extra == 'dev'" },
-    { name = "ruff", marker = "extra == 'dev'" },
-    { name = "sphinx-autobuild", marker = "extra == 'dev'" },
-    { name = "sphinx-copybutton", marker = "extra == 'dev'" },
-    { name = "sphinx-design", marker = "extra == 'dev'" },
-    { name = "tox-uv", marker = "extra == 'dev'" },
-    { name = "twine", marker = "extra == 'dev'", specifier = ">=6.1.0" },
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "copier" },
+    { name = "myst-parser" },
+    { name = "pre-commit" },
+    { name = "pydata-sphinx-theme", specifier = ">=0.12" },
+    { name = "pytest" },
+    { name = "ruff" },
+    { name = "sphinx-autobuild" },
+    { name = "sphinx-copybutton" },
+    { name = "sphinx-design" },
+    { name = "tox-uv" },
+    { name = "twine", specifier = ">=6.1.0" },
 ]
-provides-extras = ["dev"]
 
 [[package]]
 name = "pywin32"

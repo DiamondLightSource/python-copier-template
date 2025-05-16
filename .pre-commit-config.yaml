@@ -1,14 +1,24 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v5.0.0
     hooks:
       - id: check-added-large-files
       - id: check-yaml
       - id: check-merge-conflict
       - id: end-of-file-fixer
 
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    # uv version.
+    rev: 0.7.2
+    hooks:
+      - id: uv-lock
+      # Synchronize dependencies upon branch checkout, pull or rebase
+      # requires extra hook types to be installed!!!
+      # - id: uv-sync
+
   - repo: local
     hooks:
+      # Run the linter.
       - id: ruff
         name: lint with ruff
         language: system
@@ -16,6 +26,7 @@ repos:
         types: [python]
         require_serial: true
 
+      # Run the formatter.
       - id: ruff-format
         name: format with ruff
         language: system

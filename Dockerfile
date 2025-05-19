@@ -3,11 +3,9 @@
 ARG PYTHON_VERSION=3.11
 FROM python:${PYTHON_VERSION} AS developer
 
-# Add any system dependencies for the developer/build environment here
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    graphviz \
-    && rm -rf /var/lib/apt/lists/*
+# Use this version of uv
+ARG UV_VERSION=0.7
 
-# Set up a virtual environment and put it in PATH
-RUN python -m venv /venv
-ENV PATH=/venv/bin:$PATH
+# Install uv using the official image
+# See https://docs.astral.sh/uv/guides/integration/docker/#installing-uv
+COPY --from=ghcr.io/astral-sh/uv:${UV_VERSION} /uv /uvx /bin/

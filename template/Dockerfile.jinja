@@ -3,21 +3,38 @@
 ARG PYTHON_VERSION=3.11
 FROM python:${PYTHON_VERSION} AS developer
 
-# Add any system dependencies for the developer/build environment here
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    graphviz \
-    && rm -rf /var/lib/apt/lists/*
+# Use this version of uv
+ARG UV_VERSION=0.7
 
-# Set up a virtual environment and put it in PATH
-RUN python -m venv /venv
-ENV PATH=/venv/bin:$PATH{% if docker %}
+# Add any system dependencies for the developer/build environment here
+# RUN apt-get update && apt-get install -y --no-install-recommends \
+#     graphviz
+
+# Install uv using the official image
+# See https://docs.astral.sh/uv/guides/integration/docker/#installing-uv
+COPY --from=ghcr.io/astral-sh/uv:${UV_VERSION} /uv /uvx /bin/{% if docker %}
 
 # The build stage installs the context into the venv
 FROM developer AS build
-# Requires buildkit 0.17.0
-COPY --chmod=o+wrX . /workspaces/{{ repo_name }}
-WORKDIR /workspaces/{{ repo_name }}
-RUN touch dev-requirements.txt && pip install -c dev-requirements.txt .
+COPY . /context
+WORKDIR /context
+
+# Enable bytecode compilation and copy from the cache instead of linking 
+# since it's a mounted volume
+ENV UV_COMPILE_BYTECODE=1
+ENV UV_LINK_MODE=copy
+
+# Install the project's dependencies using the lockfile and settings
+RUN --mount=type=cache,target=/root/.cache/uv \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    uv sync --locked --no-install-project --no-dev
+
+# Then, add the rest of the project source code and install it
+# Installing separately from its dependencies allows optimal layer caching
+COPY . /context
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --locked --no-dev
 
 {% if docker_debug %}
 FROM build AS debug
@@ -44,9 +61,11 @@ CMD [ "while true; do sleep 30; done;" ]
 # The runtime stage copies the built venv into a slim runtime container
 FROM python:${PYTHON_VERSION}-slim AS runtime
 # Add apt-get system dependecies for runtime here if needed
-COPY --from=build /venv/ /venv/
-ENV PATH=/venv/bin:$PATH
 
-# change this entrypoint if it is not the same as the repo
+# We need to keep the venv at the same absolute path as in the build stage
+COPY --from=build /context/venv/ /context/venv/
+ENV PATH=/context/venv/bin:$PATH
+
+# Change this entrypoint if it is not the same as the repo
 ENTRYPOINT ["{{ repo_name }}"]
 CMD ["--version"]{% endif %}

@@ -37,10 +37,17 @@ def run_pipe(cmd: str, cwd=None):
 
 
 def make_venv(project_path: Path) -> callable:
-    venv_path = project_path / "venv"
-    run_pipe(f"python -m venv {venv_path}")
+    venv_path = project_path / ".venv"
     run = functools.partial(run_pipe, cwd=str(project_path))
-    run("./venv/bin/pip install -e .[dev]")
+    run("uv sync")  # Create a lockfile and install packages
+
+    for exe_path in [
+        venv_path / "bin" / "tox",
+        venv_path / "bin" / "python",
+        venv_path / "bin" / "uv",
+    ]:
+        assert exe_path.exists(), f"UV created a venv but did not install {exe_path}"
+
     return run
 
 
@@ -53,14 +60,14 @@ def test_template_defaults(tmp_path: Path):
     catalog_info = tmp_path / "catalog-info.yaml"
     assert catalog_info.exists()
     assert 'typeCheckingMode = "strict"' in pyproject_toml.read_text()
-    run("./venv/bin/tox -p")
+    run(".venv/bin/tox -p")
     if not run_pipe("git tag --points-at HEAD"):
         # Only run linkcheck if not on a tag, as the CI might not have pushed
         # the docs for this tag yet, so we will fail
-        run("./venv/bin/tox -e docs build -- -b linkcheck")
-    run("./venv/bin/pip install build twine")
-    run("./venv/bin/python -m build")
-    run("./venv/bin/twine check --strict dist/*")
+        run(".venv/bin/tox -p -e docs -- -b linkcheck")
+    run(".venv/bin/uv pip install twine")
+    run(".venv/bin/uv build")
+    run(".venv/bin/twine check --strict dist/*")
 
 
 def test_template_with_extra_code_and_api_docs(tmp_path: Path):
@@ -100,7 +107,7 @@ class Thing:
     # Add to make sure pre-commit doesn't moan
     run("git add .")
     # Build
-    run("./venv/bin/tox -p")
+    run(".venv/bin/tox -p")
     # Check it generates the right output
     api_dir = tmp_path / "build" / "html" / "_api"
     top_html = api_dir / "python_copier_template_example.html"
@@ -121,13 +128,13 @@ class Thing:
 def test_template_mypy(tmp_path: Path):
     copy_project(tmp_path, type_checker="mypy")
     run = make_venv(tmp_path)
-    run("./venv/bin/tox -p")
+    run(".venv/bin/tox -p")
 
 
 def test_template_no_docs(tmp_path: Path):
     copy_project(tmp_path, docs_type="README")
     run = make_venv(tmp_path)
-    run("./venv/bin/tox -p")
+    run(".venv/bin/tox -p")
 
 
 def test_template_in_different_org_has_no_catalog(tmp_path: Path):
@@ -141,7 +148,7 @@ def test_template_no_docker_has_no_docs_and_works(tmp_path: Path):
     container_doc = tmp_path / "docs" / "how-to" / "run-container.md"
     assert not container_doc.exists()
     run = make_venv(tmp_path)
-    run("./venv/bin/tox -p")
+    run(".venv/bin/tox -p")
 
 
 def test_bad_repo_name(tmp_path: Path):
@@ -232,7 +239,7 @@ def test_pyright_works_in_standard_typing_mode(tmp_path: Path):
 
     # Ensure pyright is still happy
     run = make_venv(tmp_path)
-    run(f"./venv/bin/pyright {tmp_path}")
+    run(f".venv/bin/pyright {tmp_path}")
 
 
 def test_ignores_mypy_strict_mode(tmp_path: Path):

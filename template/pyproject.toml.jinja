@@ -18,8 +18,9 @@ license.file = "LICENSE"
 readme = "README.md"
 requires-python = ">=3.11"
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
+    "build",
     "copier",
     {% if type_checker=="mypy" %}"mypy",
     {% endif %}{% if sphinx %}"myst-parser",
@@ -27,14 +28,16 @@ dev = [
     "pre-commit",
     {% if sphinx %}"pydata-sphinx-theme>=0.12",
     {% endif %}{% if type_checker=="pyright" %}"pyright",
-    {% endif %}"pytest",
+    {% endif %}"pytest>8.3.4",
     "pytest-cov",
     "ruff",
     {% if sphinx %}"sphinx-autobuild",
     "sphinx-copybutton",
     "sphinx-design",
-    {% endif %}"tox-direct",
+    {% endif %}"tox-uv",
+    "twine",
     "types-mock",
+    "uv~=0.7.0",
 ]
 
 [project.scripts]
@@ -46,7 +49,6 @@ GitHub = "{{ repo_url }}"
 [[project.authors]] # Further authors may be added by duplicating this section
 email = "{{ author_email }}"
 name = "{{ author_name }}"
-
 
 [tool.setuptools_scm]
 version_file = "src/{{ package_name }}/_version.py"
@@ -77,30 +79,78 @@ data_file = "/tmp/{{ package_name }}.coverage"
 # Tests are run from installed location, map back to the src directory
 source = ["src", "**/site-packages/"]
 
-# tox must currently be configured via an embedded ini string
-# See: https://github.com/tox-dev/tox/issues/999
 [tool.tox]
-legacy_tox_ini = """
-[tox]
-skipsdist=True
+skipsdist = true
+requires = ["tox-uv>=1.25.0"]
+# envs to runs automatically with tox -p
+env_list = ["pre-commit", "type-checking", "docs"] # "tests"]
 
-[testenv:{pre-commit,type-checking,tests{% if sphinx %},docs{% endif %}}]
-# Don't create a virtualenv for the command, requires tox-direct plugin
-direct = True
-passenv = *
-allowlist_externals =
-    pytest
-    pre-commit
-    {{ type_checker }}
-{% if sphinx %}    sphinx-build
-    sphinx-autobuild
-{% endif %}commands =
-    pre-commit: pre-commit run --all-files --show-diff-on-failure {posargs}
-    type-checking: {{ type_checker }} src tests {posargs}
-    tests: pytest --cov={{ package_name }} --cov-report term --cov-report xml:cov.xml {posargs}
-{% if sphinx %}    docs: sphinx-{posargs:build -EW --keep-going} -T docs build/html
-{% endif %}"""
+[tool.tox.env]
+passenv = { "*" = "" }
+# Include setuptools, pip, ... in the tox envs
+uv_seed = { enabled = true }
 
+[tool.tox.env.pre-commit]
+description = "Run pre-commit"
+allowlist_externals = ["pre-commit"]
+commands = [
+    [
+        "pre-commit",
+        "run",
+        #"--all-files",
+        "--show-diff-on-failure",
+        { replace = "posargs", default = [], extend = true },
+    ],
+]
+
+[tool.tox.env.type-checking]
+description = "Run type-checking"
+allowlist_externals = ["{{ type_checker }}"]
+# needed otherwise throws reportUnknownMemberType errors
+deps = ["pytest"]
+commands = [
+    [
+        "{{ type_checker }}",
+        "src",
+        "tests",
+        { replace = "posargs", default = [
+        ], extend = true },
+    ],
+]
+
+[tool.tox.env.tests]
+description = "Run tests"
+allowlist_externals = ["pytest"]
+commands = [
+    [
+        "pytest",
+        "-vv",
+        "--cov={{ package_name }}",
+        "--cov-report",
+        "term",
+        "--cov-report",
+        "xml:cov.xml",
+        { replace = "posargs", default = [
+        ], extend = true },
+    ],
+]
+
+{% if sphinx %}[tool.tox.env.docs]
+description = "Run docs"
+allowlist_externals = ["sphinx-build", "sphinx-autobuild"]
+commands = [
+    [
+        "sphinx-build",
+        "-T",
+        "docs",
+        "build/html",
+        { replace = "posargs", default = [
+            "-EW",
+            "--keep-going",
+        ], extend = true },
+    ],
+]
+{% endif %}
 [tool.ruff]
 src = ["src", "tests"]
 line-length = 88

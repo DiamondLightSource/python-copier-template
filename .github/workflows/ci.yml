@@ -24,7 +24,7 @@ jobs:
 
   docs:
     needs: test
-    if: always() && needs.check.outputs.branch-pr == ''
+    if: always()
     uses: ./.github/workflows/_docs.yml
     with:
       publish: ${{needs.test.result == 'success'}}

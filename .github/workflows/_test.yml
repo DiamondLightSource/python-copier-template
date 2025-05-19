@@ -34,7 +34,7 @@ jobs:
 
       - if: inputs.python-version == 'dev'
         name: Write the requirements as an artifact
-        run: pip freeze --exclude-editable > /tmp/dev-requirements.txt
+        run: uv pip freeze --exclude-editable > /tmp/dev-requirements.txt
 
       - if: inputs.python-version == 'dev'
         name: Upload dev-requirements.txt
@@ -48,7 +48,7 @@ jobs:
         uses: ./.github/actions/install_requirements
         with:
           python-version: ${{ inputs.python-version }}
-          pip-install: ".[dev]"
+          uv-sync: ""
 
       - name: Run tests
         run: tox -e tests

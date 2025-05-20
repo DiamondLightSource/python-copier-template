@@ -5,23 +5,17 @@ on:
   pull_request:
 
 jobs:
-  check:
-    uses: ./.github/workflows/_check.yml
 
   lint:
-    needs: check
-    if: needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_tox.yml
     with:
       tox: pre-commit,type-checking
 {% raw %}
   test:
-    needs: check
-    if: needs.check.outputs.branch-pr == ''
     strategy:
       matrix:
         runs-on: ["ubuntu-latest"] # can add windows-latest, macos-latest
-        python-version: ["3.10", "3.11", "3.12"]
+        python-version: ["3.11", "3.12", "3.13"]
         include:
           # Include one that runs in the dev environment
           - runs-on: "ubuntu-latest"
@@ -35,21 +29,15 @@ jobs:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 {% endraw %}{% if docker %}
   container:
-    needs: check
-    if: needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_container.yml
     permissions:
       contents: read
       packages: write
 {% endif %}{% if sphinx %}
   docs:
-    needs: check
-    if: needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_docs.yml
 {% endif %}
   dist:
-    needs: check
-    if: needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_dist.yml
   {% if pypi %}
   pypi:

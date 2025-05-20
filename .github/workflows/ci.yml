@@ -40,10 +40,3 @@ jobs:
     uses: ./.github/workflows/_release.yml
     permissions:
       contents: write
-
-  release-account-sync:
-    if: github.ref_type == 'tag'
-    needs: release
-    uses: ./.github/workflows/_account_sync.yml
-    permissions:
-      packages: write

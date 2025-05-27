@@ -1,0 +1,30 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "config:recommendeds"
+    ],
+    "packageRules": [
+        {
+            "groupName": "Templated CI",
+            "matchDepNames": [
+                "actions/checkout",
+                "actions/download-artifact",
+                "actions/download-artifact",
+                "actions/setup-python",
+                "actions/upload-artifact",
+                "codecov/codecov-action",
+                "docker/build-push-action",
+                "docker/login-action",
+                "docker/metadata-action",
+                "docker/setup-buildx-action",
+                "peaceiris/actions-gh-pages",
+                "pypa/gh-action-pypi-publish",
+                "softprops/action-gh-release",
+                "ytanikin/pr-conventional-commits"
+            ],
+            "description": [
+                "Group and update GitHub actions through the copier template to prevent merge conflicts"
+            ]
+        }
+    ]
+}

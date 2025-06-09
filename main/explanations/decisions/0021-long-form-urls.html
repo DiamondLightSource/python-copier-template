@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>10. Include vscode settings &#8212; python-copier-template 3.0.1.dev9+g1c71289 documentation</title>
+    <title>21. Use long-form URLs in documentation &#8212; python-copier-template 3.0.1.dev9+g1c71289 documentation</title>
   
   
   
@@ -47,7 +47,7 @@
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../_static/copybutton.js?v=30646c52"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'explanations/decisions/0010-vscode-settings';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'explanations/decisions/0021-long-form-urls';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://DiamondLightSource.github.io/python-copier-template/switcher.json';
@@ -58,8 +58,8 @@
     <link rel="icon" href="../../_static/dls-logo.svg"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="11. Pinning requirements" href="0011-requirements-txt.html" />
-    <link rel="prev" title="9. Sphinx theme" href="0009-sphinx-theme.html" />
+    <link rel="next" title="22. Follow NEP 0029 release cycle" href="0022-spec-0.html" />
+    <link rel="prev" title="21. Semantic Versioning and Conventional Commits" href="0021-conventional-commits.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="main" />
@@ -383,7 +383,7 @@
 <li class="toctree-l2"><a class="reference internal" href="0007-dev-dependencies.html">7. Installing developer environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="0008-use-tox.html">8. Use tox and pre-commit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="0009-sphinx-theme.html">9. Sphinx theme</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">10. Include vscode settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0010-vscode-settings.html">10. Include vscode settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="0011-requirements-txt.html">11. Pinning requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="0012-containers.html">12. Use containers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="0013-switch-to-copier.html">13. Switch to copier</a></li>
@@ -396,7 +396,7 @@
 <li class="toctree-l2"><a class="reference internal" href="0020-support-devcontainers.html">20. Support devcontainers as the opinionated way to contribute</a></li>
 <li class="toctree-l2"><a class="reference internal" href="0021-ci-only-pr.html">21. Run CI on pull requests and main branch only</a></li>
 <li class="toctree-l2"><a class="reference internal" href="0021-conventional-commits.html">21. Semantic Versioning and Conventional Commits</a></li>
-<li class="toctree-l2"><a class="reference internal" href="0021-long-form-urls.html">21. Use long-form URLs in documentation</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">21. Use long-form URLs in documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="0022-spec-0.html">22. Follow NEP 0029 release cycle</a></li>
 </ul>
 </details></li>
@@ -448,7 +448,7 @@
     
     <li class="breadcrumb-item"><a href="../decisions.html" class="nav-link">Architectural Decision Records</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">10. Include vscode settings</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">21. Use long-form URLs in documentation</span></li>
   </ul>
 </nav>
 </div>
@@ -465,32 +465,24 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="include-vscode-settings">
-<h1>10. Include vscode settings<a class="headerlink" href="#include-vscode-settings" title="Link to this heading">#</a></h1>
-<p>Date: 2023-01-18</p>
+  <section id="use-long-form-urls-in-documentation">
+<h1>21. Use long-form URLs in documentation<a class="headerlink" href="#use-long-form-urls-in-documentation" title="Link to this heading">#</a></h1>
+<p>Date: 2025-05-07</p>
 <section id="status">
 <h2>Status<a class="headerlink" href="#status" title="Link to this heading">#</a></h2>
 <p>Accepted</p>
 </section>
 <section id="context">
 <h2>Context<a class="headerlink" href="#context" title="Link to this heading">#</a></h2>
-<p>For vscode users a couple of settings are required for neat integration with
-the IDE.</p>
+<p>Copier supports shortcut URLs (see <a class="reference external" href="https://copier.readthedocs.io/en/stable/generating">docs</a>) of the form <code class="docutils literal notranslate"><span class="pre">gh:namespace/project</span></code>. This was convenient for making our documentation look neater and more digestible to new users, however it is just a convention. When trying to integrate other tools with copier we find that they do not necessarily support the convention. See <a class="reference external" href="https://github.com/renovatebot/renovate/discussions/35577">this discussion</a> for example.</p>
 </section>
 <section id="decision">
 <h2>Decision<a class="headerlink" href="#decision" title="Link to this heading">#</a></h2>
-<p>Include a .vscode folder in the repo with some json files that enable:</p>
-<ul class="simple">
-<li><p>recommended extension for best experience</p></li>
-<li><p>launcher to make debugging of python code override the coverage settings</p></li>
-<li><p>settings to make code verification match the tools in CI</p></li>
-<li><p>a task to launch the tox tests from the IDE</p></li>
-</ul>
+<p>Remove shortcut URLs from this repository and replace them with standard URLs.</p>
 </section>
 <section id="consequences">
 <h2>Consequences<a class="headerlink" href="#consequences" title="Link to this heading">#</a></h2>
-<p>Users of vscode should find that their development environment just works.
-Users of other editors will be unaffected.</p>
+<p>Downstream projects following the documentation will be created with standard URLs and will be supported by renovate and other tools. The alternative solution is to open PRs to these tools so they too support the shortcuts. It was decided that it was quicker, easier and probably more architecturally correct to use long-form URLs since they are already a well-known and widely adopted standard. See <a class="reference external" href="https://github.com/epics-containers/services-template-helm/issues/21#issuecomment-2855125741">this discussion</a>.</p>
 </section>
 </section>
 
@@ -505,20 +497,20 @@ Users of other editors will be unaffected.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="0009-sphinx-theme.html"
+       href="0021-conventional-commits.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">9. Sphinx theme</p>
+        <p class="prev-next-title">21. Semantic Versioning and Conventional Commits</p>
       </div>
     </a>
     <a class="right-next"
-       href="0011-requirements-txt.html"
+       href="0022-spec-0.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">11. Pinning requirements</p>
+        <p class="prev-next-title">22. Follow NEP 0029 release cycle</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -552,7 +544,7 @@ Users of other editors will be unaffected.</p>
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/DiamondLightSource/python-copier-template/edit/main/docs/explanations/decisions/0010-vscode-settings.md">
+    <a href="https://github.com/DiamondLightSource/python-copier-template/edit/main/docs/explanations/decisions/0021-long-form-urls.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -568,7 +560,7 @@ Users of other editors will be unaffected.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/explanations/decisions/0010-vscode-settings.md.txt"
+      <li><a href="../../_sources/explanations/decisions/0021-long-form-urls.md.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div></div>

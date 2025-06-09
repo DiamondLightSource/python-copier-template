@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Adopt the template into an existing repo &#8212; python-copier-template 3.0.1.dev6+g99dc4b6 documentation</title>
+    <title>Adopt the template into an existing repo &#8212; python-copier-template 3.0.1.dev9+g1c71289 documentation</title>
   
   
   
@@ -41,7 +41,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=61f9914c"></script>
+    <script src="../_static/documentation_options.js?v=8de5dc37"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -453,7 +453,7 @@
 <section id="if-you-have-a-skeleton-based-project">
 <h2>If you have a skeleton-based project<a class="headerlink" href="#if-you-have-a-skeleton-based-project" title="Link to this heading">#</a></h2>
 <p>If you have a <a class="reference external" href="https://github.com/DiamondLightSource/python3-pip-skeleton">python3-pip-skeleton</a> based project then it is best to adopt the <code class="docutils literal notranslate"><span class="pre">1.0.0</span></code> release of this template, then <code class="docutils literal notranslate"><span class="pre">copier</span> <span class="pre">update</span></code> to get to the latest. This is because <code class="docutils literal notranslate"><span class="pre">copier</span> <span class="pre">update</span></code> will try and merge file changes across renames done between releases, while <code class="docutils literal notranslate"><span class="pre">copier</span> <span class="pre">copy</span></code> cannot. This looks like:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>copier<span class="w"> </span>copy<span class="w"> </span>gh:DiamondLightSource/python-copier-template<span class="w"> </span>--trust<span class="w"> </span>--vcs-ref<span class="o">=</span><span class="m">1</span>.0.0<span class="w"> </span>/path/to/existing-project
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>copier<span class="w"> </span>copy<span class="w"> </span>https://github.com/DiamondLightSource/python-copier-template.git<span class="w"> </span>--trust<span class="w"> </span>--vcs-ref<span class="o">=</span><span class="m">1</span>.0.0<span class="w"> </span>/path/to/existing-project
 git<span class="w"> </span>diff
 <span class="c1"># Examine the changes, put back anything you want to keep</span>
 git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Adopt python-copier-template 1.0.0&quot;</span>
@@ -467,7 +467,7 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 <section id="if-you-do-not-have-a-skeleton-based-project">
 <h2>If you do not have a skeleton-based project<a class="headerlink" href="#if-you-do-not-have-a-skeleton-based-project" title="Link to this heading">#</a></h2>
 <p>If you have a project with a different structure then it is best to go straight to the latest release:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>copier<span class="w"> </span>copy<span class="w"> </span>--trust<span class="w"> </span>gh:DiamondLightSource/python-copier-template<span class="w"> </span>/path/to/existing-project
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>copier<span class="w"> </span>copy<span class="w"> </span>--trust<span class="w"> </span>https://github.com/DiamondLightSource/python-copier-template.git<span class="w"> </span>/path/to/existing-project
 git<span class="w"> </span>diff
 <span class="c1"># Examine the changes, put back anything you want to keep</span>
 git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Adopt python-copier-template x.x.x&quot;</span>

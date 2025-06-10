@@ -23,8 +23,6 @@ jobs:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   docs:
-    needs: test
-    if: always()
     uses: ./.github/workflows/_docs.yml
     with:
       publish: ${{needs.test.result == 'success'}}

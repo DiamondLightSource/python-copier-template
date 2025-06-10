@@ -39,8 +39,6 @@ jobs:
       packages: write
 {% endraw %}{% endif %}{% if sphinx %}{% raw %}
   docs:
-    needs: test
-    if: always()
     uses: ./.github/workflows/_docs.yml
     with:
       publish: ${{ needs.test.result == 'success' }}

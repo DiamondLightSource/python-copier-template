@@ -24,6 +24,8 @@ jobs:
 
   docs:
     uses: ./.github/workflows/_docs.yml
+    with:
+      publish: ${{needs.test.result == 'success'}}
     permissions:
       contents: write
 
@@ -35,8 +37,8 @@ jobs:
       EXAMPLE_DEPLOY_KEY: ${{ secrets.EXAMPLE_DEPLOY_KEY }}
 
   release:
+    needs: [test, docs]
     if: github.ref_type == 'tag'
-    needs: docs
     uses: ./.github/workflows/_release.yml
     permissions:
       contents: write

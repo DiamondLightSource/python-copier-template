@@ -27,29 +27,36 @@ jobs:
       python-version: ${{ matrix.python-version }}
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-{% endraw %}{% if docker %}
+{% endraw %}{% if docker %}{% raw %}
   container:
+    needs: test
+    if: always()
     uses: ./.github/workflows/_container.yml
+    with:
+      publish: ${{ needs.test.result == 'success' }}
     permissions:
       contents: read
       packages: write
-{% endif %}{% if sphinx %}
+{% endraw %}{% endif %}{% if sphinx %}{% raw %}
   docs:
     uses: ./.github/workflows/_docs.yml
-{% endif %}
+    with:
+      publish: ${{ needs.test.result == 'success' }}
+
+{% endraw %}{% endif %}
   dist:
     uses: ./.github/workflows/_dist.yml
   {% if pypi %}
   pypi:
+    needs: [dist, test]
     if: github.ref_type == 'tag'
-    needs: dist
     uses: ./.github/workflows/_pypi.yml
     permissions:
       id-token: write
   {% endif %}
   release:
+    needs: [dist, test{% if sphinx %}, docs{% endif %}]
     if: github.ref_type == 'tag'
-    needs: [dist{% if sphinx %}, docs{% endif %}]
     uses: ./.github/workflows/_release.yml
     permissions:
       contents: write

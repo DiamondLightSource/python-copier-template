@@ -37,13 +37,11 @@ jobs:
     permissions:
       contents: read
       packages: write
-{% endraw %}{% endif %}{% if sphinx %}{% raw %}
+{% endraw %}{% endif %}{% if sphinx %}
   docs:
     uses: ./.github/workflows/_docs.yml
-    with:
-      publish: ${{ needs.test.result == 'success' }}
 
-{% endraw %}{% endif %}
+{% endif %}
   dist:
     uses: ./.github/workflows/_dist.yml
   {% if pypi %}

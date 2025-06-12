@@ -24,8 +24,6 @@ jobs:
 
   docs:
     uses: ./.github/workflows/_docs.yml
-    with:
-      publish: ${{needs.test.result == 'success'}}
     permissions:
       contents: write
 

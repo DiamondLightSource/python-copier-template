@@ -15,6 +15,7 @@ runs:
       run: |
         PYTHON_VERSION="${{ inputs.python-version }}"
         if [ $PYTHON_VERSION == "dev" ]; then
+          # python version from Dockerfile, removing potential pinned sha
           PYTHON_VERSION=$(sed -Ene "s/ARG PYTHON_VERSION=([0-9\.]+).*/\1/p" Dockerfile)
         fi
         echo "PYTHON_VERSION=$PYTHON_VERSION" >> "$GITHUB_ENV"

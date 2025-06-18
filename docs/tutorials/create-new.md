@@ -3,8 +3,8 @@
 Once you have followed the [](./installation) tutorial, you can use `copier` to make a new project from the template:
 
 ```
-$ mkdir /path/to/my-project
-$ copier copy --trust https://github.com/DiamondLightSource/python-copier-template.git /path/to/my-project
+$ git init --initial-branch=main /path/to/my-project
+$ copier copy https://github.com/DiamondLightSource/python-copier-template.git $_
 ```
 
 This will:

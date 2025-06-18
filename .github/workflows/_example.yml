@@ -16,7 +16,7 @@ jobs:
 
       - name: Regenerate example
         run: |
-          pipx run copier copy --data-file example-answers.yml --trust --vcs-ref=HEAD . example
+          pipx run copier copy --data-file example-answers.yml --vcs-ref=HEAD . example
 
       - name: Rewrite copier answers
         run: |

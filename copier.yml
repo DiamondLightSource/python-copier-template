@@ -156,9 +156,6 @@ sphinx:
 
 _subdirectory: "template"
 
-_tasks:
-    - "git init --initial-branch=main"
-
 _migrations:
     - version: 2.0.0
       before:

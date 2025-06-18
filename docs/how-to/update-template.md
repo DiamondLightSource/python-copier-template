@@ -5,7 +5,7 @@
 To track changes to the upstream template, run
 
 ```
-copier update --trust
+copier update
 ```
 
 This will fetch the latest tagged release of the template, and apply any changes to your working copy. It will prompt for answers again, giving your previous answers as the defaults.
@@ -32,7 +32,7 @@ The following steps are recommended to update your project, especially for infre
 - fix issues found by the above
 - commit the changes
 - update the template
-    - `copier update --trust`
+    - `copier update`
 - fix any merge conflicts
 - validate that the project still works
     - `tox -p`

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Create a new repo from the template &#8212; python-copier-template 3.0.1.dev64+gdfe17b1 documentation</title>
+    <title>Create a new repo from the template &#8212; python-copier-template 3.1.1.dev1+gd48d075 documentation</title>
   
   
   
@@ -41,7 +41,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=2885825d"></script>
+    <script src="../_static/documentation_options.js?v=d9a66303"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -439,8 +439,8 @@
   <section id="create-a-new-repo-from-the-template">
 <h1>Create a new repo from the template<a class="headerlink" href="#create-a-new-repo-from-the-template" title="Link to this heading">#</a></h1>
 <p>Once you have followed the <a class="reference internal" href="installation.html"><span class="doc std std-doc">Install template pre-requisites</span></a> tutorial, you can use <code class="docutils literal notranslate"><span class="pre">copier</span></code> to make a new project from the template:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mkdir /path/to/my-project
-$ copier copy --trust https://github.com/DiamondLightSource/python-copier-template.git /path/to/my-project
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git init --initial-branch=main /path/to/my-project
+$ copier copy https://github.com/DiamondLightSource/python-copier-template.git $_
 </pre></div>
 </div>
 <p>This will:</p>

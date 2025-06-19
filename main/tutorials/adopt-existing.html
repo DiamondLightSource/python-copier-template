@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Adopt the template into an existing repo &#8212; python-copier-template 3.0.1.dev64+gdfe17b1 documentation</title>
+    <title>Adopt the template into an existing repo &#8212; python-copier-template 3.1.1.dev1+gd48d075 documentation</title>
   
   
   
@@ -41,7 +41,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=2885825d"></script>
+    <script src="../_static/documentation_options.js?v=d9a66303"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -457,7 +457,7 @@
 git<span class="w"> </span>diff
 <span class="c1"># Examine the changes, put back anything you want to keep</span>
 git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Adopt python-copier-template 1.0.0&quot;</span>
-copier<span class="w"> </span>update<span class="w"> </span>--trust<span class="w"> </span>/path/to/existing-project
+copier<span class="w"> </span>update<span class="w"> </span>/path/to/existing-project
 git<span class="w"> </span>diff
 <span class="c1"># Examine the changes, resolve any merge conflicts</span>
 git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Update to python-copier-template x.x.x&quot;</span>
@@ -467,7 +467,7 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 <section id="if-you-do-not-have-a-skeleton-based-project">
 <h2>If you do not have a skeleton-based project<a class="headerlink" href="#if-you-do-not-have-a-skeleton-based-project" title="Link to this heading">#</a></h2>
 <p>If you have a project with a different structure then it is best to go straight to the latest release:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>copier<span class="w"> </span>copy<span class="w"> </span>--trust<span class="w"> </span>https://github.com/DiamondLightSource/python-copier-template.git<span class="w"> </span>/path/to/existing-project
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>copier<span class="w"> </span>copy<span class="w"> </span>https://github.com/DiamondLightSource/python-copier-template.git<span class="w"> </span>/path/to/existing-project
 git<span class="w"> </span>diff
 <span class="c1"># Examine the changes, put back anything you want to keep</span>
 git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Adopt python-copier-template x.x.x&quot;</span>

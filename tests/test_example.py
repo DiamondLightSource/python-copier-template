@@ -171,7 +171,7 @@ def test_example_repo_updates(tmp_path: Path):
     run("git config user.email 'you@example.com'")
     run("git config user.name 'Your Name'")
     run("git commit -am 'Update src'")
-    run(f"copier update --vcs-ref=HEAD --data-file {TOP}/example-answers.yml --trust")
+    run(f"copier update --trust --vcs-ref=HEAD --data-file {TOP}/example-answers.yml")
     output = run(
         # Git directory expected to be different
         "diff -ur --exclude=.git "

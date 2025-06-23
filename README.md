@@ -46,9 +46,9 @@ Visit <https://dev-portal.diamond.ac.uk/create> and you will see a list of templ
 You will need to `pip install copier` inside an activated `venv` from python3.11 or later, then you can create a new module via:
 
 ```
-mkdir /path/to/my-project
-# The --trust argument is required to run setup tasks such as initializing a git repository
-copier copy --trust gh:DiamondLightSource/python-copier-template /path/to/my-project
+git init --initial-branch=main /path/to/my-project
+# $_ resolves to /path/to/my-project
+copier copy https://github.com/DiamondLightSource/python-copier-template.git $_
 ```
 
 You can also use it via `pipx run copier` if you have that installed.

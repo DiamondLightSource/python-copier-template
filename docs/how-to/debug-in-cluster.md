@@ -2,13 +2,13 @@
 
 The container build also publishes a debug container for each tagged release of the container suffixed with `-debug`. This container contains an editable install of the workspace & debugpy and has an alternate entrypoint which allows the devcontainer to attach.
 
-## Using Debug image in a Helm chart
+# Using Debug image in a Helm chart
 
-⚠️ If running with the Diamond filesystem mounted or as a specific user, further adjustments are required, as described [below](#using-debug-image-in-a-helm-chart-that-mounts-the-filesystem).
+⚠️ If running with the Diamond filesystem mounted or as a specific user, further adjustments are required, as described in the next section.
 
 To use the debug image in a Helm chart can be as simple as modifying `image.tag` value in values.yaml to the tag with `-debug`, but this may run into issues if you have defined liveness or readiness probes, a custom command or args, or if the container is running as non-root. To make capturing these edge cases easier it's recommended to define a single flag `debug.enabled` in your `values.yaml` and make the following modifications to the `Deployment|ReplicaSet|StatefulSet`:
 
-```helm
+```yaml
 spec:
   template:
     spec:
@@ -46,13 +46,13 @@ spec:
         {{- end }}
 ```
 
-## Using Debug image in a Helm chart that mounts the filesystem
+# Using Debug image in a Helm chart that mounts the filesystem
 
 Containers running in the Diamond Kubernetes infrastructure as a specific uid (e.g. when mounting the filesystem) must provide name resolution from Diamond's LDAP infrastructure: inside the cluster the VSCode server will be running as that user, but requires that the name & home directory of the user can be found. The debug image configures the name lookup service to try finding the user internally (i.e. from `/etc/passwd`) then fall back to calling LDAP through a service called `libnss-ldapd`. As containers are designed to run a single process, this service is run in a sidecar container which must mutually mount the `/var/run/nslcd` socket with the primary container.
 
 It therefore requires the further additions to the template modified above:
 
-```helm
+```yaml
 spec:
   template:
     spec:

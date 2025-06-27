@@ -22,7 +22,7 @@ copier copy https://github.com/DiamondLightSource/python-copier-template.git --t
 git diff
 # Examine the changes, put back anything you want to keep
 git commit -m "Adopt python-copier-template 1.0.0"
-copier update /path/to/existing-project
+copier update /path/to/existing-project --trust
 git diff
 # Examine the changes, resolve any merge conflicts
 git commit -m "Update to python-copier-template x.x.x"

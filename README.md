@@ -34,13 +34,6 @@ It integrates the following tools:
 
 You can see the template in action in the [example project](https://github.com/DiamondLightSource/python-copier-template-example). This is an up to date expansion of the template to illustrate how it looks with all the options enabled.
 
-## Create a new project via Developer Portal
-
-> [!NOTE]
-> Template creation from the developer portal is currently under construction, so these instructions do not work yet
-
-Visit <https://dev-portal.diamond.ac.uk/create> and you will see a list of templates that you can create. Pick the one marked `Python Template` and fill in the details of the project.
-
 ## Create a new project from the commandline
 
 You will need to `pip install copier` inside an activated `venv` from python3.11 or later, then you can create a new module via:

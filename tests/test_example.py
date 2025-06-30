@@ -10,7 +10,7 @@ from copier import run_copy
 TOP = Path(__file__).absolute().parent.parent
 
 
-def copy_project(project_path: Path, trust: bool = False, **kwargs):
+def copy_project(project_path: Path, **kwargs):
     with open(TOP / "example-answers.yml") as f:
         answers = yaml.safe_load(f)
     answers.update(kwargs)
@@ -20,7 +20,6 @@ def copy_project(project_path: Path, trust: bool = False, **kwargs):
         dst_path=project_path,
         data=answers,
         vcs_ref="HEAD",
-        unsafe=trust,
     )
     run_pipe("git add .", cwd=str(project_path))
 
@@ -160,7 +159,7 @@ def test_example_repo_updates(tmp_path: Path):
         "https://github.com/DiamondLightSource/python-copier-template-example.git"
     )
     example_path = tmp_path / "example"
-    copy_project(generated_path, trust=True)
+    copy_project(generated_path)
     run_pipe(f"git clone {example_url} {example_path}")
     with open(example_path / ".copier-answers.yml") as f:
         d = yaml.safe_load(f)
@@ -171,7 +170,7 @@ def test_example_repo_updates(tmp_path: Path):
     run("git config user.email 'you@example.com'")
     run("git config user.name 'Your Name'")
     run("git commit -am 'Update src'")
-    run(f"copier update --trust --vcs-ref=HEAD --data-file {TOP}/example-answers.yml")
+    run(f"copier update --vcs-ref=HEAD --data-file {TOP}/example-answers.yml")
     output = run(
         # Git directory expected to be different
         "diff -ur --exclude=.git "

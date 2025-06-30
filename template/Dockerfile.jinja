@@ -19,6 +19,7 @@ COPY --chmod=o+wrX . /workspaces/{{ repo_name }}
 WORKDIR /workspaces/{{ repo_name }}
 RUN touch dev-requirements.txt && pip install -c dev-requirements.txt .
 
+{% if docker_debug %}
 FROM build AS debug
 
 {% if git_platform=="github.com" %}
@@ -39,6 +40,7 @@ RUN pip install -e .
 ENTRYPOINT [ "/bin/bash", "-c", "--" ]
 CMD [ "while true; do sleep 30; done;" ]
 
+{% endif %}
 # The runtime stage copies the built venv into a slim runtime container
 FROM python:${PYTHON_VERSION}-slim AS runtime
 # Add apt-get system dependecies for runtime here if needed

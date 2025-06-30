@@ -1,6 +1,6 @@
 # Debugging containers
 
-The container build also publishes a debug container for each tagged release of the container suffixed with `-debug`. This container contains an editable install of the workspace & debugpy and has an alternate entrypoint which allows the devcontainer to attach.
+If the `docker_debug` option is chosen, the container build also publishes a debug container for each tagged release of the container suffixed with `-debug`. This container contains an editable install of the workspace & debugpy and has an alternate entrypoint which allows the devcontainer to attach.
 
 # Using Debug image in a Helm chart
 

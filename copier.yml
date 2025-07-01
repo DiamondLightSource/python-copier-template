@@ -103,6 +103,15 @@ docker:
         Would you like to publish your project in a Docker container?
         You should select this if you are making a service.
 
+docker_debug:
+    type: bool
+    when: "{{ docker }}"
+    help: |
+        Would you like to publish a debug image of your service?
+        This will increase the number of published images, but may
+        be useful if debugging the service inside of the cluster
+        infrastructure is required.
+
 docs_type:
     type: str
     help: |

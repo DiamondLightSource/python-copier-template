@@ -223,6 +223,21 @@ print(obj._bar)
         run("ruff check")
 
 
+def test_pep8_naming(tmp_path: Path):
+    code = """
+myVariable = "foo"
+"""
+
+    copy_project(tmp_path)
+    run = make_venv(tmp_path)
+
+    src_file = tmp_path / "src" / "python_copier_template_example" / "bad_example.py"
+    with src_file.open("w") as stream:
+        stream.write(code)
+    with pytest.raises(AssertionError, match=r"N816 .*"):
+        run("ruff check")
+
+
 def test_pyright_works_in_standard_typing_mode(tmp_path: Path):
     copy_project(tmp_path, type_checker="pyright", strict_typing=False)
     pyproject_toml = tmp_path / "pyproject.toml"

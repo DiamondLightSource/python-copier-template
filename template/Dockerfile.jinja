@@ -27,14 +27,19 @@ FROM build AS debug
 RUN git remote set-url origin git@github.com:{{github_org}}/{{repo_name}}.git
 {% endif %}
 
-# For this pod to understand finding user information from LDAP
-RUN apt update
-RUN DEBIAN_FRONTEND=noninteractive apt install libnss-ldapd -y
-RUN sed -i 's/files/ldap files/g' /etc/nsswitch.conf
-
 # Make editable and debuggable
 RUN pip install debugpy
-RUN pip install -e .
+RUN pip install -e '.[dev]'
+RUN chmod o+wrX /venv
+
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    busybox \
+    libnss-ldapd \
+    && rm -rf /var/lib/apt/lists/* \
+    && busybox --install -s
+# For this pod to understand finding user information from LDAP
+RUN sed -i 's/files/ldap files/g' /etc/nsswitch.conf
 
 # Alternate entrypoint to allow devcontainer to attach
 ENTRYPOINT [ "/bin/bash", "-c", "--" ]

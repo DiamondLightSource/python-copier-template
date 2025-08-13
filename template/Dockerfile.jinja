@@ -5,7 +5,7 @@ FROM ghcr.io/diamondlightsource/ubuntu-devcontainer:noble AS developer
 # Add any system dependencies for the developer/build environment here
 RUN apt-get update && apt-get install -y --no-install-recommends \
     graphviz \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/*{% if docker %}
 
 # The build stage makes some assets using the developer tools
 FROM developer AS build

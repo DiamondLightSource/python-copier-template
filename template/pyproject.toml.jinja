@@ -71,6 +71,7 @@ filterwarnings = "error"
 testpaths = "docs src tests"
 
 [tool.coverage.run]
+patch = ["subprocess"]
 data_file = "/tmp/{{ package_name }}.coverage"
 
 [tool.coverage.paths]

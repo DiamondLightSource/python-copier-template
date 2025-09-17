@@ -15,9 +15,9 @@ ENV PATH=/venv/bin:$PATH{% if docker %}
 # The build stage installs the context into the venv
 FROM developer AS build
 # Requires buildkit 0.17.0
-COPY --chmod=o+wrX . /workspaces/{{ repo_name }}
+COPY . /workspaces/{{ repo_name }}
 WORKDIR /workspaces/{{ repo_name }}
-RUN touch dev-requirements.txt && pip install -c dev-requirements.txt .
+RUN chmod o+wrX . && touch dev-requirements.txt && pip install -c dev-requirements.txt .
 
 {% if docker_debug %}
 FROM build AS debug

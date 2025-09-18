@@ -18,7 +18,7 @@ license.file = "LICENSE"
 readme = "README.md"
 requires-python = ">=3.11"
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
     "build",
     "copier",
@@ -34,7 +34,7 @@ dev = [
     {% if sphinx %}"sphinx-autobuild",
     "sphinx-copybutton",
     "sphinx-design",
-    {% endif %}"tox-uv",
+    {% endif %}"tox-direct",
     "twine",
     "types-mock",
 ]

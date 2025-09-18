@@ -3,18 +3,10 @@ repos:
     rev: v5.0.0
     hooks:
       - id: check-added-large-files
+        args: ["--maxkb=1000"] # uv.lock is more than 500kB
       - id: check-yaml
       - id: check-merge-conflict
       - id: end-of-file-fixer
-
-  - repo: https://github.com/astral-sh/uv-pre-commit
-    # uv version.
-    rev: 0.7.2
-    hooks:
-      - id: uv-lock
-      # Synchronize dependencies upon branch checkout, pull or rebase
-      # requires extra hook types to be installed!!!
-      # - id: uv-sync
 
   - repo: local
     hooks:
@@ -33,3 +25,11 @@ repos:
         entry: ruff format --force-exclude
         types: [python]
         require_serial: true
+
+      # Make sure lock file is up to date.
+      - id: uv-lock
+        name: update uv.lock
+        pass_filenames: false
+        language: system
+        entry: uv lock
+        files: ^(uv\.lock|pyproject\.toml|uv\.toml)$

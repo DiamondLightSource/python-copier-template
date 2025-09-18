@@ -18,7 +18,7 @@ dev = [
     "sphinx-autobuild",
     "sphinx-copybutton",
     "sphinx-design",
-    "tox-uv",
+    "tox-direct",
     "twine>=6.1.0",
 ]
 

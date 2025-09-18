@@ -32,30 +32,22 @@ COPY . /workspaces/{{ repo_name }}
 WORKDIR /workspaces/{{ repo_name }}
 RUN chmod o+wrX . && touch dev-requirements.txt && pip install -c dev-requirements.txt .
 
-{% if docker_debug %}
-FROM build AS debug
+# Install the project's dependencies using the lockfile and settings
+RUN --mount=type=cache,target=/root/.cache/uv \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    uv sync --locked --no-install-project --no-dev
 
-{% if git_platform=="github.com" %}
-# Set origin to use ssh
-RUN git remote set-url origin git@github.com:{{github_org}}/{{repo_name}}.git
-{% endif %}
+# Then, add the rest of the project source code and install it
+# Installing separately from its dependencies allows optimal layer caching
+COPY . /assets/
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --locked --no-dev
 
-# For this pod to understand finding user information from LDAP
-RUN apt update
-RUN DEBIAN_FRONTEND=noninteractive apt install libnss-ldapd -y
-RUN sed -i 's/files/ldap files/g' /etc/nsswitch.conf
+# The runtime stage installs runtime deps then copies in built assets
+# This time we remove the apt lists to save disk space
+FROM ubuntu:noble as runtime
 
-# Make editable and debuggable
-RUN pip install debugpy
-RUN pip install -e .
-
-# Alternate entrypoint to allow devcontainer to attach
-ENTRYPOINT [ "/bin/bash", "-c", "--" ]
-CMD [ "while true; do sleep 30; done;" ]
-
-{% endif %}
-# The runtime stage copies the built venv into a slim runtime container
-FROM python:${PYTHON_VERSION}-slim AS runtime
 # Add apt-get system dependecies for runtime here if needed
 
 # We need to keep the venv at the same absolute path as in the build stage

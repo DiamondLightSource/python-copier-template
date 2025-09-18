@@ -1,12 +1,12 @@
 name: Install requirements
-description: Install a version of python then call pip install and report what was installed
+description: Install uv, use it to install dependencies and report what was installed
 inputs:
   python-version:
     description: Python version to install, default is from Dockerfile
     default: "dev"
-  pip-install:
-    description: Parameters to pass to uv pip install
-    default: "$([ -f dev-requirements.txt ] && echo '-c dev-requirements.txt') -e .[dev]"
+  uv-sync:
+    description: Parameters to pass to uv sync
+    default: "--locked"
 
 runs:
   using: composite
@@ -22,24 +22,17 @@ runs:
       shell: bash
 
     - name: Install uv and set the python version
-      uses: astral-sh/setup-uv@v5
+      uses: astral-sh/setup-uv@v6
       with:
         python-version: ${{ env.PYTHON_VERSION }}
         enable-cache: true
         cache-dependency-glob: "uv.lock"
+        activate-environment: true
 
     - name: Install packages
-      run: uv pip install ${{ inputs.pip-install }}
+      run: uv sync ${{ inputs.uv-sync }}
       shell: bash
 
     - name: Report what was installed
-      run: uv pip list
-      shell: bash
-
-    - name: Add venv path to Github environment
-      run: echo "VENV_PATH=.venv" >> $GITHUB_ENV
-      shell: bash
-
-    - name: Add venv path to Github Path
-      run: echo "${{ env.VENV_PATH }}/bin:$PATH" >> $GITHUB_PATH
+      run: uv pip freeze
       shell: bash

@@ -38,11 +38,16 @@ def run_pipe(cmd: str, cwd=None):
 
 def make_venv(project_path: Path) -> callable:
     venv_path = project_path / ".venv"
-    run_pipe(f"uv venv {venv_path}")
     run = functools.partial(run_pipe, cwd=str(project_path))
-    # install to this env (hence the -p)
-    run(f"uv pip install -e .[dev] -p {venv_path}/bin/python")
-    # run("ls -la .venv/bin >&2")
+    run("uv sync")  # Create a lockfile and install packages
+
+    for exe_path in [
+        venv_path / "bin" / "tox",
+        venv_path / "bin" / "python",
+        venv_path / "bin" / "uv",
+    ]:
+        assert exe_path.exists(), f"UV created a venv but did not install {exe_path}"
+
     return run
 
 
@@ -60,8 +65,8 @@ def test_template_defaults(tmp_path: Path):
         # Only run linkcheck if not on a tag, as the CI might not have pushed
         # the docs for this tag yet, so we will fail
         run(".venv/bin/tox -p -e docs -- -b linkcheck")
-    run(".venv/bin/uv pip install build twine")
-    run(".venv/bin/python -m build")
+    run(".venv/bin/uv pip install twine")
+    run(".venv/bin/uv build")
     run(".venv/bin/twine check --strict dist/*")
 
 

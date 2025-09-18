@@ -14,12 +14,12 @@ def copy_project(project_path: Path, **kwargs):
     with open(TOP / "example-answers.yml") as f:
         answers = yaml.safe_load(f)
     answers.update(kwargs)
+    run_pipe(f"git init {project_path}")
     run_copy(
         src_path=str(TOP),
         dst_path=project_path,
         data=answers,
         vcs_ref="HEAD",
-        unsafe=True,
     )
     run_pipe("git add .", cwd=str(project_path))
 
@@ -172,7 +172,7 @@ def test_example_repo_updates(tmp_path: Path):
     run("git config user.email 'you@example.com'")
     run("git config user.name 'Your Name'")
     run("git commit -am 'Update src'")
-    run(f"copier update --trust --vcs-ref=HEAD --data-file {TOP}/example-answers.yml")
+    run(f"copier update --vcs-ref=HEAD --data-file {TOP}/example-answers.yml")
     output = run(
         # Git directory expected to be different
         "diff -ur --exclude=.git "
@@ -222,6 +222,21 @@ print(obj._bar)
     with src_file.open("w") as stream:
         stream.write(code)
     with pytest.raises(AssertionError, match="SLF001 Private member accessed: `_bar`"):
+        run("ruff check")
+
+
+def test_pep8_naming(tmp_path: Path):
+    code = """
+myVariable = "foo"
+"""
+
+    copy_project(tmp_path)
+    run = make_venv(tmp_path)
+
+    src_file = tmp_path / "src" / "python_copier_template_example" / "bad_example.py"
+    with src_file.open("w") as stream:
+        stream.write(code)
+    with pytest.raises(AssertionError, match=r"N816 .*"):
         run("ruff check")
 
 

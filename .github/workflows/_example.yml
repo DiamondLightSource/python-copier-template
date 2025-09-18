@@ -16,11 +16,11 @@ jobs:
 
       - name: Regenerate example
         run: |
-          pipx run copier copy --data-file example-answers.yml --trust --vcs-ref=HEAD . example
+          pipx run copier copy --data-file example-answers.yml --vcs-ref=HEAD . example
 
       - name: Rewrite copier answers
         run: |
-          sed -i 's|_src_path: .|_src_path: gh:DiamondLightSource/python-copier-template|' example/.copier-answers.yml
+          sed -i 's|_src_path: .|_src_path: https://github.com/DiamondLightSource/python-copier-template.git|' example/.copier-answers.yml
 
       - name: Publish example
         # We pin to the SHA, not the tag, for security reasons.

@@ -2,22 +2,20 @@ name: CI
 
 on:
   push:
+    branches:
+      - main
+    tags:
+      - '*'
   pull_request:
 
 jobs:
-  check:
-    uses: ./.github/workflows/_check.yml
 
   lint:
-    needs: check
-    if: needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_tox.yml
     with:
       tox: pre-commit,type-checking
 {% raw %}
   test:
-    needs: check
-    if: needs.check.outputs.branch-pr == ''
     strategy:
       matrix:
         runs-on: ["ubuntu-latest"] # can add windows-latest, macos-latest
@@ -33,35 +31,43 @@ jobs:
       python-version: ${{ matrix.python-version }}
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-{% endraw %}{% if docker %}
+{% endraw %}{% if docker %}{% raw %}
   container:
-    needs: check
-    if: needs.check.outputs.branch-pr == ''
+    needs: test
+    if: always()
     uses: ./.github/workflows/_container.yml
+    with:
+      publish: ${{ needs.test.result == 'success' }}
     permissions:
       contents: read
       packages: write
-{% endif %}{% if sphinx %}
+{% endraw %}{% if docker_debug %}{% raw %}
+  debug_container:
+    needs: [container, test]
+    uses: ./.github/workflows/_debug_container.yml
+    with:
+      publish: ${{ needs.test.result == 'success' }}
+    permissions:
+      contents: read
+      packages: write
+{% endraw %}{% endif %}{% endif %}{% if sphinx %}
   docs:
-    needs: check
-    if: needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_docs.yml
+
 {% endif %}
   dist:
-    needs: check
-    if: needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_dist.yml
   {% if pypi %}
   pypi:
+    needs: [dist, test]
     if: github.ref_type == 'tag'
-    needs: dist
     uses: ./.github/workflows/_pypi.yml
     permissions:
       id-token: write
   {% endif %}
   release:
+    needs: [dist, test{% if sphinx %}, docs{% endif %}]
     if: github.ref_type == 'tag'
-    needs: [dist{% if sphinx %}, docs{% endif %}]
     uses: ./.github/workflows/_release.yml
     permissions:
       contents: write

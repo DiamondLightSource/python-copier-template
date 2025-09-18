@@ -2,22 +2,19 @@ name: CI
 
 on:
   push:
+    branches:
+      - main
+    tags:
+      - '*'
   pull_request:
 
 jobs:
-  check:
-    uses: ./.github/workflows/_check.yml
-
   lint:
-    needs: check
-    if: needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_tox.yml
     with:
       tox: pre-commit
 
   test:
-    needs: check
-    if: needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_test.yml
     with:
       python-version: dev
@@ -26,8 +23,6 @@ jobs:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   docs:
-    needs: check
-    if: needs.check.outputs.branch-pr == ''
     uses: ./.github/workflows/_docs.yml
     permissions:
       contents: write
@@ -40,8 +35,8 @@ jobs:
       EXAMPLE_DEPLOY_KEY: ${{ secrets.EXAMPLE_DEPLOY_KEY }}
 
   release:
+    needs: [test, docs]
     if: github.ref_type == 'tag'
-    needs: docs
     uses: ./.github/workflows/_release.yml
     permissions:
       contents: write

@@ -18,8 +18,7 @@ dev = [
     "sphinx-autobuild",
     "sphinx-copybutton",
     "sphinx-design",
-    "tox-direct",
-    "twine>=6.1.0",
+    "tox-uv",
 ]
 
 [tool.setuptools_scm]
@@ -32,51 +31,21 @@ addopts = """
 # Doctest python code in docs, python code in src docstrings, test functions in tests
 testpaths = "tests"
 
-
+# tox must be configured via an embedded ini string to support
+# using positional args as parts of command arguments
 [tool.tox]
-skipsdist = true
-requires = ["tox-uv>=1.25.0"]
-# envs to runs automatically with tox -p
-env_list = ["pre-commit", "tests", "docs"]
+legacy_tox_ini = """
+[tox]
+skipsdist=True
+env_list = pre-commit,tests,docs
 
-[tool.tox.env]
-passenv = { "*" = "" }
-# Include setuptools, pip, ... in the tox envs
-uv_seed = { enabled = true }
-
-[tool.tox.env.pre-commit]
-description = "Run pre-commit"
-allowlist_externals = ["pre-commit"]
-commands = [
-    [
-        "pre-commit",
-        "run",
-        #"--all-files",
-        "--show-diff-on-failure",
-        { replace = "posargs", default = [], extend = true },
-    ],
-]
-
-[tool.tox.env.tests]
-description = "Run tests"
-allowlist_externals = ["pytest"]
-commands = [["pytest", { replace = "posargs", default = [], extend = true }]]
-
-[tool.tox.env.docs]
-description = "Run docs"
-allowlist_externals = ["sphinx-build", "sphinx-autobuild"]
-commands = [
-    [
-        "sphinx-build",
-        "-T",
-        "docs",
-        "build/html",
-        { replace = "posargs", default = [
-            "-EW",
-            "--keep-going",
-        ], extend = true },
-    ],
-]
+[testenv:{pre-commit,tests,docs}]
+passenv = *
+commands =
+    pre-commit: pre-commit run --all-files --show-diff-on-failure {posargs}
+    tests: pytest {posargs}
+    docs: sphinx-{posargs:build -EW --keep-going} -T docs build/html
+"""
 
 [tool.ruff]
 src = ["src", "tests"]

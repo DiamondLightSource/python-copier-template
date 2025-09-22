@@ -19,17 +19,7 @@
             "settings": {
                 "python.defaultInterpreterPath": "/workspaces/${localWorkspaceFolderBasename}/.venv/bin/python",
                 "python.terminal.activateEnvInCurrentTerminal": false,
-                "python.terminal.activateEnvironment": false,
-                "python.testing.unittestEnabled": false,
-                "python.testing.pytestEnabled": true,
-                "editor.formatOnSave": true,
-                "editor.codeActionsOnSave": {
-                    "source.organizeImports": "explicit"
-                },
-                "remote.autoForwardPorts": false,
-                "[python]": {
-                    "editor.defaultFormatter": "charliermarsh.ruff"
-                }
+                "python.terminal.activateEnvironment": false
             },
             // Add the IDs of extensions you want installed when the container is created.
             "extensions": [
@@ -73,5 +63,5 @@
     // Mount the parent as /workspaces so we can pip install peers as editable
     "workspaceMount": "source=${localWorkspaceFolder}/..,target=/workspaces,type=bind",
     // After the container is created, install the python project in editable form
-    "postCreateCommand": "uv sync && uv run pre-commit install"
+    "postCreateCommand": "uv sync && uv run pre-commit install --install-hooks"
 }

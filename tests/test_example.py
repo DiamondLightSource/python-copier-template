@@ -44,7 +44,6 @@ def make_venv(project_path: Path) -> callable:
     for exe_path in [
         venv_path / "bin" / "tox",
         venv_path / "bin" / "python",
-        venv_path / "bin" / "uv",
     ]:
         assert exe_path.exists(), f"UV created a venv but did not install {exe_path}"
 
@@ -64,10 +63,9 @@ def test_template_defaults(tmp_path: Path):
     if not run_pipe("git tag --points-at HEAD"):
         # Only run linkcheck if not on a tag, as the CI might not have pushed
         # the docs for this tag yet, so we will fail
-        run(".venv/bin/tox -p -e docs -- -b linkcheck")
-    run(".venv/bin/uv pip install twine")
-    run(".venv/bin/uv build")
-    run(".venv/bin/twine check --strict dist/*")
+        run(".venv/bin/tox -e docs -- build -b linkcheck")
+    run("uvx --from build pyproject-build")
+    run("uvx twine check --strict dist/*")
 
 
 def test_template_with_extra_code_and_api_docs(tmp_path: Path):

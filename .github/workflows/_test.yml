@@ -3,8 +3,8 @@ on:
     inputs:
       python-version:
         type: string
-        description: The version of python to install
-        required: true
+        description: The version of python to install, default is from .python-version file
+        default: ""
       runs-on:
         type: string
         description: The runner to run this job on

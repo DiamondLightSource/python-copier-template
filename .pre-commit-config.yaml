@@ -26,10 +26,10 @@ repos:
         types: [python]
         require_serial: true
 
-      # Make sure lock file is up to date.
+      # Make sure lock file satisfies dependencies in pyproject.toml.
       - id: uv-lock
         name: update uv.lock
         pass_filenames: false
         language: system
         entry: uv lock
-        files: ^(uv\.lock|pyproject\.toml|uv\.toml)$
+        files: ^(uv\.lock|pyproject\.toml)$

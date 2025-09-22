@@ -1,59 +1,58 @@
 # The devcontainer should use the developer target and run as root with podman
 # or docker with user namespaces.
-FROM ghcr.io/diamondlightsource/ubuntu-devcontainer:noble as developer
+FROM ghcr.io/diamondlightsource/ubuntu-devcontainer:noble AS developer
 
 # Add any system dependencies for the developer/build environment here
-# RUN apt-get update && apt-get install -y --no-install-recommends \
-#     graphviz
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    graphviz{% if docker %}
 
 # The build stage installs the context into the venv
 FROM developer AS build
-COPY . /context
-WORKDIR /context
 
-# Enable bytecode compilation and copy from the cache instead of linking 
-# since it's a mounted volume
-ENV UV_COMPILE_BYTECODE=1
-ENV UV_LINK_MODE=copy
+# Change the working directory to the `app` directory
+# and copy in the project
+WORKDIR /app
+COPY . /app
+RUN chmod o+wrX .
 
-# Install the project's dependencies using the lockfile and settings
+# Sync the project without its dev dependencies
 RUN --mount=type=cache,target=/root/.cache/uv \
-    --mount=type=bind,source=uv.lock,target=uv.lock \
-    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    uv sync --locked --no-install-project --no-dev
+    uv sync --locked --no-editable --no-dev
 
-# Then, add the rest of the project source code and install it
-# Installing separately from its dependencies allows optimal layer caching
-COPY . /context
-RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --locked --no-dev
-# Requires buildkit 0.17.0
-COPY . /workspaces/{{ repo_name }}
-WORKDIR /workspaces/{{ repo_name }}
-RUN chmod o+wrX . && touch dev-requirements.txt && pip install -c dev-requirements.txt .
+{% if docker_debug %}
+FROM build AS debug
 
-# Install the project's dependencies using the lockfile and settings
-RUN --mount=type=cache,target=/root/.cache/uv \
-    --mount=type=bind,source=uv.lock,target=uv.lock \
-    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    uv sync --locked --no-install-project --no-dev
+{% if git_platform=="github.com" %}
+# Set origin to use ssh
+RUN git remote set-url origin git@github.com:{{github_org}}/{{repo_name}}.git
+{% endif %}
 
-# Then, add the rest of the project source code and install it
-# Installing separately from its dependencies allows optimal layer caching
-COPY . /assets/
-RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --locked --no-dev
+# For this pod to understand finding user information from LDAP
+RUN apt update
+RUN DEBIAN_FRONTEND=noninteractive apt install libnss-ldapd -y
+RUN sed -i 's/files/ldap files/g' /etc/nsswitch.conf
 
-# The runtime stage installs runtime deps then copies in built assets
-# This time we remove the apt lists to save disk space
-FROM ubuntu:noble as runtime
+# Make editable and debuggable
+RUN uv pip install debugpy
+RUN uv pip install -e .
+
+# Alternate entrypoint to allow devcontainer to attach
+ENTRYPOINT [ "/bin/bash", "-c", "--" ]
+CMD [ "while true; do sleep 30; done;" ]
+
+{% endif %}
+# The runtime stage copies the built venv into a runtime container
+FROM ubuntu:noble AS runtime
 
 # Add apt-get system dependecies for runtime here if needed
+# RUN apt-get update && apt-get install -y --no-install-recommends \
+#     some-library \
+#    && rm -rf /var/lib/apt/lists/*
 
-# We need to keep the venv at the same absolute path as in the build stage
-COPY --from=build /context/venv/ /context/venv/
-ENV PATH=/context/venv/bin:$PATH
+# Copy the environment, but not the source code
+COPY --from=build /app/.venv /app/.venv
+ENV PATH=/app/.venv/bin:$PATH
 
-# Change this entrypoint if it is not the same as the repo
+# change this entrypoint if it is not the same as the repo
 ENTRYPOINT ["{{ repo_name }}"]
 CMD ["--version"]{% endif %}

@@ -27,9 +27,9 @@ repos:
         require_serial: true
 
       # Make sure lock file satisfies dependencies in pyproject.toml.
-      - id: uv-lock
-        name: update uv.lock
+      - id: uv-sync
+        name: update uv.lock and venv
         pass_filenames: false
         language: system
-        entry: uv lock
+        entry: uv sync
         files: ^(uv\.lock|pyproject\.toml)$

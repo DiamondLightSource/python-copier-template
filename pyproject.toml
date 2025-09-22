@@ -55,14 +55,7 @@ lint.select = [
     "C4", # flake8-comprehensions - https://docs.astral.sh/ruff/rules/#flake8-comprehensions-c4
     "E",  # pycodestyle errors - https://docs.astral.sh/ruff/rules/#error-e
     "F",  # pyflakes rules - https://docs.astral.sh/ruff/rules/#pyflakes-f
-    "N",  # pep8-naming - https://docs.astral.sh/ruff/rules/#pep8-naming-n
     "W",  # pycodestyle warnings - https://docs.astral.sh/ruff/rules/#warning-w
     "I",  # isort - https://docs.astral.sh/ruff/rules/#isort-i
     "UP", # pyupgrade - https://docs.astral.sh/ruff/rules/#pyupgrade-up
 ]
-
-[tool.ruff.lint.per-file-ignores]
-# Ignore variable names inside the template because ruff doesn't 
-# work well with jinja templating. Any violations of N rules inside
-# the template are caught by the tests.
-"template/**/*" = ["N"]

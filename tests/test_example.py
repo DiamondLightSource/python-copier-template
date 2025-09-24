@@ -64,7 +64,7 @@ def test_template_defaults(tmp_path: Path):
     if not run_pipe("git tag --points-at HEAD"):
         # Only run linkcheck if not on a tag, as the CI might not have pushed
         # the docs for this tag yet, so we will fail
-        run(".venv/bin/tox -e docs -- build -b linkcheck")
+        run(".venv/bin/tox -e docs -- -b linkcheck")
     run("uvx --from build pyproject-build")
     run("uvx twine check --strict dist/*")
 

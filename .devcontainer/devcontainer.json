@@ -19,7 +19,8 @@
             "settings": {
                 "python.defaultInterpreterPath": "/workspaces/${localWorkspaceFolderBasename}/.venv/bin/python",
                 "python.terminal.activateEnvInCurrentTerminal": false,
-                "python.terminal.activateEnvironment": false
+                "python.terminal.activateEnvironment": false,
+                "remote.autoForwardPorts": false
             },
             // Add the IDs of extensions you want installed when the container is created.
             "extensions": [

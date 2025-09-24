@@ -10,7 +10,6 @@ repos:
 
   - repo: local
     hooks:
-      # Run the linter.
       - id: ruff
         name: lint with ruff
         language: system
@@ -18,7 +17,6 @@ repos:
         types: [python]
         require_serial: true
 
-      # Run the formatter.
       - id: ruff-format
         name: format with ruff
         language: system
@@ -26,7 +24,6 @@ repos:
         types: [python]
         require_serial: true
 
-      # Make sure lock file satisfies dependencies in pyproject.toml.
       - id: uv-sync
         name: update uv.lock and venv
         pass_filenames: false

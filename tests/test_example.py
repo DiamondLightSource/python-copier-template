@@ -1,6 +1,7 @@
 import functools
 import shlex
 import subprocess
+from collections.abc import Callable
 from pathlib import Path
 
 import pytest
@@ -24,7 +25,7 @@ def copy_project(project_path: Path, **kwargs):
     run_pipe("git add .", cwd=str(project_path))
 
 
-def run_pipe(cmd: str, cwd=None):
+def run_pipe(cmd: str, cwd=None) -> str:
     sp = subprocess.run(
         shlex.split(cmd),
         stdout=subprocess.PIPE,
@@ -36,7 +37,7 @@ def run_pipe(cmd: str, cwd=None):
     return output
 
 
-def make_venv(project_path: Path) -> callable:
+def make_venv(project_path: Path) -> Callable[[str], str]:
     venv_path = project_path / ".venv"
     run = functools.partial(run_pipe, cwd=str(project_path))
     run("uv sync")  # Create a lockfile and install packages

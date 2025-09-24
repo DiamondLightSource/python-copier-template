@@ -4,7 +4,8 @@ FROM ghcr.io/diamondlightsource/ubuntu-devcontainer:noble AS developer
 
 # Add any system dependencies for the developer/build environment here
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    graphviz{% if docker %}
+    graphviz && \
+    apt-get dist-clean{% if docker %}
 
 # The build stage installs the context into the venv
 FROM developer AS build
@@ -47,7 +48,7 @@ FROM ubuntu:noble AS runtime
 # Add apt-get system dependecies for runtime here if needed
 # RUN apt-get update && apt-get install -y --no-install-recommends \
 #     some-library \
-#    && rm -rf /var/lib/apt/lists/*
+#     && apt-get dist-clean
 
 # Copy the environment, but not the source code
 COPY --from=build /app/.venv /app/.venv

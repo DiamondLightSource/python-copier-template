@@ -26,7 +26,7 @@ dev = [
     {% endif %}"pre-commit",
     {% if sphinx %}"pydata-sphinx-theme>=0.12",
     {% endif %}{% if type_checker=="pyright" %}"pyright",
-    {% endif %}"pytest>8.3.4",
+    {% endif %}"pytest",
     "pytest-cov",
     "ruff",
     {% if sphinx %}"sphinx-autobuild",

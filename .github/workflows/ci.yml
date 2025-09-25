@@ -17,7 +17,6 @@ jobs:
   test:
     uses: ./.github/workflows/_test.yml
     with:
-      python-version: dev
       runs-on: ubuntu-latest
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

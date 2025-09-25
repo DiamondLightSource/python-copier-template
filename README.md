@@ -44,7 +44,7 @@ git init --initial-branch=main /path/to/my-project
 copier copy https://github.com/DiamondLightSource/python-copier-template.git $_
 ```
 
-You can also use it via `pipx run copier` if you have that installed.
+You can also use it via `uvx copier` if you have `uv` installed.
 
 <!-- README only content. Anything below this line won't be included in index.md -->
 

@@ -10,13 +10,13 @@ You can run the above checks on all files with this command:
 $ tox -e pre-commit
 ```
 
-Or you can install a pre-commit hook that will run each time you do a `git commit` on just the files that have changed:
+The devcontainer will also install a pre-commit hook that will run each time you do a `git commit` on just the files that have changed.
+
+If you want to commit with a failing pre-commit check then you have to:
 
 ```
-$ pre-commit install
+$ git commit --no-verify
 ```
-
-It is also possible to [automatically enable pre-commit on cloned repositories](https://pre-commit.com/#automatically-enabling-pre-commit-on-repositories). This will result in pre-commits being enabled on every repo your user clones from now on.
 
 ## Fixing issues
 

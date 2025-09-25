@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Lock requirements &#8212; python-copier-template 4.3.1.dev1+g2aa11776d documentation</title>
+    <title>Lock requirements &#8212; python-copier-template 4.3.1.dev2+ged290c837 documentation</title>
   
   
   
@@ -41,7 +41,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=5c2967c8"></script>
+    <script src="../_static/documentation_options.js?v=7c2b60b9"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -456,45 +456,34 @@
 <h1>Lock requirements<a class="headerlink" href="#lock-requirements" title="Link to this heading">#</a></h1>
 <section id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
-<p>By design this project only defines dependencies in one place, i.e. in the <code class="docutils literal notranslate"><span class="pre">requires</span></code> table in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>.</p>
-<p>In the <code class="docutils literal notranslate"><span class="pre">requires</span></code> table it is possible to pin versions of some dependencies as needed. For library projects it is best to leave  pinning to a minimum so that your library can be used by the widest range of applications.</p>
-<p>When CI builds the project it will use the latest compatible set of dependencies available (after applying your pins and any dependencies’ pins).</p>
-<p>This approach means that there is a possibility that a future build may break because an updated release of a dependency has made a breaking change.</p>
-<p>The correct way to fix such an issue is to work out the minimum pinning in <code class="docutils literal notranslate"><span class="pre">requires</span></code> that will resolve the problem. However this can be quite hard to do and may be time consuming when simply trying to release a minor update.</p>
-<p>For this reason we provide a mechanism for locking all dependencies to the same version as a previous successful release. This is a quick fix that should guarantee a successful CI build.</p>
+<p>Since the move to <code class="docutils literal notranslate"><span class="pre">uv</span></code>, this project natively supports a lockfile. This is a set of “known good” dependencies that the tests are run against, and will be used to create a container if one is built.</p>
 </section>
-<section id="finding-the-lock-files">
-<h2>Finding the lock files<a class="headerlink" href="#finding-the-lock-files" title="Link to this heading">#</a></h2>
-<p>Every release of the project will have a set of requirements files published as release assets.</p>
-<p>For example take a look at the release page for python-copier-template <a class="reference external" href="https://github.com/DiamondLightSource/python-copier-template/releases/tag/1.1.0">here</a></p>
-<p>There is a single <code class="docutils literal notranslate"><span class="pre">dev-requirements.txt</span></code> file showing as an asset on the release. This has been created using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">freeze</span> <span class="pre">--exclude-editable</span></code> on a successful test run using the same version of python as the devcontainer, and will contain a full list of the dependencies and sub-dependencies with pinned versions. You can download this file by clicking on it.</p>
-</section>
-<section id="applying-the-lock-file">
-<h2>Applying the lock file<a class="headerlink" href="#applying-the-lock-file" title="Link to this heading">#</a></h2>
-<p>To apply a lockfile:</p>
+<section id="specifying-dependencies">
+<h2>Specifying dependencies<a class="headerlink" href="#specifying-dependencies" title="Link to this heading">#</a></h2>
+<p>The source of dependencies is the project’s <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>. They can come from:</p>
 <ul class="simple">
-<li><p>copy the requirements file you have downloaded to the root of your repository</p></li>
-<li><p>commit it into the repo</p></li>
-<li><p>push the changes</p></li>
+<li><p>Project dependencies (from <code class="docutils literal notranslate"><span class="pre">[project]</span></code> <code class="docutils literal notranslate"><span class="pre">dependencies</span> <span class="pre">=</span></code>)</p></li>
+<li><p>Dev dependencies (from <code class="docutils literal notranslate"><span class="pre">[dependency-groups]</span></code> <code class="docutils literal notranslate"><span class="pre">dev</span> <span class="pre">=</span></code>)</p></li>
+<li><p>Transitive dependencies (child dependencies of the above)</p></li>
 </ul>
-<p>The CI looks for a <code class="docutils literal notranslate"><span class="pre">dev-requirements.txt</span></code> in the root and will pass it to pip as a constraint when installing the dev environment. If a package is required to be installed by <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> then <code class="docutils literal notranslate"><span class="pre">pip</span></code> will use the version specified in <code class="docutils literal notranslate"><span class="pre">dev-requirements.txt</span></code>.</p>
+<p>Dependencies are loosely specified in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>, like <code class="docutils literal notranslate"><span class="pre">sphinx-autobuild</span></code> or <code class="docutils literal notranslate"><span class="pre">pydata-sphinx-theme&gt;=0.12</span></code>. They should state a minimum version if you are using features that are added in a specific version. There should be no upper bound by default, only insert one if an upstream release of a dependency breaks your code, and you don’t have time to fix it immediately.</p>
 </section>
 <section id="updating-the-lockfile">
 <h2>Updating the lockfile<a class="headerlink" href="#updating-the-lockfile" title="Link to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p>Open the repo in a devcontainer</p></li>
-<li><p>Delete dev-requirements.txt</p></li>
-<li><p>Restart your dev container</p></li>
-<li><p>Check the tests run</p></li>
-<li><p>Then run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">freeze</span> <span class="pre">--exclude-editable</span> <span class="pre">&gt;</span> <span class="pre">dev-requirements.txt</span></code></p></li>
-<li><p>Check the new file into Git</p></li>
-<li><p>Push and merge the changes</p></li>
-</ol>
-</section>
-<section id="removing-dependency-locking-from-ci">
-<h2>Removing dependency locking from CI<a class="headerlink" href="#removing-dependency-locking-from-ci" title="Link to this heading">#</a></h2>
-<p>Once the reasons for locking the build have been resolved it is a good idea to go back to an unlocked build. This is because you get an early indication of any incoming problems.</p>
-<p>To restore unlocked builds in CI simply remove <code class="docutils literal notranslate"><span class="pre">dev-requirements.txt</span></code> from the root of the repo and push.</p>
+<p>When you have updated <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> then run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ uv sync
+</pre></div>
+</div>
+<p>This will ensure that any new dependencies you add will be placed in the lockfile, and your venv updated to match. It will <em>not</em> update any existing dependencies, unless <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> requires a later version.</p>
+<p>This command will be run by <a class="reference internal" href="lint.html"><span class="doc std std-doc">pre-commit</span></a> during a <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code> and by CI.</p>
+<p>To update all dependencies to their latest versions run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">uv</span> <span class="n">sync</span> <span class="o">--</span><span class="n">upgrade</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://docs.astral.sh/uv/concepts/projects/sync">The uv docs on locking and syncing</a></p>
+</div>
 </section>
 </section>
 
@@ -546,10 +535,8 @@
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-the-lock-files">Finding the lock files</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-the-lock-file">Applying the lock file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#specifying-dependencies">Specifying dependencies</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-the-lockfile">Updating the lockfile</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#removing-dependency-locking-from-ci">Removing dependency locking from CI</a></li>
 </ul>
   </nav></div>
 

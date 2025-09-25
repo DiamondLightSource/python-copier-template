@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Run linting using pre-commit &#8212; python-copier-template 4.3.1.dev1+g2aa11776d documentation</title>
+    <title>Run linting using pre-commit &#8212; python-copier-template 4.3.1.dev2+ged290c837 documentation</title>
   
   
   
@@ -41,7 +41,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=5c2967c8"></script>
+    <script src="../_static/documentation_options.js?v=7c2b60b9"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -461,11 +461,11 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tox -e pre-commit
 </pre></div>
 </div>
-<p>Or you can install a pre-commit hook that will run each time you do a <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code> on just the files that have changed:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pre-commit install
+<p>The devcontainer will also install a pre-commit hook that will run each time you do a <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code> on just the files that have changed.</p>
+<p>If you want to commit with a failing pre-commit check then you have to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git commit --no-verify
 </pre></div>
 </div>
-<p>It is also possible to <a class="reference external" href="https://pre-commit.com/#automatically-enabling-pre-commit-on-repositories">automatically enable pre-commit on cloned repositories</a>. This will result in pre-commits being enabled on every repo your user clones from now on.</p>
 </section>
 <section id="fixing-issues">
 <h2>Fixing issues<a class="headerlink" href="#fixing-issues" title="Link to this heading">#</a></h2>

@@ -14,21 +14,24 @@ jobs:
           # Need this to get version number from last tag
           fetch-depth: 0
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
       - name: Regenerate example
         run: |
-          pipx run copier copy --data-file example-answers.yml --vcs-ref=HEAD . example
-
-      - name: Rewrite copier answers
-        run: |
-          sed -i 's|_src_path: .|_src_path: https://github.com/DiamondLightSource/python-copier-template.git|' example/.copier-answers.yml
-
+          git init /tmp/example
+          uvx copier copy --data-file example-answers.yml --vcs-ref=HEAD . /tmp/example
+          sed -i 's|_src_path: .|_src_path: https://github.com/DiamondLightSource/python-copier-template.git|' /tmp/example/.copier-answers.yml
+          uv lock --directory /tmp/example
+          rm -rf /tmp/example/.git
+          
       - name: Publish example
         # We pin to the SHA, not the tag, for security reasons.
         # https://docs.github.com/en/actions/learn-github-actions/security-hardening-for-github-actions#using-third-party-actions
         uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e # v4.0.0
         with:
           deploy_key: ${{ secrets.EXAMPLE_DEPLOY_KEY }}
-          publish_dir: example
+          publish_dir: /tmp/example
           external_repository: DiamondLightSource/python-copier-template-example
           publish_branch: main
           enable_jekyll: true  # don't put a .nojekyll

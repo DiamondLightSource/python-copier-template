@@ -103,7 +103,9 @@ description = "Run {{ type_checker }}"
 commands = [
     [
         "{{ type_checker }}",
-        "src",
+        {% if type_checker=="pyright" %}"--pythonpath",
+        ".venv/bin/python",
+        {% endif %}"src",
         "tests",
         { replace = "posargs", default = [
         ], extend = true },

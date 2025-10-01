@@ -180,6 +180,8 @@ def test_example_repo_updates(tmp_path: Path):
     output = run(
         # Git directory expected to be different
         "diff -ur --exclude=.git "
+        # uv lock expected to be different
+        "--exclude=uv.lock "
         # The commit hash is different for some reason
         "--ignore-matching-lines='^_commit: ' "
         # If we tag an existing commit that has been pushed to main, then the copier

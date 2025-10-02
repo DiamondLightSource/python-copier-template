@@ -6,7 +6,7 @@
 
 # python-copier-template
 
-Diamond's opinionated [copier](https://copier.readthedocs.io) template for pure Python projects managed by pip. It can be optionally used to:
+Diamond's opinionated [copier](https://copier.readthedocs.io) template for pure Python projects. It can be optionally used to:
 
 - Create new projects from
 - Update existing projects in line with it
@@ -21,7 +21,7 @@ Releases        | <https://github.com/DiamondLightSource/python-copier-template/
 It integrates the following tools:
 
 - [setuptools](https://setuptools.pypa.io) and [setuptools-scm](https://setuptools-scm.readthedocs.io) for packaging
-- [pip](https://pip.pypa.io) to manage installation
+- [uv](https://docs.astral.sh/uv/) to manage installation and project lockfile
 - [pytest](https://docs.pytest.org) for code testing and coverage
 - [pre-commit](https://pre-commit.com) to run linting and formatting such as [ruff](https://docs.astral.sh/ruff)
 - [pyright](https://microsoft.github.io/pyright) or [mypy](https://www.mypy-lang.org) for static type checking

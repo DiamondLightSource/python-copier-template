@@ -1,3 +1,7 @@
+# This allow-list is limited to YAML/YML files to cut down SealedSecrets false positives.
+# All gitleaks default rules still apply everywhere (useDefault = true).
+# To broaden this allow-list to all files, comment out the 'paths' line below.
+
 [extend]
 useDefault = true
 

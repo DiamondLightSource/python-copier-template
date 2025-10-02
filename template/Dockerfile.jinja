@@ -39,6 +39,7 @@ RUN sed -i 's/files/ldap files/g' /etc/nsswitch.conf
 # Make editable and debuggable
 RUN uv pip install debugpy
 RUN uv pip install -e .
+ENV PATH=/app/.venv/bin:$PATH
 
 # Alternate entrypoint to allow devcontainer to attach
 ENTRYPOINT [ "/bin/bash", "-c", "--" ]

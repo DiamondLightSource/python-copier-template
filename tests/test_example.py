@@ -180,6 +180,8 @@ def test_example_repo_updates(tmp_path: Path):
     output = run(
         # Git directory expected to be different
         "diff -ur --exclude=.git "
+        # uv lock expected to be different
+        "--exclude=uv.lock "
         # The commit hash is different for some reason
         "--ignore-matching-lines='^_commit: ' "
         # If we tag an existing commit that has been pushed to main, then the copier
@@ -254,6 +256,27 @@ def test_pyright_works_in_standard_typing_mode(tmp_path: Path):
     # Ensure pyright is still happy
     run = make_venv(tmp_path)
     run(f".venv/bin/pyright {tmp_path}")
+
+
+def test_pyright_works_with_external_deps(tmp_path: Path):
+    copy_project(tmp_path)
+    # Add an external dependency
+    pyproject_toml = tmp_path / "pyproject.toml"
+    text = pyproject_toml.read_text().replace(
+        "dependencies = []", 'dependencies = ["numpy"]'
+    )
+    pyproject_toml.write_text(text)
+    # And some code that uses it
+    src_file = tmp_path / "src" / "python_copier_template_example" / "example.py"
+    src_file.write_text("""
+import numpy as np
+
+def is_big(arr: np.ndarray) -> bool:
+    return arr.size > 0
+""")
+    # Ensure pyright is still happy
+    run = make_venv(tmp_path)
+    run(".venv/bin/tox -e type-checking")
 
 
 def test_ignores_mypy_strict_mode(tmp_path: Path):

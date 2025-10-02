@@ -28,7 +28,7 @@ def test_gitleaks_stable_patterns_fail(tmp_path: Path, fname: str, content: str)
     run("git add -A")  # pre-commit's gitleaks scans the staged index
 
     with pytest.raises(AssertionError, match=r"(?i)(leak|gitleaks|secret)"):
-        run("./venv/bin/tox -e pre-commit")
+        run(".venv/bin/tox -e pre-commit")
 
 
 # --- Sealed-secrets: YAML/YML allowlisted; non-YAML should be flagged ---
@@ -84,7 +84,7 @@ spec:
     run_yaml = make_venv(proj_yaml)
     (proj_yaml / "secret.yaml").write_text(sealed_yaml)
     run_yaml("git add -A")
-    run_yaml("./venv/bin/tox -e pre-commit")
+    run_yaml(".venv/bin/tox -e pre-commit")
 
 
 def test_gitleaks_yaml_allowlist_for_sealed_secrets_yml(tmp_path: Path):
@@ -110,7 +110,7 @@ spec:
     run_yml = make_venv(proj_yml)
     (proj_yml / "secret.yml").write_text(sealed_yaml)
     run_yml("git add -A")
-    run_yml("./venv/bin/tox -e pre-commit")
+    run_yml(".venv/bin/tox -e pre-commit")
 
 
 def test_leaky_code_fails_gitleaks(tmp_path: Path):
@@ -126,4 +126,4 @@ def test_leaky_code_fails_gitleaks(tmp_path: Path):
     (proj_code / "leaky.py").write_text(f'api_key = "{blob}"\n')
     run_code("git add -A")
     with pytest.raises(AssertionError, match=r"(?i)(leak|gitleaks|secret)"):
-        run_code("./venv/bin/tox -e pre-commit")
+        run_code(".venv/bin/tox -e pre-commit")

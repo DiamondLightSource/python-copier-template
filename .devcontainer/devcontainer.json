@@ -56,9 +56,9 @@
         },
         // Keep a persistent cross container cache for uv
         {
-            "source": "${localEnv:HOME}/.cache/uv",
+            "source": "persistent-uv-cache",
             "target": "/root/.cache/uv",
-            "type": "bind"
+            "type": "volume"
         },
         // Use a volume mount for the uv venv so it is local to the container
         {

@@ -60,6 +60,12 @@
             "target": "/root/.cache/uv",
             "type": "volume"
         },
+        // ...and for pre-commit
+        {
+            "source": "persistent-pre-commit-cache",
+            "target": "/root/.cache/pre-commit",
+            "type": "volume"
+        },
         // Use a volume mount for the uv venv so it is local to the container
         {
             "target": "/workspaces/${localWorkspaceFolderBasename}/.venv",

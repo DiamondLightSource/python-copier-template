@@ -60,7 +60,7 @@
         },
         // Keep a persistent cross container cache for uv, pre-commit, and the venvs
         {
-            "source": "persistent-cache",
+            "source": "devcontainer-shared-cache",
             "target": "/cache",
             "type": "volume"
         }

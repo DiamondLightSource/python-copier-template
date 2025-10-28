@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Setup Developer Environment &#8212; python-copier-template 5.0.0a4.dev1+gae1880839 documentation</title>
+    <title>Setup Developer Environment &#8212; python-copier-template 5.0.0a4.dev2+g17daee5e4 documentation</title>
   
   
   
@@ -41,7 +41,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=b906d311"></script>
+    <script src="../_static/documentation_options.js?v=757709a2"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -468,11 +468,11 @@
 </pre></div>
 </div>
 <p>Click on ‘Reopen in Container’ when prompted on startup or, if vscode is already running, open the command menu with CTRL+SHIFT+P, search for and run ‘Reopen in Container’.</p>
-<p>Open a new terminal</p>
+<p>The developer container creates and activates a venv (stored in <code class="docutils literal notranslate"><span class="pre">/cache/venv-for/path/to/project</span></code>) and this will be managed by any <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">sync</span></code> command as explained in <a class="reference internal" href="lock-requirements.html"><span class="std std-doc">Lock requirements</span></a>. Any rebuild of the container will recreate this venv, but the dependencies will be stored in a cross container cache so that rebuilds are quick.</p>
 </section>
 <section id="build-and-test">
 <h2>Build and test<a class="headerlink" href="#build-and-test" title="Link to this heading">#</a></h2>
-<p>Now you have a development environment you can run the tests in a terminal:</p>
+<p>Now you have a development environment you can run the tests in a new terminal:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tox</span> <span class="o">-</span><span class="n">p</span>
 </pre></div>
 </div>

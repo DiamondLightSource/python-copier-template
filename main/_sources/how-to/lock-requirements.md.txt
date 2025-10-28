@@ -32,3 +32,11 @@ uv sync --upgrade
 ```{seealso}
 [The uv docs on locking and syncing](https://docs.astral.sh/uv/concepts/projects/sync)
 ```
+
+## Modifying the venv to add other projects
+
+Peer projects (those checked out next to the project) are visible in the devcontainer, and can be added into the venv by running `uv pip install -e ../other_project`. This will allow live changes made in this other project to be immediately reflected in the venv.
+
+```{note}
+This venv is activated by default, and global to the container, so if you `uv sync` from `other_project` then it will **replace** the contents of the venv with `other_project`'s dependencies.
+```

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Lock requirements &#8212; python-copier-template 5.0.0a4.dev1+gae1880839 documentation</title>
+    <title>Lock requirements &#8212; python-copier-template 5.0.0a4.dev2+g17daee5e4 documentation</title>
   
   
   
@@ -41,7 +41,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=b906d311"></script>
+    <script src="../_static/documentation_options.js?v=757709a2"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -485,6 +485,14 @@
 <p><a class="reference external" href="https://docs.astral.sh/uv/concepts/projects/sync">The uv docs on locking and syncing</a></p>
 </div>
 </section>
+<section id="modifying-the-venv-to-add-other-projects">
+<h2>Modifying the venv to add other projects<a class="headerlink" href="#modifying-the-venv-to-add-other-projects" title="Link to this heading">#</a></h2>
+<p>Peer projects (those checked out next to the project) are visible in the devcontainer, and can be added into the venv by running <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">../other_project</span></code>. This will allow live changes made in this other project to be immediately reflected in the venv.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This venv is activated by default, and global to the container, so if you <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">sync</span></code> from <code class="docutils literal notranslate"><span class="pre">other_project</span></code> then it will <strong>replace</strong> the contents of the venv with <code class="docutils literal notranslate"><span class="pre">other_project</span></code>’s dependencies.</p>
+</div>
+</section>
 </section>
 
 
@@ -537,6 +545,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#specifying-dependencies">Specifying dependencies</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-the-lockfile">Updating the lockfile</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-the-venv-to-add-other-projects">Modifying the venv to add other projects</a></li>
 </ul>
   </nav></div>
 

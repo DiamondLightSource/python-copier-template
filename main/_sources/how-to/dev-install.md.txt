@@ -20,11 +20,11 @@ code .
 
 Click on 'Reopen in Container' when prompted on startup or, if vscode is already running, open the command menu with CTRL+SHIFT+P, search for and run 'Reopen in Container'.
 
-Open a new terminal
+The developer container creates and activates a venv (stored in `/cache/venv-for/path/to/project`) and this will be managed by any `uv sync` command as explained in [](./lock-requirements.md). Any rebuild of the container will recreate this venv, but the dependencies will be stored in a cross container cache so that rebuilds are quick.
 
 ## Build and test
 
-Now you have a development environment you can run the tests in a terminal:
+Now you have a development environment you can run the tests in a new terminal:
 
 ```
 tox -p

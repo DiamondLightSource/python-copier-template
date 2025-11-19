@@ -1,6 +1,8 @@
 import functools
+import json
 import shlex
 import subprocess
+import tomllib
 from collections.abc import Callable
 from pathlib import Path
 
@@ -327,3 +329,60 @@ def test_catalog_info(tmp_path: Path):
             "owner": "group:default/daq",
         },
     }
+
+
+@pytest.mark.parametrize(
+    "override",
+    [
+        {},
+        {"docker": True},
+        {"docker": True, "docker_debug": True},
+        {"pypi": True},
+        {"docs_type": "sphinx"},
+    ],
+)
+def test_renovate_actions_match_what_is_shipped(override: dict, tmp_path: Path):
+    # Generate a project with the given answers
+    answers = {
+        "docker": False,
+        "docker_debug": False,
+        "pypi": False,
+        "docs_type": "README",
+    }
+    answers.update(override)
+    copy_project(tmp_path, **answers)
+    # Find the GitHub actions ignored by renovate
+    renovate_config_path = tmp_path / "renovate.json"
+    renovate_config = json.loads(renovate_config_path.read_text())
+    config_github_actions = set(renovate_config["packageRules"][1]["matchPackageNames"])
+    # Find the GitHub actions actually used in the workflows
+    used_github_actions = set[str]()
+    for workflow_file in (tmp_path / ".github" / "workflows").glob("*.yml"):
+        workflow = yaml.safe_load(workflow_file.read_text())
+        for job in workflow.get("jobs", {}).values():
+            for step in job.get("steps", []):
+                action = step.get("uses")
+                if action:
+                    used_github_actions.add(action.split("@")[0])
+    # Check they match
+    assert used_github_actions == config_github_actions
+
+
+def test_python_versions_match(tmp_path: Path):
+    copy_project(tmp_path)
+    # Grab the python versions from ci.yml
+    ci_yaml = tmp_path / ".github" / "workflows" / "ci.yml"
+    workflow = yaml.safe_load(ci_yaml.read_text())
+    python_versions = workflow["jobs"]["test"]["strategy"]["matrix"]["python-version"]
+    # Check .python-version is the first of these
+    python_version_file = tmp_path / ".python-version"
+    min_version = python_version_file.read_text().strip()
+    assert python_versions[0] == min_version
+    # Check pyproject.toml has correct requires-python and classifiers
+    pyproject_toml = tomllib.loads((tmp_path / "pyproject.toml").read_text())
+    assert pyproject_toml["project"]["requires-python"] == f">={min_version}"
+    for version in python_versions:
+        assert (
+            f"Programming Language :: Python :: {version}"
+            in pyproject_toml["project"]["classifiers"]
+        )

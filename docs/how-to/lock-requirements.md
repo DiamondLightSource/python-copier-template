@@ -28,6 +28,7 @@ To update all dependencies to their latest versions run:
 ```
 uv sync --upgrade
 ```
+This command will be run [renovate](./renovate) once a week in CI.
 
 ```{seealso}
 [The uv docs on locking and syncing](https://docs.astral.sh/uv/concepts/projects/sync)

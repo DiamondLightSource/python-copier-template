@@ -18,11 +18,11 @@ Copier will *overwrite* files with the template files. Please check the changes 
 If you have a [python3-pip-skeleton](https://github.com/DiamondLightSource/python3-pip-skeleton) based project then it is best to adopt the `1.0.0` release of this template, then `copier update` to get to the latest. This is because `copier update` will try and merge file changes across renames done between releases, while `copier copy` cannot. This looks like:
 
 ```shell
-copier copy https://github.com/DiamondLightSource/python-copier-template.git --trust --vcs-ref=1.0.0 /path/to/existing-project
+uvx copier copy https://github.com/DiamondLightSource/python-copier-template.git --trust --vcs-ref=1.0.0 /path/to/existing-project
 git diff
 # Examine the changes, put back anything you want to keep
 git commit -m "Adopt python-copier-template 1.0.0"
-copier update /path/to/existing-project --trust
+uvx copier update /path/to/existing-project --trust
 git diff
 # Examine the changes, resolve any merge conflicts
 git commit -m "Update to python-copier-template x.x.x"
@@ -33,7 +33,7 @@ git commit -m "Update to python-copier-template x.x.x"
 If you have a project with a different structure then it is best to go straight to the latest release:
 
 ```shell
-copier copy https://github.com/DiamondLightSource/python-copier-template.git /path/to/existing-project
+uvx copier copy https://github.com/DiamondLightSource/python-copier-template.git /path/to/existing-project
 git diff
 # Examine the changes, put back anything you want to keep
 git commit -m "Adopt python-copier-template x.x.x"
@@ -45,4 +45,4 @@ Copier does not touch any already existing files that do not conflict with the o
 
 ## Getting started with your new structure
 
-You can now [](../how-to/dev-install), and then follow some of the other [](../how-to).
+You can now [](../how-to/setup-repo), [](../how-to/dev-install), and then follow some of the other [](../how-to).

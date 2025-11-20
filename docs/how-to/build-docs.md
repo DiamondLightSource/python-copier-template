@@ -37,3 +37,12 @@ If you want to watch additional directories for changes you can pass these as ar
 ```
 $ tox -e docs-autobuild -- --watch tests
 ```
+
+(building-docs-in-ci)=
+## Building docs in CI
+
+After a successful run of CI
+
+Settings > Pages
+
+![Setup GitHub Pages](../images/gh-pages-setup.png)

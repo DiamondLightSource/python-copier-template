@@ -36,15 +36,13 @@ You can see the template in action in the [example project](https://github.com/D
 
 ## Create a new project from the commandline
 
-You will need to `pip install copier` inside an activated `venv` from python3.11 or later, then you can create a new module via:
+We recommend that you invoke copier via `uvx`, which will download, install, and run it in its own isolated `venv`. At Diamond you can `module load uv` to get `uvx` on your path, then:
 
 ```
 git init --initial-branch=main /path/to/my-project
 # $_ resolves to /path/to/my-project
-copier copy https://github.com/DiamondLightSource/python-copier-template.git $_
+uvx copier copy https://github.com/DiamondLightSource/python-copier-template.git $_
 ```
-
-You can also use it via `uvx copier` if you have `uv` installed.
 
 <!-- README only content. Anything below this line won't be included in index.md -->
 

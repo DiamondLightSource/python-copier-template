@@ -3,45 +3,18 @@
 This tutorial will take you through installing copier, the templating engine that will allow you
 to create new projects from the template, update existing projects in line with it, and keep projects in sync with changes to it.
 
-## Check your version of python
+## Install uv
 
-You will need python 3.11 or later. You can check your version of python by
-typing into a terminal:
+We recommend that you invoke copier via `uvx`, which will download, install, and run it in its own isolated `venv`. 
 
-```
-$ python3 --version
-```
+At Diamond you can `module load uv` to get `uvx` on the path.
 
-:::{note}
-At Diamond you can use `module load python` to get a more recent version of python on your path
-:::
+Otherwise please follow the [uv installation instructions](https://docs.astral.sh/uv/getting-started/installation).
 
-## Create a virtual environment
 
-It is recommended that you install into a “virtual environment” so this
-installation will not interfere with any existing Python software:
+## Try it out
 
-```
-$ python3 -m venv /path/to/venv
-$ source /path/to/venv/bin/activate
-```
-
-:::{note}
-You may wish to deactivate any existing virual environments before sourcing the new
-environment. Deactivation can be performed by executing:
-
-- `conda deactivate` for conda
-- `deactivate` for venv or virtualenv
-- `exit` for pipenv
-:::
-
-## Installing copier
-
-You can now use `pip` to install copier so you can make your project from the template:
-
-```
-$ python3 -m pip install copier
-```
+If you run `uvx copier --version` then `copier` will be downloaded, installed, and run, and will print its version.
 
 ## Conclusion
 

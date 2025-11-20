@@ -29,8 +29,7 @@
                 "python.terminal.activateEnvironment": false,
                 // Workaround to prevent garbled python REPL in the terminal
                 // https://github.com/microsoft/vscode-python/issues/25505
-                "python.terminal.shellIntegration.enabled": false,
-                "remote.autoForwardPorts": false
+                "python.terminal.shellIntegration.enabled": false
             },
             // Add the IDs of extensions you want installed when the container is created.
             "extensions": [

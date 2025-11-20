@@ -20,7 +20,7 @@ If your repo is in an org where the Renovate GitHub app is not installed, then f
 - Select the org your repo is hosted in
 - Select `All repositories` and click `Install`
 - Select `Renovate Only` as the product
-- Select `Silent` as the mode
+- Select `Scan only` as the mode
 - Click `Finish`
 - Click `Settings`
 - Select the `Dependencies` tab

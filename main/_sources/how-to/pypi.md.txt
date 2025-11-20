@@ -14,7 +14,7 @@ You will need the following information:
 
 ## If publishing to the DiamondLightSource PyPI organisation
 
-If you are publishing to the DiamondLightSource PyPI organisation then use the above information and follow the [Developer Portal Guide on PyPI publishing](https://dev-portal.diamond.ac.uk/guide/python/how-tos/pypi/).
+If you are publishing to the DiamondLightSource PyPI organisation then use the above information and follow the [Developer Portal Guide on PyPI publishing](https://dev-guide.diamond.ac.uk/python/how-tos/pypi/).
 
 ## If publishing the PyPI project to another organisation
 

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Create a new repo from the template &#8212; python-copier-template 5.0.0a4.dev2+g17daee5e4 documentation</title>
+    <title>Create a new repo from the template &#8212; python-copier-template 5.0.0a5.dev4+gb4da80f74 documentation</title>
   
   
   
@@ -41,7 +41,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=757709a2"></script>
+    <script src="../_static/documentation_options.js?v=f078b744"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -439,8 +439,9 @@
   <section id="create-a-new-repo-from-the-template">
 <h1>Create a new repo from the template<a class="headerlink" href="#create-a-new-repo-from-the-template" title="Link to this heading">#</a></h1>
 <p>Once you have followed the <a class="reference internal" href="installation.html"><span class="doc std std-doc">Install template pre-requisites</span></a> tutorial, you can use <code class="docutils literal notranslate"><span class="pre">copier</span></code> to make a new project from the template:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git init --initial-branch=main /path/to/my-project
-$ copier copy https://github.com/DiamondLightSource/python-copier-template.git $_
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>git init --initial-branch=main /path/to/my-project
+# $_ resolves to /path/to/my-project
+uvx copier copy https://github.com/DiamondLightSource/python-copier-template.git $_
 </pre></div>
 </div>
 <p>This will:</p>
@@ -452,29 +453,25 @@ $ copier copy https://github.com/DiamondLightSource/python-copier-template.git $
 </ul>
 <section id="committing-the-results">
 <h2>Committing the results<a class="headerlink" href="#committing-the-results" title="Link to this heading">#</a></h2>
-<p>You can now check what the template has created, tweak the results if desired, and commit the results:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd /path/to/my-project
-$ git add .
-$ git commit -m &quot;Expand from python-copier-template x.x.x&quot;
+<p>You can now check what the template has created, tweak the results if desired, <a class="reference internal" href="../how-to/lock-requirements.html"><span class="doc std std-doc">Lock requirements</span></a>, and commit the results:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/path/to/my-project
+$<span class="w"> </span>uv<span class="w"> </span>sync
+$<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>.
+$<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Expand from python-copier-template x.x.x&quot;</span>
 </pre></div>
 </div>
 </section>
 <section id="uploading-to-github">
 <h2>Uploading to GitHub<a class="headerlink" href="#uploading-to-github" title="Link to this heading">#</a></h2>
-<p>If the project is to be under the DiamondLightSource organisation, request a new repository in the <a class="reference external" href="https://diamondlightsource.slack.com/archives/C06A18ZPP44">#github-requests Slack channel</a> with the given repo name, description and who to add as an owner in addition to yourself. This will be replaced by <a class="reference external" href="https://github.com/DiamondLightSource/python-copier-template/issues/274">a template in the developer-portal in future.</a></p>
-<p>Else, you can now <a class="reference external" href="https://github.com/new">create a new blank project on GitHub</a>. Choose the same GitHub owner and repo name that you answered in the questions earlier. GitHub will now give you the commands needed to upload your repo from GitHub.</p>
-</section>
-<section id="settings">
-<h2>Settings<a class="headerlink" href="#settings" title="Link to this heading">#</a></h2>
-<p>You can now go to the cogwheel on the main page next to the “About” header, and set the project description to match the answer you gave.</p>
-<p>Then go to the <code class="docutils literal notranslate"><span class="pre">Settings</span></code> tab and set:</p>
-<ul class="simple">
-<li><p>Enable Pages if you chose to use sphinx for your documentation</p></li>
-</ul>
+<p>You can now <a class="reference external" href="https://github.com/new">create a new blank project on GitHub</a>. Choose the same GitHub owner, repo name and description that you answered in the questions earlier. GitHub will now give you the commands needed to upload your repo from GitHub.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>At present you cannot make a project directly in the DiamondLightSource organisation, it must be made as a personal repository then <a class="reference external" href="https://dev-guide.diamond.ac.uk/version-control/how-tos/github-transfer-repo/">transferred in</a>. When it has been transferred then you can <code class="docutils literal notranslate"><span class="pre">copier</span> <span class="pre">update</span> <span class="pre">--vcs-ref=:current:</span></code> to re-answer the questions with the new org</p>
+</div>
 </section>
 <section id="getting-started-with-your-new-repo">
 <h2>Getting started with your new repo<a class="headerlink" href="#getting-started-with-your-new-repo" title="Link to this heading">#</a></h2>
-<p>You can now <a class="reference internal" href="../how-to/dev-install.html"><span class="doc std std-doc">Setup Developer Environment</span></a>, and then follow some of the other <a class="reference internal" href="../how-to.html"><span class="doc std std-doc">How-to Guides</span></a>.</p>
+<p>You can now <a class="reference internal" href="../how-to/setup-repo.html"><span class="doc std std-doc">Setup the repository with recommended settings</span></a>, <a class="reference internal" href="../how-to/dev-install.html"><span class="doc std std-doc">Setup Developer Environment</span></a>, and then follow some of the other <a class="reference internal" href="../how-to.html"><span class="doc std std-doc">How-to Guides</span></a>.</p>
 </section>
 </section>
 
@@ -527,7 +524,6 @@ $ git commit -m &quot;Expand from python-copier-template x.x.x&quot;
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#committing-the-results">Committing the results</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uploading-to-github">Uploading to GitHub</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#settings">Settings</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started-with-your-new-repo">Getting started with your new repo</a></li>
 </ul>
   </nav></div>

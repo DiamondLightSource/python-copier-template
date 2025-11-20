@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>How to check code coverage &#8212; python-copier-template 5.0.0a4.dev2+g17daee5e4 documentation</title>
+    <title>How to check code coverage &#8212; python-copier-template 5.0.0a5.dev4+gb4da80f74 documentation</title>
   
   
   
@@ -41,7 +41,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=757709a2"></script>
+    <script src="../_static/documentation_options.js?v=f078b744"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -373,6 +373,7 @@
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="setup-repo.html">Setup the repository with recommended settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev-install.html">Setup Developer Environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="build-docs.html">Build the docs using sphinx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="check-docs-style.html">Check docs for style</a></li>
@@ -388,6 +389,7 @@
 <li class="toctree-l1"><a class="reference internal" href="make-release.html">Make a release</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pypi.html">Setting up PyPI publishing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="readme-images.html">How to add images to the README</a></li>
+<li class="toctree-l1"><a class="reference internal" href="renovate.html">Use renovate to keep dependencies up to date</a></li>
 <li class="toctree-l1"><a class="reference internal" href="run-tests.html">Run the tests using pytest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="static-analysis.html">Run static analysis using pyright or mypy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="strict-mode.html">Use Pyright’s Strict Mode</a></li>
@@ -455,9 +457,19 @@
   <section id="how-to-check-code-coverage">
 <h1>How to check code coverage<a class="headerlink" href="#how-to-check-code-coverage" title="Link to this heading">#</a></h1>
 <p>Code coverage is reported to the command line and to a <code class="docutils literal notranslate"><span class="pre">cov.xml</span></code> file by the command <code class="docutils literal notranslate"><span class="pre">tox</span> <span class="pre">-e</span> <span class="pre">tests</span></code>. The file is uploaded to the Codecov service in CI.</p>
-<section id="adding-a-codecov-token">
-<h2>Adding a Codecov Token<a class="headerlink" href="#adding-a-codecov-token" title="Link to this heading">#</a></h2>
-<p>If the repo is not hosted in DiamondLightSource, then you need to visit <code class="docutils literal notranslate"><span class="pre">https://app.codecov.io/account/gh/&lt;org_name&gt;/org-upload-token</span></code> to generate a token for your org, and store it as a secret named <code class="docutils literal notranslate"><span class="pre">CODECOV_TOKEN</span></code> in <code class="docutils literal notranslate"><span class="pre">https://github.com/organizations/&lt;org_name&gt;/settings/secrets/actions</span></code></p>
+<section id="installing-codecov-github-app">
+<span id="id1"></span><h2>Installing Codecov GitHub app<a class="headerlink" href="#installing-codecov-github-app" title="Link to this heading">#</a></h2>
+<p>If your repo is hosted in the DiamondLightSource org, then the codecov GitHub app is already installed and a global token stored so you don’t need to do anything.</p>
+<p>If your repo is in an org where the codecov GitHub app is not installed, then follow these steps to install it on the org:</p>
+<ul class="simple">
+<li><p>Visit https://github.com/apps/codecov</p></li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">Configure</span></code></p></li>
+<li><p>Select the org your repo is hosted in</p></li>
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">All</span> <span class="pre">repositories</span></code> and click <code class="docutils literal notranslate"><span class="pre">Install</span></code></p></li>
+</ul>
+<p><img alt="Install Codecov" src="../_images/gh-install-codecov.png" /></p>
+<p>Now you need to visit <code class="docutils literal notranslate"><span class="pre">https://app.codecov.io/account/gh/&lt;org_name&gt;/org-upload-token</span></code> to generate a token for your org, and store it as a secret named <code class="docutils literal notranslate"><span class="pre">CODECOV_TOKEN</span></code> in <code class="docutils literal notranslate"><span class="pre">https://github.com/organizations/&lt;org_name&gt;/settings/secrets/actions</span></code></p>
+<p>Next time you create a pull request or merge to main, the code coverage will be uploaded, and the badge on the repository updated.</p>
 </section>
 </section>
 
@@ -508,7 +520,7 @@
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-codecov-token">Adding a Codecov Token</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-codecov-github-app">Installing Codecov GitHub app</a></li>
 </ul>
   </nav></div>
 

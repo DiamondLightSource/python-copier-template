@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Install template pre-requisites &#8212; python-copier-template 5.0.0a4.dev2+g17daee5e4 documentation</title>
+    <title>Install template pre-requisites &#8212; python-copier-template 5.0.0a5.dev4+gb4da80f74 documentation</title>
   
   
   
@@ -41,7 +41,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=757709a2"></script>
+    <script src="../_static/documentation_options.js?v=f078b744"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -440,43 +440,15 @@
 <h1>Install template pre-requisites<a class="headerlink" href="#install-template-pre-requisites" title="Link to this heading">#</a></h1>
 <p>This tutorial will take you through installing copier, the templating engine that will allow you
 to create new projects from the template, update existing projects in line with it, and keep projects in sync with changes to it.</p>
-<section id="check-your-version-of-python">
-<h2>Check your version of python<a class="headerlink" href="#check-your-version-of-python" title="Link to this heading">#</a></h2>
-<p>You will need python 3.11 or later. You can check your version of python by
-typing into a terminal:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 --version
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>At Diamond you can use <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">load</span> <span class="pre">python</span></code> to get a more recent version of python on your path</p>
-</div>
+<section id="install-uv">
+<h2>Install uv<a class="headerlink" href="#install-uv" title="Link to this heading">#</a></h2>
+<p>We recommend that you invoke copier via <code class="docutils literal notranslate"><span class="pre">uvx</span></code>, which will download, install, and run it in its own isolated <code class="docutils literal notranslate"><span class="pre">venv</span></code>.</p>
+<p>At Diamond you can <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">load</span> <span class="pre">uv</span></code> to get <code class="docutils literal notranslate"><span class="pre">uvx</span></code> on the path.</p>
+<p>Otherwise please follow the <a class="reference external" href="https://docs.astral.sh/uv/getting-started/installation">uv installation instructions</a>.</p>
 </section>
-<section id="create-a-virtual-environment">
-<h2>Create a virtual environment<a class="headerlink" href="#create-a-virtual-environment" title="Link to this heading">#</a></h2>
-<p>It is recommended that you install into a “virtual environment” so this
-installation will not interfere with any existing Python software:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 -m venv /path/to/venv
-$ source /path/to/venv/bin/activate
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You may wish to deactivate any existing virual environments before sourcing the new
-environment. Deactivation can be performed by executing:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">deactivate</span></code> for conda</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">deactivate</span></code> for venv or virtualenv</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">exit</span></code> for pipenv</p></li>
-</ul>
-</div>
-</section>
-<section id="installing-copier">
-<h2>Installing copier<a class="headerlink" href="#installing-copier" title="Link to this heading">#</a></h2>
-<p>You can now use <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install copier so you can make your project from the template:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 -m pip install copier
-</pre></div>
-</div>
+<section id="try-it-out">
+<h2>Try it out<a class="headerlink" href="#try-it-out" title="Link to this heading">#</a></h2>
+<p>If you run <code class="docutils literal notranslate"><span class="pre">uvx</span> <span class="pre">copier</span> <span class="pre">--version</span></code> then <code class="docutils literal notranslate"><span class="pre">copier</span></code> will be downloaded, installed, and run, and will print its version.</p>
 </section>
 <section id="conclusion">
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
@@ -531,9 +503,8 @@ environment. Deactivation can be performed by executing:</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-version-of-python">Check your version of python</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-virtual-environment">Create a virtual environment</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-copier">Installing copier</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-uv">Install uv</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-out">Try it out</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
 </ul>
   </nav></div>

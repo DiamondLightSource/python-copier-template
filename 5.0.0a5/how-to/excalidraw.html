@@ -1,0 +1,586 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>How to embed Excalidraw diagrams &#8212; python-copier-template 5.0.0a5 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=19e519af"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=30646c52"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'how-to/excalidraw';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://DiamondLightSource.github.io/python-copier-template/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '5.0.0a5';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <link rel="icon" href="../_static/dls-logo.svg"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Run linting using pre-commit" href="lint.html" />
+    <link rel="prev" title="Debugging containers" href="debug-in-cluster.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="5.0.0a5" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/dls-logo.svg" class="logo__image only-light" alt=""/>
+    <img src="../_static/dls-logo.svg" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">python-copier-template</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tutorials.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../how-to.html">
+    How-to Guides
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../explanations.html">
+    Explanations
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference.html">
+    Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/DiamondLightSource/python-copier-template" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tutorials.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../how-to.html">
+    How-to Guides
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../explanations.html">
+    Explanations
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference.html">
+    Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/DiamondLightSource/python-copier-template" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="setup-repo.html">Setup the repository with recommended settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev-install.html">Setup Developer Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build-docs.html">Build the docs using sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="check-docs-style.html">Check docs for style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contribute to the template</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coverage.html">How to check code coverage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug-in-cluster.html">Debugging containers</a></li>
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">How to embed Excalidraw diagrams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lint.html">Run linting using pre-commit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lock-requirements.html">Lock requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="make-release.html">Make a release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pypi.html">Setting up PyPI publishing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="readme-images.html">How to add images to the README</a></li>
+<li class="toctree-l1"><a class="reference internal" href="renovate.html">Use renovate to keep dependencies up to date</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run-tests.html">Run the tests using pytest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="static-analysis.html">Run static analysis using pyright or mypy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strict-mode.html">Use Pyright’s Strict Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update-template.html">How to update to the latest template structure</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../how-to.html" class="nav-link">How-to Guides</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">How to embed Excalidraw diagrams</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="how-to-embed-excalidraw-diagrams">
+<h1>How to embed Excalidraw diagrams<a class="headerlink" href="#how-to-embed-excalidraw-diagrams" title="Link to this heading">#</a></h1>
+<p>Start off by creating your diagram in <a class="reference external" href="https://excalidraw.com">https://excalidraw.com</a></p>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 611 205" width="611" height="205">
+  <!-- svg-source:excalidraw -->
+  <!-- payload-type:application/vnd.excalidraw+json --><!-- payload-version:2 --><!-- payload-start -->eyJ2ZXJzaW9uIjoiMSIsImVuY29kaW5nIjoiYnN0cmluZyIsImNvbXByZXNzZWQiOnRydWUsImVuY29kZWQiOiJ4nO1aXXObOFx1MDAxNH3Pr8i4r3WKvqW+pU13J1snTep02mans0OA2DRcdTAwMThcXMD56vS/r8AxQmBcdTAwMDduN9ntdOuHTJDOQVfiXHUwMDFl6d5cdTAwMGJft7a3XHUwMDA3+c08XHUwMDE4PN9cdTAwMWVcdTAwMDTXnlx1MDAxYoV+6l5ccp5cdTAwMTbtl0GahUmsu3B5nSWL1CuR0zyfZ8+fPTOMXHUwMDFkL5ktWUFcdTAwMTTMgjjPNO5Pfb29/bX8q3tCv+BcdTAwMGX5x1x1MDAwZvH49q+Tj1x1MDAxZc3PxrtMJKODklqCVsb4oTtLYt90XFzrVqZkdX1T2CVZdX1cdTAwMTX6+VS3oVrbNFxiJ9O80ejGk6hcdTAwMTjCqVqyPE0ugpdJlKTF0E9cXI5cdTAwMDJaXHUwMDFi+sz1LiZpsoj9XG6Tp26czd1Uz9TgzsMoXHUwMDFh5zfRco1cXG+6SINBY5T3d2bSRnvFy1x1MDAxMr2ihqWHnUzjICvWXHUwMDEzVa3J3PXCvFhcdTAwMDLkmHlcdTAwMTQ2zvf9cuk/Ne8/ddP53X1cdTAwMDZZcVGzLFxiikeDXHUwMDExxYJcdTAwMTOH46rHuFx1MDAwMKKi2XqYxKU7KFx1MDAwN1x0hVx1MDAxODW0MNvTbpCXdz13oywwS1ms4qumi9TdpOYqt55/hN5cdTAwMWSeXHUwMDFlvp1E4Zfsy3BcdTAwMTJkf1RmW+7ipmlyNah6vj1df99cdTAwMTU8XHUwMDBmrnP7RstcdTAwMTE/777YRePI3TuavkHZdLR7dlx1MDAxNo5qt737zyzuYu67y3lcIk6VZFx1MDAwMisplHm4UVx1MDAxOF/oznhcdTAwMTFFpi3xLszSbNXsbUjl/vk35m5cdEVIWyhEiLZQhNNcdTAwMTZcblx1MDAwNsgk4EI4zk8sk3IuLZkoppR299pDNipRfJNIXHUwMDE4xophQfl3iMTynpbHXHUwMDExzjnBXHUwMDAwj6ua50nYVKH5b9s8+fKi+v/T07XomjtcdTAwMTU/bPAt0URulr9MZrMw11x1MDAxMzkqjGhcdTAwMWGc5W6av1xiYz+MJ7rPaHh1vOz3OEtcbldLvEUxwaGzozcp6XCHXCJCXHUwMDE4ZVx1MDAwNNVQXHUwMDEzd15oZEdK5UitYM4wv+utNpJBXHUwMDEw+8agtrG7hVxip4HrN3s1r95X36nWq/70lry/TEen/sn48PgwOj99M75cdTAwMTm3VX+eandcXJ3VZU8hfCWNg5XCp6QtfLXuhDS4buVcdTAwMTNOzz3x/1M+J4pyKtYpXHUwMDFmUdRsXUlcdTAwMWZhobh2KkN7KOnr+EdcIvWfS5+A0FxmhEZAUzjMXHUwMDE2y3TUXHUwMDA1N5FR8cOdcFWHky648aviRzvhXHUwMDAyXHUwMDA2VyC4tNaddcJcdTAwMTFcZo5hcFx1MDAwMoMzXHUwMDE4XFzA4FxuXHUwMDA0V7CpKthTRVx1MDAwZVx1MDAwNvlcdTAwMThyXHUwMDE0yONcdTAwMTG2/GDY6fO1PKEk8E5cdTAwMDKz3H4oulx0XHUwMDFjSpBcdTAwMTZBdlx1MDAxMrhcdTAwMDMlIChcdTAwMDFDXHRcdTAwMDRKoFCCXHUwMDAwLqu9vfUg2Fx1MDAxMWJcdTAwMGbXXHUwMDEwXGJKsJe1U23I3nOH3XpcdTAwMTPW3jLsXHUwMDE2nLC9tVtAQlx1MDAwMlx09lY97Na0vVn3IVAogUNcdFx1MDAxMkhQ0Enb+3CPZVVcdTAwMDRKoFBcdTAwMDL7Z4Ru59tM2GpcdTAwMTBcdTAwMDfzVMe+Olx1MDAxZW9cdTAwMDbH4WxcdTAwMTHpqPPorlv35unCXHUwMDA0kmtzOWODZUE1/nL09enPwWR0ffx6fFx1MDAxMtxeXHUwMDA3Izo9il4t3FH/9MekMcu6h0mHVulcdTAwMGZ2TFuV/pimX9nPhuxHn4pcdTAwMThcdTAwMTNH4laNo1x1MDAxY2dj5UN3OUinP/LhS1x1MDAxZj9I/oNB6MfMllx1MDAwNFxijVx1MDAxMFxmXHUwMDBl3KMxcMfFXG6GJ8CDklx1MDAwMe/fOMR6xOJcdTAwMTJIQNBcdTAwMTGQgFx1MDAxMqAmNeL9XHUwMDFlXHUwMDA0XHUwMDA2JFx1MDAxMOghRlx1MDAxMey5IVxuPVcp0DNcdTAwMTDDMCkgxqBcdTAwMDRcdTAwMDUkNFx1MDAxMoRcdTAwMWVcdTAwMDSoSVx1MDAxY1x1MDAxYZhcbmjuKKAxmoCGXFxcdTAwMDJcdTAwMWGYXG5gvixhJaJGaN1cdTAwMDMvYHi1qSrfK4jtgZcgPHZg64NcdTAwMWRcdTAwMDbE81x1MDAwN8JvNXiPXHUwMDE0IFtcdTAwMDashr8vPo7Op3uvboLLsz3+ct+7unWPs7dO3/hYh4P2+1x1MDAwMWrOrNqLQfM2qVxukFxy7FeAvCFAJpRiSSVd+/pcdTAwMWPLZusqPuY6NFx1MDAxNsRcdTAwMWPUP1t0XGZcdTAwMGIyoadcdTAwMTi49lx1MDAwMYwxgaFcdTAwMDRcdTAwMDPWkzhcdTAwMTRv299Z4GpcdTAwMWOQnVx1MDAxNTT7+Oqu6TXKMN14XHUwMDA2w9fk2ZdcdTAwMDBcdTAwMWVcdTAwMDFaxrTTpj5cdTAwMDRohVx1MDAxYkFr6JjA3KK2XHUwMDFk9SRcdTAwMTBcZnNURKCVVWI/h1x1MDAxZXlcdTAwMDG0QNd4NdEjXGJcdTAwMDcmyLb6e+Ct4KOHPVx1MDAxMoa332P0wGMgXHUwMDFl9vq0kXL0wFx1MDAwM9eHXHUwMDAz10dcdTAwMDDXx35cdTAwMWbRXHUwMDAzXHUwMDBmq1xmbcZvNXiPVa2tXHUwMDFisFx1MDAxYf6+YHT993KtYNT63K5cZkS50yjUMrqz5ltOseZLXHUwMDE1XG6p1TpSnLOzx1xyRVGj/Vx1MDAwN/iUXHUwMDEzXHUwMDExrVx1MDAwNeJI0oo6y1XdXHUwMDE0imJGueSYXHUwMDE5O1x1MDAxZewjNcLrj1x1MDAxY1x1MDAxMIuWvqMnejJccrPa80nifFx1MDAxY95cdTAwMTZGm08+ytbf3FlcdTAwMTjdWEtcXNxiN1xuJ8XkXHUwMDA3nrY3SFx1MDAwN/UlyEPPjSrALPT9KKi7TFx1MDAxNmh7y6FMaO/poVxc3Zr2+Vx1MDAxMm2QpOEkjN3opD6Ze3SVvEv916NcdTAwMDN68Plm/Lsz+bB/SI8u+uhcbjnmXHUwMDE4XSZ4mLZkpdbkd79U1a0qKZlcdTAwMTJS4XVcdJ6p17Xef1BBXHUwMDE4XHUwMDE2Qj18hkcocWpq/i5Vufm/oqo8mcMkZc2irVx1MDAxZm32Uj9bd8fiwJ3Px7len8Hqe9HBZVx1MDAxOFxcvWi75lx1MDAxM8dxXG5yKb3CJ8tT9Ou3rW9/XHUwMDAzNtdm0SJ9<!-- payload-end -->
+  <defs>
+    <style>
+      @font-face {
+        font-family: "Virgil";
+        src: url("https://excalidraw.com/Virgil.woff2");
+      }
+      @font-face {
+        font-family: "Cascadia";
+        src: url("https://excalidraw.com/Cascadia.woff2");
+      }
+    </style>
+  </defs>
+  <g stroke-linecap="round" transform="translate(10 10) rotate(0 92.5 92.5)"><path d="M93.17 1.19 C126.31 35.31, 159.69 69.02, 186.83 93.52 M93.58 0.51 C125.65 34.4, 159.72 66.28, 184.73 93.93 M186.46 93.96 C161.32 115.71, 138.95 140.53, 94.74 183.74 M184.77 93.92 C152.98 125.12, 119.78 157.62, 92.86 185.22 M94.45 185.59 C62.92 153.32, 33.56 126.26, -1.31 94.28 M92.24 185.32 C64.09 155.81, 33.81 126.98, 0.11 92.2 M-0.28 92.65 C32.58 59.69, 65.91 26.82, 94.63 1.98 M0.64 92.3 C22.39 70.69, 46 47.38, 92.24 0.05" stroke="#a61e4d" stroke-width="4" fill="none"></path></g><g stroke-linecap="round"><g transform="translate(200 102) rotate(0 84.85914074839559 1.5444111649412662)"><path d="M0.29 0.99 C28.7 1.06, 142.28 1.09, 170.73 1.4 M-1.01 0.47 C27.27 0.6, 141.54 2.54, 170.17 2.62" stroke="#e67700" stroke-width="4" fill="none"></path></g><g transform="translate(200 102) rotate(0 84.85914074839559 1.5444111649412662)"><path d="M143.52 13.8 C150.01 10.95, 161.68 6.07, 168.88 0.98 M140.88 11.95 C150.32 9.73, 159.31 7.73, 170.75 1.88" stroke="#e67700" stroke-width="4" fill="none"></path></g><g transform="translate(200 102) rotate(0 84.85914074839559 1.5444111649412662)"><path d="M143.74 -6.72 C150.33 -2.89, 161.93 -1.08, 168.88 0.98 M141.1 -8.57 C150.39 -4.82, 159.31 -0.84, 170.75 1.88" stroke="#e67700" stroke-width="4" fill="none"></path></g></g><g transform="translate(398 68) rotate(0 97.5 -1.5)" stroke="none"><path fill="#364fc7" d="M 0,-9.30 Q 0,-9.30 10.35,-8.77 20.70,-8.24 30.10,-7.55 39.50,-6.87 46.16,-6.57 52.82,-6.28 57.76,-6.11 62.71,-5.93 68.53,-5.78 74.36,-5.63 79.15,-5.62 83.95,-5.60 88.19,-6.25 92.43,-6.90 97.06,-8.16 101.69,-9.41 106.05,-10.55 110.40,-11.69 120.71,-12.66 131.01,-13.62 137.19,-14.52 143.36,-15.42 148.00,-16.57 152.63,-17.72 157.24,-18.53 161.85,-19.34 167.88,-18.34 173.91,-17.34 178.38,-14.86 182.85,-12.38 183.63,-11.77 184.40,-11.17 185.98,-12.65 187.56,-14.12 189.54,-15.02 191.51,-15.91 193.66,-16.13 195.81,-16.35 197.93,-15.87 200.04,-15.39 201.88,-14.26 203.73,-13.13 205.12,-11.47 206.51,-9.81 207.30,-7.79 208.08,-5.78 208.19,-3.62 208.29,-1.45 207.69,0.62 207.10,2.70 205.87,4.48 204.64,6.27 202.91,7.56 201.18,8.86 199.12,9.54 197.06,10.22 194.90,10.20 192.73,10.18 190.69,9.48 188.64,8.77 186.93,7.45 185.21,6.13 184.01,4.33 182.81,2.53 182.25,0.44 181.68,-1.65 181.81,-3.81 181.95,-5.97 182.76,-7.97 183.58,-9.98 184.99,-11.62 186.41,-13.26 188.27,-14.36 190.13,-15.46 192.25,-15.91 194.37,-16.36 196.52,-16.11 198.67,-15.86 200.63,-14.94 202.59,-14.01 204.15,-12.51 205.71,-11.01 206.71,-9.09 207.71,-7.17 208.04,-5.04 208.38,-2.90 208.01,-0.76 207.64,1.36 206.62,3.27 205.59,5.17 205.59,5.17 205.59,5.17 195.96,8.62 186.32,12.07 181.71,11.64 177.10,11.20 172.09,8.30 167.08,5.40 162.38,4.25 157.67,3.10 152.12,3.72 146.56,4.34 140.51,5.42 134.46,6.51 125.48,8.84 116.49,11.18 111.99,12.40 107.48,13.63 101.60,14.69 95.72,15.75 88.72,15.55 81.72,15.36 77.22,14.19 72.72,13.03 66.92,11.80 61.12,10.56 56.49,9.82 51.85,9.07 45.45,8.54 39.04,8.02 29.87,8.13 20.69,8.24 10.34,8.77 0,9.30 -1.11,9.17 -2.22,9.03 -3.27,8.64 -4.32,8.24 -5.24,7.60 -6.17,6.96 -6.91,6.12 -7.66,5.28 -8.18,4.29 -8.70,3.30 -8.97,2.21 -9.24,1.12 -9.24,-0.00 -9.24,-1.12 -8.97,-2.21 -8.70,-3.30 -8.18,-4.29 -7.66,-5.28 -6.91,-6.12 -6.17,-6.96 -5.24,-7.60 -4.32,-8.24 -3.27,-8.64 -2.22,-9.03 -1.11,-9.17 0.00,-9.30 0.00,-9.30 L 0,-9.30 Z"></path></g><g transform="translate(395 101) rotate(0 103 -1)" stroke="none"><path fill="#364fc7" d="M -0.47,-8.58 Q -0.47,-8.58 4.68,-9.05 9.85,-9.52 16.63,-10.58 23.41,-11.64 35.45,-11.48 47.49,-11.33 58.35,-11.37 69.21,-11.41 80.37,-11.26 91.53,-11.11 98.54,-11.26 105.55,-11.41 110.49,-12.05 115.42,-12.68 122.84,-12.99 130.26,-13.30 136.10,-13.10 141.94,-12.89 146.60,-12.72 151.26,-12.54 155.77,-12.75 160.29,-12.96 165.05,-13.70 169.80,-14.45 176.49,-12.93 183.17,-11.40 189.21,-11.47 195.25,-11.53 200.62,-11.63 206.00,-11.73 208.20,-11.37 210.39,-11.01 212.35,-9.97 214.32,-8.93 215.84,-7.31 217.37,-5.70 218.30,-3.68 219.23,-1.66 219.47,0.54 219.71,2.75 219.23,4.92 218.75,7.09 217.61,8.99 216.46,10.90 214.76,12.33 213.07,13.77 211.00,14.59 208.94,15.41 206.72,15.53 204.50,15.65 202.36,15.05 200.22,14.46 198.38,13.21 196.54,11.96 195.20,10.19 193.85,8.42 193.15,6.31 192.44,4.21 192.44,1.98 192.44,-0.23 193.15,-2.33 193.86,-4.44 195.21,-6.21 196.56,-7.98 198.40,-9.22 200.24,-10.47 202.38,-11.06 204.52,-11.65 206.74,-11.53 208.96,-11.41 211.02,-10.58 213.09,-9.76 214.78,-8.32 216.47,-6.88 217.62,-4.97 218.76,-3.07 219.24,-0.90 219.71,1.26 219.47,3.47 219.23,5.68 218.29,7.70 217.36,9.71 215.83,11.33 214.30,12.94 212.33,13.98 210.37,15.02 208.18,15.37 205.98,15.73 205.98,15.73 205.99,15.73 200.56,15.62 195.13,15.51 189.55,15.27 183.96,15.04 178.27,12.86 172.58,10.67 167.73,10.87 162.89,11.08 157.26,10.66 151.63,10.24 146.06,9.31 140.49,8.38 134.62,7.42 128.74,6.46 122.18,5.60 115.62,4.74 110.70,4.23 105.78,3.73 98.82,3.79 91.87,3.85 80.98,4.50 70.09,5.15 58.83,6.28 47.57,7.42 35.99,7.79 24.42,8.16 17.63,8.27 10.84,8.37 5.66,8.48 0.47,8.58 -0.55,8.51 -1.59,8.44 -2.57,8.13 -3.56,7.82 -4.45,7.28 -5.33,6.74 -6.06,6.00 -6.79,5.26 -7.32,4.37 -7.85,3.49 -8.16,2.49 -8.46,1.50 -8.52,0.47 -8.58,-0.56 -8.38,-1.58 -8.19,-2.59 -7.76,-3.54 -7.33,-4.48 -6.69,-5.29 -6.04,-6.11 -5.23,-6.74 -4.41,-7.38 -3.46,-7.80 -2.51,-8.22 -1.49,-8.40 -0.47,-8.58 -0.47,-8.58 L -0.47,-8.58 Z"></path></g><g transform="translate(418 133) rotate(0 86 -3)" stroke="none"><path fill="#364fc7" d="M -1.07,-9.63 Q -1.07,-9.63 4.09,-10.29 9.26,-10.95 16.73,-10.98 24.19,-11.01 32.50,-11.14 40.80,-11.27 47.43,-11.61 54.05,-11.95 60.88,-13.32 67.71,-14.69 75.71,-15.81 83.71,-16.92 89.74,-17.39 95.78,-17.87 100.70,-18.17 105.62,-18.47 111.33,-18.38 117.03,-18.29 123.92,-17.62 130.81,-16.95 136.77,-16.15 142.72,-15.34 146.93,-14.45 151.15,-13.55 156.01,-13.12 160.87,-12.68 163.33,-12.59 165.78,-12.51 167.95,-13.17 170.11,-13.84 172.37,-13.78 174.63,-13.72 176.75,-12.94 178.87,-12.16 180.63,-10.74 182.39,-9.33 183.61,-7.42 184.83,-5.52 185.37,-3.32 185.92,-1.13 185.74,1.11 185.55,3.37 184.66,5.44 183.77,7.52 182.26,9.20 180.75,10.88 178.78,12.00 176.81,13.11 174.59,13.54 172.37,13.96 170.13,13.66 167.89,13.35 165.87,12.35 163.84,11.34 162.25,9.74 160.65,8.15 159.64,6.12 158.64,4.10 158.33,1.86 158.03,-0.37 158.45,-2.59 158.88,-4.81 159.99,-6.78 161.11,-8.75 162.79,-10.26 164.47,-11.77 166.55,-12.66 168.62,-13.55 170.88,-13.74 173.13,-13.92 175.32,-13.38 177.52,-12.83 179.42,-11.61 181.33,-10.39 182.74,-8.63 184.16,-6.87 184.94,-4.75 185.72,-2.63 185.78,-0.37 185.84,1.88 185.18,4.04 184.51,6.20 183.19,8.04 181.87,9.88 180.04,11.19 178.20,12.51 178.20,12.51 178.21,12.51 173.40,13.72 168.60,14.93 164.35,14.76 160.10,14.59 154.97,13.75 149.83,12.90 143.54,11.47 137.26,10.05 131.98,8.96 126.71,7.88 122.06,7.18 117.41,6.48 111.55,5.48 105.69,4.49 100.88,4.23 96.08,3.98 90.43,3.75 84.79,3.53 77.53,3.79 70.27,4.06 62.53,4.43 54.80,4.80 48.46,5.04 42.13,5.28 33.49,6.51 24.84,7.74 18.14,8.19 11.43,8.65 6.25,9.14 1.07,9.63 -0.09,9.62 -1.26,9.61 -2.39,9.32 -3.52,9.02 -4.55,8.47 -5.58,7.92 -6.45,7.13 -7.32,6.35 -7.97,5.38 -8.62,4.41 -9.03,3.32 -9.43,2.22 -9.56,1.06 -9.69,-0.09 -9.54,-1.25 -9.38,-2.41 -8.96,-3.50 -8.53,-4.59 -7.86,-5.54 -7.19,-6.50 -6.30,-7.26 -5.42,-8.03 -4.38,-8.56 -3.34,-9.09 -2.20,-9.36 -1.06,-9.63 -1.07,-9.63 L -1.07,-9.63 Z"></path></g><g transform="translate(15 79.5) rotate(0 87.5 23)"><text x="87.5" y="32" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#087f5b" text-anchor="middle" style="white-space: pre;" direction="ltr">This</text></g><g transform="translate(451 149) rotate(0 46 23)"><text x="46" y="32" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#087f5b" text-anchor="middle" style="white-space: pre;" direction="ltr">That</text></g></svg>
+<p>Click ‘Save as image’ and make sure the ‘Embed scene’ checkbox is enabled. this is required for loading your image back into Excalidraw should you wish to make changes later on. Name your file and export to SVG, saving it inside <code class="docutils literal notranslate"><span class="pre">docs/images</span></code>.</p>
+<p>Add the following to embed it inside your documentation:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>```{raw} html
+:file: ../images/my-diagram.excalidraw.svg
+```
+</pre></div>
+</div>
+<p>It is preferred to use the above convention over the image directive in order to retain the font used by Excalidraw.</p>
+<p>Rebuild the docs and open the resulting html inside a browser.</p>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="debug-in-cluster.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Debugging containers</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lint.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Run linting using pre-commit</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/DiamondLightSource/python-copier-template/edit/5.0.0a5/docs/how-to/excalidraw.md">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/how-to/excalidraw.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

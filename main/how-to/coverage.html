@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>How to check code coverage &#8212; python-copier-template 5.0.0a5.dev4+gb4da80f74 documentation</title>
+    <title>How to check code coverage &#8212; python-copier-template 5.0.0a6.dev1+g39120c6ec documentation</title>
   
   
   
@@ -41,7 +41,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=f078b744"></script>
+    <script src="../_static/documentation_options.js?v=478e618d"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -459,7 +459,7 @@
 <p>Code coverage is reported to the command line and to a <code class="docutils literal notranslate"><span class="pre">cov.xml</span></code> file by the command <code class="docutils literal notranslate"><span class="pre">tox</span> <span class="pre">-e</span> <span class="pre">tests</span></code>. The file is uploaded to the Codecov service in CI.</p>
 <section id="installing-codecov-github-app">
 <span id="id1"></span><h2>Installing Codecov GitHub app<a class="headerlink" href="#installing-codecov-github-app" title="Link to this heading">#</a></h2>
-<p>If your repo is hosted in the DiamondLightSource org, then the codecov GitHub app is already installed and a global token stored so you don’t need to do anything.</p>
+<p>If your repo is hosted in the DiamondLightSource org, then the codecov GitHub app is already installed so you don’t need to do anything.</p>
 <p>If your repo is in an org where the codecov GitHub app is not installed, then follow these steps to install it on the org:</p>
 <ul class="simple">
 <li><p>Visit https://github.com/apps/codecov</p></li>
@@ -468,8 +468,7 @@
 <li><p>Select <code class="docutils literal notranslate"><span class="pre">All</span> <span class="pre">repositories</span></code> and click <code class="docutils literal notranslate"><span class="pre">Install</span></code></p></li>
 </ul>
 <p><img alt="Install Codecov" src="../_images/gh-install-codecov.png" /></p>
-<p>Now you need to visit <code class="docutils literal notranslate"><span class="pre">https://app.codecov.io/account/gh/&lt;org_name&gt;/org-upload-token</span></code> to generate a token for your org, and store it as a secret named <code class="docutils literal notranslate"><span class="pre">CODECOV_TOKEN</span></code> in <code class="docutils literal notranslate"><span class="pre">https://github.com/organizations/&lt;org_name&gt;/settings/secrets/actions</span></code></p>
-<p>Next time you create a pull request or merge to main, the code coverage will be uploaded, and the badge on the repository updated.</p>
+<p>Next time you create a pull request or merge to main, the code coverage will be uploaded to <code class="docutils literal notranslate"><span class="pre">https://app.codecov.io/github/&lt;org_name&gt;/&lt;repo_name&gt;</span></code>, and the badge on the repository updated.</p>
 </section>
 </section>
 

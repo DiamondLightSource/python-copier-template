@@ -6,7 +6,7 @@ Code coverage is reported to the command line and to a `cov.xml` file by the com
 (installing-codecov-github-app)=
 ## Installing Codecov GitHub app
 
-If your repo is hosted in the DiamondLightSource org, then the codecov GitHub app is already installed and a global token stored so you don't need to do anything.
+If your repo is hosted in the DiamondLightSource org, then the codecov GitHub app is already installed so you don't need to do anything.
 
 If your repo is in an org where the codecov GitHub app is not installed, then follow these steps to install it on the org:
 

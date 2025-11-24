@@ -17,6 +17,4 @@ If your repo is in an org where the codecov GitHub app is not installed, then fo
 
 ![Install Codecov](../images/gh-install-codecov.png)
 
-Now you need to visit `https://app.codecov.io/account/gh/<org_name>/org-upload-token` to generate a token for your org, and store it as a secret named `CODECOV_TOKEN` in `https://github.com/organizations/<org_name>/settings/secrets/actions`
-
-Next time you create a pull request or merge to main, the code coverage will be uploaded, and the badge on the repository updated.
+Next time you create a pull request or merge to main, the code coverage will be uploaded to `https://app.codecov.io/github/<org_name>>/<repo_name>`, and the badge on the repository updated.

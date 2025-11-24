@@ -17,4 +17,4 @@ If your repo is in an org where the codecov GitHub app is not installed, then fo
 
 ![Install Codecov](../images/gh-install-codecov.png)
 
-Next time you create a pull request or merge to main, the code coverage will be uploaded to `https://app.codecov.io/github/<org_name>>/<repo_name>`, and the badge on the repository updated.
+Next time you create a pull request or merge to main, the code coverage will be uploaded to `https://app.codecov.io/github/<org_name>/<repo_name>`, and the badge on the repository updated.

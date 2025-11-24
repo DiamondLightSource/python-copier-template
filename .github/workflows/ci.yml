@@ -18,8 +18,6 @@ jobs:
     uses: ./.github/workflows/_test.yml
     with:
       runs-on: ubuntu-latest
-    secrets:
-      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   docs:
     uses: ./.github/workflows/_docs.yml

@@ -9,9 +9,6 @@ on:
         type: string
         description: The runner to run this job on
         required: true
-    secrets:
-      CODECOV_TOKEN:
-        required: true
 
 env:
   # https://github.com/pytest-dev/pytest/issues/2042
@@ -40,5 +37,3 @@ jobs:
         with:
           name: ${{ inputs.python-version }}/${{ inputs.runs-on }}
           files: cov.xml
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

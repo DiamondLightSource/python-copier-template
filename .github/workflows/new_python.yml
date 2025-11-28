@@ -1,0 +1,32 @@
+name: Support new version of python
+on:
+  schedule:
+    - cron: 0 9 1 12 *
+
+jobs:
+  create_issue:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Create new version of python issue
+        run: |
+          new_issue_url=$(gh issue create \
+            --title "$TITLE" \
+            --body "$BODY")
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          TITLE: Support new version of python
+          BODY: |
+            New versions of Python are normally released in October.
+            Follow the checklist below to ensure support for the new version is added,
+            and drop an old version so we support the most recent 4 versions.
+
+            - [ ] Change `.python-version` to be the oldest supported version
+            - [ ] Change `requires-python` in `pyproject.toml` to be the oldest supported version
+            - [ ] Change `classifiers` in `template/pyproject.toml.jinja` to have all 4 versions
+            - [ ] Change `requires-python` in `template/pyproject.toml.jinja` to be the oldest supported version
+            - [ ] Change `requires-python` in `template/uv.lock` to be the oldest supported version
+            - [ ] Change `python-version` in `template/*/workflows/ci.yml.jinja` to have all 4 versions
+            - [ ] Change first paragraph in `template/*/tutorials/installation.md.jinja` to be the oldest supported version

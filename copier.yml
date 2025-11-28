@@ -82,6 +82,7 @@ component_type:
         - service
         - user-interface
         - website
+        - application
     default: library
 
 component_lifecycle:

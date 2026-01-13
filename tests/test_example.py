@@ -1,5 +1,6 @@
 import functools
 import json
+import os
 import shlex
 import subprocess
 import tomllib
@@ -27,12 +28,13 @@ def copy_project(project_path: Path, **kwargs):
     run_pipe("git add .", cwd=str(project_path))
 
 
-def run_pipe(cmd: str, cwd=None) -> str:
+def run_pipe(cmd: str, cwd=None, venv="") -> str:
     sp = subprocess.run(
         shlex.split(cmd),
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         cwd=cwd,
+        env=dict(os.environ, UV_PROJECT_ENVIRONMENT="", VIRTUAL_ENV=venv),
     )
     output = sp.stdout.decode()
     assert sp.returncode == 0, output
@@ -41,7 +43,7 @@ def run_pipe(cmd: str, cwd=None) -> str:
 
 def make_venv(project_path: Path) -> Callable[[str], str]:
     venv_path = project_path / ".venv"
-    run = functools.partial(run_pipe, cwd=str(project_path))
+    run = functools.partial(run_pipe, cwd=str(project_path), venv=venv_path)
     run("uv sync")  # Create a lockfile and install packages
 
     for exe_path in [

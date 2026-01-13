@@ -104,7 +104,7 @@ commands = [
     [
         "{{ type_checker }}",
         {% if type_checker=="pyright" %}"--pythonpath",
-        ".venv/bin/python",
+        "{env:VIRTUAL_ENV}/bin/python",
         {% endif %}"src",
         "tests",
         { replace = "posargs", default = [
@@ -116,7 +116,7 @@ commands = [
 description = "Run tests with coverage"
 commands = [
     [
-        "pytest", 
+        "pytest",
         "--cov={{ package_name }}",
         "--cov-report",
         "term",

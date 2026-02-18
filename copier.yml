@@ -1,40 +1,36 @@
 # Project Details
-package_name:
-    type: str
-    help: |
-        Name of the python import package.
-        Must be a valid python identifier, i.e. my_package
-    validator: >-
-        {% if not (package_name | regex_search('^[a-zA-Z][a-zA-Z_0-9]+$')) %}
-        {{package_name}} is not a valid python package name
-        {% endif %}
+project_name:
+  type: str
+  help: Name of the project
+  default: My Project
 
 description:
     type: str
     help: A short description of your project
-    placeholder: One line description of your module
+    default: "TODO: One line description of your project."
 
 git_platform:
     type: str
     help: Git platform hosting the repository
     choices:
-        - github.com
+        - github
+        - gitlab
 
 github_org:
     type: str
     help: |
-        GitHub organisation that will contain this repo.
-        Set to your GitHub username to make a personal repo, or DiamondLightSource
-        if you have permissions to make it in the DiamondLightSource organisation.
-    when: "{{ git_platform == 'github.com' }}"
-    default: DiamondLightSource
+        GitHub organization that will contain this repo.
+        Set to your GitHub username to make a personal repo, or your organization domain to make an organization repo.
+    when: "{{ git_platform == 'github' }}"
+    default: adrien-berchet
 
+# Names
 repo_name:
     type: str
     help: |
         Name of the repository.
         Generally the package name with underscores replaced by dashes.
-    default: "{{ package_name | replace('_', '-') }}"
+    default: "{{ project_name | replace(' ', '-') }}"
     validator: >-
         {% if not (repo_name | regex_search('^[a-zA-Z][a-zA-Z_\\.\\-0-9]+$')) %}
         {{ repo_name }} is not a valid repo name
@@ -48,6 +44,18 @@ distribution_name:
         Generally the same as the repo name unless there is a name clash on PyPI.
     default: "{{ repo_name }}"
 
+package_name:
+    type: str
+    help: |
+        Name of the python import package.
+        Must be a valid python identifier, i.e. my_package
+    default: "{{ distribution_name.lower().replace('-', '_').replace(' ', '_') }}"
+    validator: >-
+        {% if not (package_name | regex_search('^[a-zA-Z][a-zA-Z_0-9]+$')) %}
+        {{package_name}} is not a valid python package name
+        {% endif %}
+
+# Author Details
 author_name:
     type: str
     help: Your full name
@@ -56,46 +64,7 @@ author_name:
 author_email:
     type: str
     help: Your email address
-    placeholder: email@diamond.ac.uk
-
-# Catalog info
-component_owner:
-    type: str
-    when: "{{ github_org == 'DiamondLightSource' }}"
-    help: |
-        The unique name of the person or group who owns this component in
-        the Developer Portal Software Catalogue.
-        This will normally be group:default/<your_group>. For a full list of groups visit
-        https://dev-portal.diamond.ac.uk/catalog?filters%5Bkind%5D=group&filters%5Buser%5D=all
-        and hover over each group link to see its group ID, e.g.
-        https://dev-portal.diamond.ac.uk/catalog/default/group/accelerator-controls
-        would go here as group:default/accelerator-controls.
-
-component_type:
-    type: str
-    when: "{{ github_org == 'DiamondLightSource' }}"
-    help: |
-        Type of the component in the Developer Portal Software Catalogue.
-        Most likely service, library or application (without quotes).
-    choices:
-        - library
-        - service
-        - user-interface
-        - website
-        - application
-    default: library
-
-component_lifecycle:
-    type: str
-    when: "{{ github_org == 'DiamondLightSource' }}"
-    help: |
-        Project's current lifecycle stage, to be displayed in the Developer
-        Portal Software Catalogue.
-    choices:
-        - experimental
-        - production
-        - deprecated
-    default: experimental
+    placeholder: email@example.com
 
 # Template Options
 docker:
@@ -103,6 +72,7 @@ docker:
     help: |
         Would you like to publish your project in a Docker container?
         You should select this if you are making a service.
+    default: false
 
 docker_debug:
     type: bool
@@ -119,8 +89,8 @@ docs_type:
         How would you like to document your project?
         You can start with just a README and change your answer to add a sphinx project later.
     choices:
-        - README
         - sphinx
+        - README
 
 type_checker:
     type: str
@@ -139,9 +109,9 @@ strict_typing:
     default: true
     help: |
         Would you like to run pyright in strict mode?
-        The recommended approach is to start with strict mode and disable it if it 
-        becomes too costly to maintain. 
-        See https://diamondlightsource.github.io/python-copier-template/main/how-to/strict-mode.html 
+        The recommended approach is to start with strict mode and disable it if it
+        becomes too costly to maintain.
+        See https://diamondlightsource.github.io/python-copier-template/main/how-to/strict-mode.html
         for more information.
 
 pypi:
@@ -154,17 +124,75 @@ repo_url:
     default: "https://github.com/{{github_org}}/{{repo_name}}"
     when: false
 
+tracker_url:
+  type: str
+  help: The issue tracker URL
+  default: "{{ repo_url }}/issues"
+  placeholder: "{{ repo_url }}/issues"
+
 docs_url:
     type: str
-    default: "https://{{github_org | lower}}.github.io/{{repo_name}}"
-    when: false
+    default: "https://{{ distribution_name }}.readthedocs.io"
 
 sphinx:
     type: bool
     default: "{{ docs_type == 'sphinx' }}"
     when: false
 
+copyright_license:
+  type: str
+  help: The project's license
+  default: "MIT License"
+  choices:
+    Apache License 2.0: null
+    BSD 3-Clause "New" or "Revised" License: null
+    GNU Affero General Public License v3.0: null
+    GNU General Public License v3.0: null
+    GNU Lesser General Public License v3.0: null
+    MIT License: null
+    Mozilla Public License 2.0: null
+
+copyright_year:
+  type: str
+  help: The year when the repository was created
+  default: "{% now 'utc', '%Y' %}"
+  when: "{{ copyright_license != 'MIT License' }}"
+
+init_git:
+  type: bool
+  help: Should git be initialized?
+  choices:
+    "yes": true
+    "no": false
+  default: "yes"
+
+ssh_url:
+  type: str
+  help: The download URL to set the remote of the git repository
+  default: "git@github.com:{{ repository_namespace }}/{{ repository_name }}.git"
+  placeholder: "git@github.com:{{ repository_namespace }}/{{ repository_name }}.git"
+  when: "{{ init_git is true }}"
+
 _subdirectory: "template"
+
+_jinja_extensions:
+  - copier_templates_extensions.TemplateExtensionLoader
+  - extensions/context.py:ContextUpdater
+  - jinja2_time.TimeExtension
+
+_tasks:
+    - "{%- if init_git -%}git init; git add --all; git remote add origin {{ ssh_url }}{% else %}{% endif %}"
+
+_exclude:
+  - "*.py[co]"
+  - ".DS_Store"
+  - ".git"
+  - ".svn"
+  - ".tox"
+  - "__pycache__"
+  - "copier.yaml"
+  - "copier.yml"
+  - "~*"
 
 _migrations:
     - version: 2.0.0

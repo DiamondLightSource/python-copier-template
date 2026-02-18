@@ -29,7 +29,7 @@ repo_name:
     type: str
     help: |
         Name of the repository.
-        Generally the package name with underscores replaced by dashes.
+        Generally the package name with spaces replaced by dashes.
     default: "{{ project_name | replace(' ', '-') }}"
     validator: >-
         {% if not (repo_name | regex_search('^[a-zA-Z][a-zA-Z_\\.\\-0-9]+$')) %}

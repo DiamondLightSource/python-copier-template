@@ -28,7 +28,3 @@ The typical workflow is:
 - Pre-commit will run, and ruff will try and fix any issues it finds
 - If anything changes it will be left in your working copy
 - Review and commit the results
-
-## VSCode support
-
-The `.vscode/settings.json` will run ruff formatters on save, but will not try to auto-fix as that does things like removing unused imports which is too intrusive while editing.

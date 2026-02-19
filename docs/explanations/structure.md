@@ -23,16 +23,3 @@ See [](documentation-structure) for details.
 ## .github
 
 Configuration for the Continuous Integration Workflow on github
-
-## VSCode specific folders
-
-### .devcontainer
-
-Configuration for running the developer container for this project in VSCode.
-
-### .vscode
-
-VSCode settings for this project:
-
-- enable static analysis in the editor
-- enables python debugging.

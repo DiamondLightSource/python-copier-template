@@ -28,7 +28,6 @@ It integrates the following tools:
 - [sphinx](https://www.sphinx-doc.org) for tutorials, how-to guides, explanations and reference documentation
 - [tox](https://tox.wiki) to run the above tasks locally and in CI
 - [GitHub Actions](https://docs.github.com/en/actions) to provide CI and deployment to PyPI and GitHub Pages
-- [VSCode](https://code.visualstudio.com/docs) settings for running the above tools on save
 
 ## Example
 

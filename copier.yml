@@ -15,6 +15,7 @@ git_platform:
     choices:
         - github
         - gitlab
+    default: github
 
 github_org:
     type: str
@@ -60,11 +61,13 @@ author_name:
     type: str
     help: Your full name
     placeholder: FirstName LastName
+    default: FirstName LastName
 
 author_email:
     type: str
     help: Your email address
     placeholder: email@example.com
+    default: email@example.com
 
 # Template Options
 docker:
@@ -91,6 +94,7 @@ docs_type:
     choices:
         - sphinx
         - README
+    default: sphinx
 
 type_checker:
     type: str
@@ -101,6 +105,7 @@ type_checker:
     choices:
         - pyright
         - mypy
+    default: pyright
 
 strict_typing:
     type: bool
@@ -117,6 +122,7 @@ strict_typing:
 pypi:
     type: bool
     help: Would you like the wheel and source distribution to be automatically uploaded to PyPI when a release is made?
+    default: true
 
 # Internal variables
 repo_url:

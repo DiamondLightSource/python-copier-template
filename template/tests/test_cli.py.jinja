@@ -3,8 +3,7 @@
 import {{ package_name }}.cli
 
 
-def test_cli(cli_runner):
-    # pylint: disable=unused-argument
+def test_cli(cli_runner):  # pyright: ignore
     """Test the CLI."""
     result = cli_runner.invoke(
         {{ package_name }}.cli.main,
@@ -19,7 +18,7 @@ def test_cli(cli_runner):
     assert result.output == "1 + 2 = 3\n"
 
 
-def test_entry_point(script_runner):
+def test_entry_point(script_runner):  # pyright: ignore
     """Test the entry point."""
     ret = script_runner.run("{{ distribution_name }}", "--version")
     assert ret.success

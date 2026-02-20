@@ -8,6 +8,10 @@ description:
     type: str
     help: A short description of your project
     default: "TODO: One line description of your project."
+    validator: >-
+        {% if description == "" %}
+        Please provide a description for your project.
+        {% endif %}
 
 git_platform:
     type: str

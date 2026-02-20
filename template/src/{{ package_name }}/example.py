@@ -1,15 +1,15 @@
 """Example code to show complete use case."""
 
 
-def add(x, y):
+def add(x: float, y: float) -> float:
     """Adding two numbers.
 
     Args:
-        x (float): first number
-        y (float): second number
+        x: first number
+        y: second number
 
     Returns:
-       the sum of the two numbers
+       The sum of the two numbers
 
     Raises:
         ValueError: when x is negative

@@ -21,6 +21,6 @@ import {{ package_name }}.example
     type=int,
     help="The value of Y.",
 )
-def main(x_value, y_value):
+def main(x_value: int, y_value: int) -> None:
     """Add the values of X and Y."""
-    print({{'f"{x_value} + {y_value} = {'}}{{ package_name }}{{ '.example.add(x_value, y_value)}"' }})
+    print(f"{x_value} + {y_value} = { {{ package_name }}.example.add(x_value, y_value) }")

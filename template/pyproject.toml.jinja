@@ -40,17 +40,23 @@ dev = [
 {{ repo_name }} = "{{ package_name }}.__main__:main"
 
 [project.urls]
-Homepage = "{{ project_url }}"
-Repository = "{{ download_url }}"
+Homepage = "{{ docs_url }}"
+Repository = "{{ repo_url }}"
 Tracker = "{{ tracker_url }}"
-GitHub = "{{ repo_url }}"
 
 [[project.authors]] # Further authors may be added by duplicating this section
 email = "{{ author_email }}"
 name = "{{ author_name }}"
 
+[tool.setuptools]
+include-package-data = true
+zip-safe = false
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["{{ package_name }}*"]
+
 [tool.setuptools_scm]
-version_file = "src/{{ package_name }}/_version.py"
 {% if type_checker=="pyright" %}
 [tool.pyright]{% if strict_typing %}
 typeCheckingMode = "strict"

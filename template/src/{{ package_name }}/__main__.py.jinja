@@ -23,4 +23,4 @@ import {{ package_name }}.example
 )
 def main(x_value: int, y_value: int) -> None:
     """Add the values of X and Y."""
-    print(f"{x_value} + {y_value} = { {{ package_name }}.example.add(x_value, y_value) }")
+    print({{'f"{x_value} + {y_value} = {'}}{{ package_name }}{{ '.example.add(x_value, y_value)}"' }})

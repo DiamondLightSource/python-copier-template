@@ -1,9 +1,27 @@
-import subprocess
-import sys
+"""Tests for the {{ package_name }}.cli module."""
 
-from {{ package_name }} import __version__
+import {{ package_name }}.cli
 
 
-def test_cli_version():
-    cmd = [sys.executable, "-m", "{{ package_name }}", "--version"]
-    assert subprocess.check_output(cmd).decode().strip() == __version__
+def test_cli(cli_runner):
+    # pylint: disable=unused-argument
+    """Test the CLI."""
+    result = cli_runner.invoke(
+        {{ package_name }}.cli.main,
+        [
+            "-x",
+            1,
+            "-y",
+            2,
+        ],
+    )
+    assert result.exit_code == 0
+    assert result.output == "1 + 2 = 3\n"
+
+
+def test_entry_point(script_runner):
+    """Test the entry point."""
+    ret = script_runner.run("{{ distribution_name }}", "--version")
+    assert ret.success
+    assert ret.stdout.startswith("{{ distribution_name }}, version ")
+    assert ret.stderr == ""

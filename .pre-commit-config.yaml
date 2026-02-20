@@ -4,9 +4,21 @@ repos:
     hooks:
       - id: check-added-large-files
         exclude: ^uv.lock
+      - id: check-case-conflict
       - id: check-yaml
       - id: check-merge-conflict
+      - id: check-symlinks
+      - id: debug-statements
       - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
+    rev: v9.18.0
+    hooks:
+        - id: commitlint
+          stages:
+            - commit-msg
+          additional_dependencies: ['conventional-changelog-conventionalcommits']
 
   - repo: local
     hooks:

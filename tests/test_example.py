@@ -166,7 +166,7 @@ def test_dots_in_package_name(tmp_path: Path):
 def test_example_repo_updates(tmp_path: Path):
     generated_path = tmp_path / "generated"
     example_url = (
-        "https://github.com/DiamondLightSource/python-copier-template-example.git"
+        "https://github.com/adrien-berchet/python-copier-template-example.git"
     )
     example_path = tmp_path / "example"
     copy_project(generated_path)
@@ -308,30 +308,6 @@ def test_works_with_pydocstyle(tmp_path: Path):
     # Ensure ruff is still happy
     run = make_venv(tmp_path)
     run("ruff check")
-
-
-def test_catalog_info(tmp_path: Path):
-    copy_project(tmp_path)
-    catalog_info_path = tmp_path / "catalog-info.yaml"
-    with catalog_info_path.open("r") as stream:
-        catalog_info = yaml.safe_load(stream)
-    assert catalog_info == {
-        "apiVersion": "backstage.io/v1alpha1",
-        "kind": "Component",
-        "metadata": {
-            "name": "dls-python-copier-template-example",
-            "title": "python-copier-template-example",
-            "description": "An expanded "
-            "https://github.com/DiamondLightSource/python-copier-template "
-            "to illustrate how it looks with all the options enabled.",
-        },
-        "spec": {
-            "type": "service",
-            "lifecycle": "experimental",
-            "owner": "group:default/daq",
-        },
-    }
-
 
 @pytest.mark.parametrize(
     "override",

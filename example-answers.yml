@@ -1,14 +1,14 @@
-author_email: tom.cobb@diamond.ac.uk
-author_name: Tom Cobb
-description: An expanded https://github.com/DiamondLightSource/python-copier-template to illustrate how it looks with all the options enabled.
-distribution_name: dls-python-copier-template-example
+project_name: Python Copier Template Example
+description: An expanded https://github.com/adrien-berchet/python-copier-template to illustrate how it looks with all the options enabled.
+author_email: adrien.berchet@gmail.com
+author_name: Adrien Berchet
 docker: true
 docker_debug: true
 docs_type: sphinx
 git_platform: github
-github_org: DiamondLightSource
-package_name: python_copier_template_example
-repo_name: python-copier-template-example
+github_org: adrien-berchet
 type_checker: pyright
 strict_typing: true
 pypi: true
+copyright_license: MIT License
+init_git: yes

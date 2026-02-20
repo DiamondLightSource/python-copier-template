@@ -175,8 +175,8 @@ init_git:
 ssh_url:
   type: str
   help: The download URL to set the remote of the git repository
-  default: "git@github.com:{{ repository_namespace }}/{{ repository_name }}.git"
-  placeholder: "git@github.com:{{ repository_namespace }}/{{ repository_name }}.git"
+  default: "git@github.com:{{ github_org }}/{{ repository_name }}.git"
+  placeholder: "git@github.com:{{ github_org }}/{{ repository_name }}.git"
   when: "{{ init_git is true }}"
 
 _subdirectory: "template"
@@ -199,10 +199,3 @@ _exclude:
   - "copier.yaml"
   - "copier.yml"
   - "~*"
-
-_migrations:
-    - version: 2.0.0
-      before:
-          - echo This update will require you to login to pypi.org and make changes before you can make a new release to PyPI. If you do not have time to do this now, press CTRL+C to abort this update.
-      after:
-          - echo Visit https://diamondlightsource.github.io/python-copier-template/main/how-to/pypi.html to find out how to set up PyPI trusted publishing

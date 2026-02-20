@@ -21,10 +21,10 @@ jobs:
         run: |
           git init /tmp/example
           uvx copier copy --data-file example-answers.yml --vcs-ref=HEAD . /tmp/example
-          sed -i 's|_src_path: .|_src_path: https://github.com/DiamondLightSource/python-copier-template.git|' /tmp/example/.copier-answers.yml
+          sed -i 's|_src_path: .|_src_path: https://github.com/adrien-berchet/python-copier-template.git|' /tmp/example/.copier-answers.yml
           uv lock --directory /tmp/example
           rm -rf /tmp/example/.git
-          
+
       - name: Publish example
         # We pin to the SHA, not the tag, for security reasons.
         # https://docs.github.com/en/actions/learn-github-actions/security-hardening-for-github-actions#using-third-party-actions
@@ -32,7 +32,7 @@ jobs:
         with:
           deploy_key: ${{ secrets.EXAMPLE_DEPLOY_KEY }}
           publish_dir: /tmp/example
-          external_repository: DiamondLightSource/python-copier-template-example
+          external_repository: adrien-berchet/python-copier-template-example
           publish_branch: main
           enable_jekyll: true  # don't put a .nojekyll
           exclude_assets: ''  # default would exclude .github

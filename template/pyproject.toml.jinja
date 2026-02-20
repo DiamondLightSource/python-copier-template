@@ -12,7 +12,9 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
 ]
 description = "{{ description }}"
-dependencies = [] # Add project dependencies here, e.g. ["click", "numpy"]
+dependencies = [
+    "click>=7",
+]
 dynamic = ["version"]
 license.file = "LICENSE"
 readme = "README.md"
@@ -26,8 +28,11 @@ dev = [
     {% endif %}"pre-commit",
     {% if sphinx %}"pydata-sphinx-theme>=0.12",
     {% endif %}{% if type_checker=="pyright" %}"pyright",
-    {% endif %}"pytest",
-    "pytest-cov",
+    {% endif %}"pytest>=6.1",
+    "pytest-click>=1.1",
+    "pytest-console-scripts>=1.4",
+    "pytest-cov>=4.1",
+    "pytest-html>=3.2",
     "ruff",
     {% if sphinx %}"sphinx-autobuild",
     "sphinx-copybutton",

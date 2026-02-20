@@ -1,24 +1,26 @@
-"""Interface for ``python -m {{package_name}}``."""
+"""Command Line Interface for the {{ package_name }} package."""
 
-from argparse import ArgumentParser
-from collections.abc import Sequence
+import click
 
-from . import __version__
-
-__all__ = ["main"]
+import {{ package_name }}.example
 
 
-def main(args: Sequence[str] | None = None) -> None:
-    """Argument parser for the CLI."""
-    parser = ArgumentParser()
-    parser.add_argument(
-        "-v",
-        "--version",
-        action="version",
-        version=__version__,
-    )
-    parser.parse_args(args)
-
-
-if __name__ == "__main__":
-    main()
+@click.command("{{ distribution_name }}")
+@click.version_option()
+@click.option(
+    "-x",
+    "--x_value",
+    required=True,
+    type=int,
+    help="The value of X.",
+)
+@click.option(
+    "-y",
+    "--y_value",
+    required=True,
+    type=int,
+    help="The value of Y.",
+)
+def main(x_value, y_value):
+    """Add the values of X and Y."""
+    print({{'f"{x_value} + {y_value} = {'}}{{ package_name }}{{ '.example.add(x_value, y_value)}"' }})

@@ -1,11 +1,8 @@
-"""Top level API.
+"""{{ distribution_name }} package.
 
-.. data:: __version__
-    :type: str
-
-    Version number as calculated by https://github.com/pypa/setuptools_scm
+{{ project_description }}
 """
 
-from ._version import __version__
+import importlib.metadata
 
-__all__ = ["__version__"]
+__version__ = importlib.metadata.version("{{ distribution_name }}")

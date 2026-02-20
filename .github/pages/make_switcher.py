@@ -4,7 +4,8 @@ import json
 import logging
 from argparse import ArgumentParser
 from pathlib import Path
-from subprocess import CalledProcessError, check_output
+from subprocess import CalledProcessError
+from subprocess import check_output
 
 
 def report_output(stdout: bytes, label: str) -> list[str]:

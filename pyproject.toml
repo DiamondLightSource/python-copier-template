@@ -21,6 +21,7 @@ dev = [
     "tox-uv",
 ]
 
+
 [tool.setuptools_scm]
 
 [tool.pytest.ini_options]

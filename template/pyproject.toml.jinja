@@ -13,12 +13,26 @@ classifiers = [
 ]
 description = "{{ description }}"
 dependencies = [
-    "click>=7",
+    "click>=8.2",
 ]
 dynamic = ["version"]
 license.file = "LICENSE"
 readme = "README.md"
 requires-python = ">=3.11"
+
+[project.optional-dependencies]
+docs = [
+    "sphinx>=9",
+    "sphinx-click>=6",
+]
+test = [
+    # "mock>=3",
+    "pytest>=8",
+    "pytest-console-scripts>=1.4",
+    "pytest-cov>=6.1",
+    "pytest-html>=4.1",
+    "urllib3>=2.5",
+]
 
 [dependency-groups]
 dev = [
@@ -28,13 +42,14 @@ dev = [
     {% endif %}"pre-commit",
     {% if sphinx %}"pydata-sphinx-theme>=0.12",
     {% endif %}{% if type_checker=="pyright" %}"pyright",
-    {% endif %}"pytest>=6.1",
+    {% endif %}"pytest>=8",
     "pytest-click>=1.1",
-    "pytest-console-scripts>=1.4",
-    "pytest-cov>=4.1",
-    "pytest-html>=3.2",
+    # "pytest-console-scripts>=1.4",
+    "pytest-cov>=6.1",
+    "pytest-html>=4.1",
     "ruff",
     {% if sphinx %}"sphinx-autobuild",
+    "sphinx-click>=6",
     "sphinx-copybutton",
     "sphinx-design",
     {% endif %}"tox-uv",
@@ -83,8 +98,8 @@ filterwarnings = "error"
 testpaths = "docs src tests"
 
 [tool.coverage.run]
-patch = ["subprocess"]
-data_file = "/tmp/{{ package_name }}.coverage"
+{# patch = ["subprocess"]
+data_file = "/tmp/{{ package_name }}.coverage" #}
 
 [tool.coverage.paths]
 # Tests are run from installed location, map back to the src directory
@@ -93,13 +108,14 @@ source = ["src", "**/site-packages/"]
 [tool.tox]
 skipsdist = true
 # envs to runs automatically with tox -p
-env_list = ["pre-commit", "type-checking", "tests"{% if sphinx %}, "docs"{% endif %}]
+env_list = ["pre-commit", "type-checking", "tests", "min-versions"{% if sphinx %}, "docs"{% endif %}]
 
 [tool.tox.env_run_base]
 # Pass all environment variables to the test environments
 passenv = ["*"]
+extras = ["test"]
 
-[tool.tox.env.pre-commit]
+[tool.tox.env.lint]
 description = "Run pre-commit on all files"
 commands = [
     [
@@ -107,41 +123,63 @@ commands = [
         "run",
         "--all-files",
         "--show-diff-on-failure",
-        { replace = "posargs", default = [
-        ], extend = true },
+        { replace = "posargs", default = [], extend = true },
     ],
 ]
 
 [tool.tox.env.type-checking]
 description = "Run {{ type_checker }}"
+extras = ["test"]
 commands = [
+    [
+        "uv", "pip", "freeze",
+    ],
     [
         "{{ type_checker }}",
         {% if type_checker=="pyright" %}"--pythonpath",
         "{env:VIRTUAL_ENV}/bin/python",
         {% endif %}"src",
         "tests",
-        { replace = "posargs", default = [
-        ], extend = true },
+        { replace = "posargs", default = [], extend = true },
     ],
 ]
 
 [tool.tox.env.tests]
 description = "Run tests with coverage"
+setenv = [
+    {COVERAGE_FILE="{env:COVERAGE_FILE:.coverage-{envname}}"},
+]
+extras = ["test"]
 commands = [
     [
         "pytest",
+        "--basetemp={envtmpdir}",
         "--cov={{ package_name }}",
-        "--cov-report",
-        "term",
-        "--cov-report",
-        "xml:cov.xml",
-        { replace = "posargs", default = [
-        ], extend = true },
+        "--cov-branch",
+        "--cov-fail-under", "100",
+        "--cov-report", "term-missing",
+        "--cov-report", "html:reports/coverage-{envname}",
+        "--cov-report", "xml:reports/coverage-{envname}.xml",
+        "--html", "reports/pytest-{envname}.html",
+        "--junit-xml", "reports/pytest-{envname}.xml",
+        "--self-contained-html",
+        "--durations", "10",
+        "--durations-min", "2.0",
+        { replace = "posargs", default = [], extend = true },
     ],
 ]
-{% if sphinx %}
-[tool.tox.env.docs]
+
+[tool.tox.env.min_versions]
+base = ["tests"]
+base_python = ["3.11"]
+commands_pre = [
+    ["uv", "pip", "compile", "--resolution", "lowest", "--all-extras", "--output-file", "{envtmpdir}/requirements_min.txt", "pyproject.toml"],
+    ["uv", "pip", "install", "-r", "{envtmpdir}/requirements_min.txt"],
+    ["uv", "pip", "install", "-e", ".[tests]"],
+    ["uv", "pip", "freeze"],
+]
+
+{% if sphinx %}[tool.tox.env.docs]
 description = "Run docs build with clean environment"
 commands = [
     [
@@ -151,7 +189,7 @@ commands = [
         "--fail-on-warning",
         "--keep-going",
         "docs",
-        "build/html",
+        "docs/build/html",
         { replace = "posargs", default = [
         ], extend = true },
     ],
@@ -166,7 +204,7 @@ commands = [
         "--watch",
         "README.md",
         "docs",
-        "build/html",
+        "docs/build/html",
         { replace = "posargs", default = [
         ], extend = true },
     ],

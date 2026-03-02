@@ -45,9 +45,12 @@ commands =
 [testenv:coverage]
 skip_install = true
 deps = coverage
-allowlist_externals = /bin/bash
+depends =
+    py311
+    py312
+    py313
 commands =
-    /bin/bash -c 'coverage combine .coverage-py*'
+    coverage combine
     coverage xml
     coverage report
 
@@ -81,6 +84,7 @@ commands =
 
 [testenv:type-checking]
 extras = test
+allowlist_externals = {{ type_checker }}
 commands =
     "{{ type_checker }}" \
         {% if type_checker=="pyright" %}--pythonpath \

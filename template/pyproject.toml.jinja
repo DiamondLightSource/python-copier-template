@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=64", "setuptools_scm[toml]>=8"]
+requires = ["setuptools>=77", "setuptools_scm[toml]>=8"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -15,41 +15,38 @@ dependencies = [
     "click>=8.2",
 ]
 dynamic = ["version"]
-license-files = "LICENSE"
+license-files = ["LICENSE"]
 readme = "README.md"
 requires-python = ">=3.11"
 
 [project.optional-dependencies]
 {% if sphinx %}
 docs = [
-    "myst-parser",
+    "myst-parser>=3",
     "pydata-sphinx-theme>=0.12",
     "sphinx>=9",
-    "sphinx-autobuild",
+    "sphinx-autobuild>=2024",
     "sphinx-click>=6",
-    "sphinx-copybutton",
-    "sphinx-design",
+    "sphinx-copybutton>=0.5.2",
+    "sphinx-design>=0.7",
 ]{% endif %}
 test = [
     # "mock>=3",
     "pytest>=8",
+    "pytest-click>=1.1",
     "pytest-console-scripts>=1.4",
     "pytest-cov>=6.1",
     "pytest-html>=4.1",
+    "requests>=2.31",
     "urllib3>=2.5",
 ]
 
 [dependency-groups]
 dev = [
-    "copier",
-    {% if type_checker=="mypy" %}"mypy",
-    {% endif %}"pre-commit",{% if type_checker=="pyright" %}"pyright",
-    {% endif %}"pytest>=8",
-    "pytest-click>=1.1",
-    # "pytest-console-scripts>=1.4",
-    "pytest-cov>=6.1",
-    "pytest-html>=4.1",
-    "ruff","tox-uv",
+    "copier",{% if type_checker=="mypy" %}
+    "mypy",{% endif %}
+    "pre-commit",{% if type_checker=="pyright" %}
+    "pyright",{% endif %}
     "types-mock",
 ]
 
@@ -85,14 +82,17 @@ typeCheckingMode = "standard"
 ignore_missing_imports = true # Ignore missing stubs in imported modules
 {% endif %}
 [tool.pytest.ini_options]
+testpaths = [
+    "docs",
+    "src",
+    "tests",
+]
 # Run pytest with all our checkers, and don't spam us with massive tracebacks on error
 addopts = """
-    --tb=native -vv{% if sphinx %} --doctest-modules --doctest-glob="*.rst"{% endif %}
+    --tb=native -vv --import-mode=importlib{% if sphinx %} --doctest-modules --doctest-glob="*.rst"{% endif %}
     """
 # https://iscinumpy.gitlab.io/post/bound-version-constraints/#watch-for-warnings
 filterwarnings = "error"
-# Doctest python code in docs, python code in src docstrings, test functions in tests
-testpaths = "docs src tests"
 
 [tool.coverage.run]
 {# patch = ["subprocess"]

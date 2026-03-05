@@ -29,9 +29,6 @@ $ git commit -m "Expand from python-copier-template x.x.x"
 
 You can now [create a new blank project on GitHub](https://github.com/new). Choose the same GitHub owner, repo name and description that you answered in the questions earlier. GitHub will now give you the commands needed to upload your repo from GitHub.
 
-```{note}
-At present you cannot make a project directly in the DiamondLightSource organisation, it must be made as a personal repository then [transferred in](https://dev-guide.diamond.ac.uk/version-control/how-tos/github-transfer-repo/). When it has been transferred then you can `copier update --vcs-ref=:current:` to re-answer the questions with the new org
-```
 
 ## Getting started with your new repo
 

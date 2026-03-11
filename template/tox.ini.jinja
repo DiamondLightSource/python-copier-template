@@ -1,6 +1,6 @@
 [base]
 name = {{ package_name }}
-files = {[base]name} tests docs/source/conf.py setup.py
+files = {[base]name} tests {% if sphinx %}docs/source/conf.py {% endif %}pyproject.toml README.md CHANGELOG.md
 
 [tox]
 envlist =
@@ -8,9 +8,9 @@ envlist =
     lint
     type-checking
     {{ 'py{' }}311,312,313}
-    min_versions
-    coverage
+    min_versions{% if sphinx %}
     docs
+    docs-autobuild{% endif %}
 
 minversion = 4.20{% if git_platform == 'github' %}
 
@@ -18,7 +18,7 @@ minversion = 4.20{% if git_platform == 'github' %}
 python =
   3.11: py311, lint, type-checking, min_versions
   3.12: py312, check-packaging
-  3.13: py313, docs{% endif %}
+  3.13: py313{% if sphinx %}, docs{% endif %}{% endif %}
 
 [testenv]
 setenv =
@@ -41,18 +41,6 @@ commands =
         --durations 10 \
         --durations-min=2.0 \
         {posargs}
-
-[testenv:coverage]
-skip_install = true
-deps = coverage
-depends =
-    py311
-    py312
-    py313
-commands =
-    coverage combine
-    coverage xml
-    coverage report
 
 [testenv:check-packaging]
 skip_install = true
@@ -79,7 +67,7 @@ deps =
     codespell
     pre-commit
 commands =
-    codespell -i 3 -x .codespellignorelines -w {[base]files} README.md CHANGELOG.md docs/source
+    codespell -i 3 -x .codespellignorelines -w {[base]files}
     pre-commit run --all-files
 
 [testenv:type-checking]

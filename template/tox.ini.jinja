@@ -72,12 +72,11 @@ commands =
 
 [testenv:type-checking]
 extras = test
+deps = {{ type_checker }}
 allowlist_externals = {{ type_checker }}
 commands =
     "{{ type_checker }}" \
-        {% if type_checker=="pyright" %}--pythonpath \
-        {env:VIRTUAL_ENV}/bin/python \
-        {% endif %}src \
+        src \
         tests
 
 [testenv:min_versions]

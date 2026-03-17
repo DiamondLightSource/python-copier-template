@@ -9,8 +9,7 @@ envlist =
     type-checking
     {{ 'py{' }}311,312,313}
     min_versions{% if sphinx %}
-    docs
-    docs-autobuild{% endif %}
+    docs{% endif %}
 
 minversion = 4.20{% if git_platform == 'github' %}
 

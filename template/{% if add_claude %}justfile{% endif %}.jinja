@@ -1,6 +1,6 @@
 # Start Claude Code in sandbox mode (no SSH agent, skip permission prompts)
 claude:
-    SSH_AUTH_SOCK= IS_SANDBOX=1 claude --dangerously-skip-permissions{% if install_gh %}
+    SSH_AUTH_SOCK= IS_SANDBOX=1 VSCODE_GIT_IPC_HANDLE= GIT_ASKPASS= claude --dangerously-skip-permissions{% if install_gh %}
 
 
 # Authenticate gh CLI with a GitHub PAT (token not stored in shell history)

@@ -12,9 +12,7 @@ set -euo pipefail
 for scope in --system --global; do
     git config $scope --unset-all credential.helper 2>/dev/null || true
     git config $scope --unset-all credential.https://github.com.helper 2>/dev/null || true
-{%- if install_glab %}
     git config $scope --unset-all credential.https://gitlab.diamond.ac.uk.helper 2>/dev/null || true
-{%- endif %}
     git config $scope --unset-all url.ssh://git@github.com/.insteadOf 2>/dev/null || true
 done
 
@@ -28,11 +26,8 @@ rm -f /tmp/vscode-remote-containers-*.js
 # handle auth. This keeps the container SSH-key-free (Claude stays sandboxed)
 # while still allowing push/pull on repos whose remotes are set to git@...:.
 git config --global url."https://github.com/".insteadOf "git@github.com:"
-{%- if install_glab %}
 git config --global url."https://gitlab.diamond.ac.uk/".insteadOf "git@gitlab.diamond.ac.uk:"
-{%- endif %}
 
-{% if install_gh -%}
 # Pin per-host helper to the in-container gh path. The host gitconfig may
 # reference /usr/local/bin/gh which doesn't exist here (apt installs to
 # /usr/bin/gh); without this, git falls through to the next helper.
@@ -45,10 +40,8 @@ fi
 if gh auth status &>/dev/null; then
     gh auth setup-git
 fi
-{%- endif %}
-{% if install_glab %}
+
 # Pin per-host helper to the in-container glab path.
 if command -v glab >/dev/null; then
     git config --global credential.https://gitlab.diamond.ac.uk.helper "!$(command -v glab) auth git-credential"
 fi
-{%- endif %}

@@ -215,8 +215,6 @@ def test_meta_matches_no_claude_template(tmp_path: Path):
     copy_project(
         tmp_path,
         add_claude=False,
-        install_gh=False,
-        install_glab=False,
         docker=False,
         docker_debug=False,
     )

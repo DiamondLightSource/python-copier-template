@@ -8,8 +8,6 @@ distribution_name: dls-python-copier-template-example
 docker: true
 docker_debug: true
 add_claude: true
-install_gh: true
-install_glab: true
 docs_type: sphinx
 git_platform: github.com
 github_org: DiamondLightSource

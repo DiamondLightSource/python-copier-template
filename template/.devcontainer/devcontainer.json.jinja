@@ -79,19 +79,19 @@
             "source": "devcontainer-shared-cache",
             "target": "/cache",
             "type": "volume"
-        }{% if install_gh %},
+        }{% if add_claude %},
         // Persist gh auth across container rebuilds with per-repo scoped PAT
         {
             "source": "gh-auth-${localWorkspaceFolderBasename}",
             "target": "/root/.config/gh",
             "type": "volume"
-        }{% endif %}{% if install_glab %},
+        },
         // Persist glab auth across container rebuilds (GitLab CLI)
         {
             "source": "glab-auth-${localWorkspaceFolderBasename}",
             "target": "/root/.config/glab-cli",
             "type": "volume"
-        }{% endif %}{% if add_claude %},
+        },
         // Mount Claude config from host (settings, memory, skills)
         {
             "source": "${localEnv:HOME}/.claude",

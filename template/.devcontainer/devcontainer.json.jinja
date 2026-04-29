@@ -44,10 +44,7 @@
                 "python.terminal.activateEnvironment": false,
                 // Workaround to prevent garbled python REPL in the terminal
                 // https://github.com/microsoft/vscode-python/issues/25505
-                "python.terminal.shellIntegration.enabled": false{% if sphinx %},
-                // Only forward explicitly listed ports — auto-detection races with
-                // sphinx-autobuild and steals the port on restart
-                "remote.autoForwardPorts": false{% endif %}
+                "python.terminal.shellIntegration.enabled": false
             },
             // Add the IDs of extensions you want installed when the container is created.
             "extensions": [
@@ -61,11 +58,7 @@
                 "anthropic.claude-code"{% endif %}
             ]
         }
-    },{% if sphinx %}
-    // Explicitly forward sphinx-autobuild port (auto-detection disabled above)
-    "forwardPorts": [
-        8000
-    ],{% endif %}
+    },
     // Create host-side dirs needed for bind mounts before the container starts
     "initializeCommand": "mkdir -p ${localEnv:HOME}/.config/terminal-config{% if add_claude %} ${localEnv:HOME}/.claude{% endif %}",
     "runArgs": [

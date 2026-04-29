@@ -16,6 +16,7 @@ how it does it, and why people should use it.
 {% if pypi                   %}PyPI            | `pip install {{distribution_name}}`
 {% endif %}{% if docker      %}Docker          | `docker run ghcr.io/{{github_org | lower}}/{{repo_name}}:latest`
 {% endif %}{% if sphinx      %}Documentation   | <{{docs_url}}>
+{% endif %}{% if add_claude  %}Claude sandbox  | [README-CLAUDE.md]({{repo_url}}/blob/main/README-CLAUDE.md)
 {% endif                     %}Releases        | <{{repo_url}}/releases>
 
 This is where you should put some images or code snippets that illustrate

@@ -206,6 +206,28 @@ def test_gitignore_same():
         assert top_gi.read() == template_gi.read()
 
 
+def test_meta_matches_no_claude_template(tmp_path: Path):
+    """The meta repo's .devcontainer/devcontainer.json and Dockerfile must
+    match what the template renders with all Claude options off (and docker
+    off, since the meta repo isn't a deployable service). Catches drift
+    between the meta repo's own dev experience and what we ship to projects
+    that opt out of the Claude sandbox."""
+    copy_project(
+        tmp_path,
+        add_claude=False,
+        install_gh=False,
+        install_glab=False,
+        docker=False,
+        docker_debug=False,
+    )
+    for relpath in [".devcontainer/devcontainer.json", "Dockerfile"]:
+        rendered = (tmp_path / relpath).read_text()
+        meta = (TOP / relpath).read_text()
+        assert rendered == meta, (
+            f"{relpath} drift between meta repo and template (add_claude=no)"
+        )
+
+
 def test_private_member_access(tmp_path: Path):
     code = """
 class MyClass:

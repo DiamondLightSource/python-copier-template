@@ -1,5 +1,5 @@
-# The developer stage is used as a devcontainer including dev versions
-# of the build dependencies
+# The devcontainer should use the developer target and run as root with podman
+# or docker with user namespaces.
 FROM ghcr.io/diamondlightsource/ubuntu-devcontainer:noble AS developer
 
 # Add any system dependencies for the developer/build environment here

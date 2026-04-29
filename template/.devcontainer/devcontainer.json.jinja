@@ -4,10 +4,23 @@
     "build": {
         "dockerfile": "../Dockerfile",
         "target": "developer"
-    },
+    },{% if add_claude %}
+    // Tell VS Code the remote user is root so copyGitConfig writes to
+    // /root/.gitconfig (matching $HOME in the shell); otherwise it falls back
+    // to the base image's USER and the copy lands in the wrong home.
+    "remoteUser": "root",{% endif %}
     "remoteEnv": {
         // Allow X11 apps to run inside the container
-        "DISPLAY": "${localEnv:DISPLAY}",
+        "DISPLAY": "${localEnv:DISPLAY}",{% if add_claude %}
+        // Disable SSH agent forwarding — prevents Claude from using host SSH keys
+        "SSH_AUTH_SOCK": "",
+        // Disable VS Code git credential injection — prevents askpass from
+        // relaying host GitHub credentials into the container over the IPC socket
+        "GIT_ASKPASS": "",
+        "VSCODE_GIT_IPC_HANDLE": "",
+        "VSCODE_GIT_ASKPASS_MAIN": "",
+        "VSCODE_GIT_ASKPASS_NODE": "",
+        "VSCODE_GIT_ASKPASS_EXTRA_ARGS": "",{% endif %}
         // Mark this shell as running inside the devcontainer
         "IN_DEVCONTAINER": "1",
         // Put things that allow it in the persistent cache
@@ -31,10 +44,10 @@
                 "python.terminal.activateEnvironment": false,
                 // Workaround to prevent garbled python REPL in the terminal
                 // https://github.com/microsoft/vscode-python/issues/25505
-                "python.terminal.shellIntegration.enabled": false,
+                "python.terminal.shellIntegration.enabled": false{% if sphinx %},
                 // Only forward explicitly listed ports — auto-detection races with
                 // sphinx-autobuild and steals the port on restart
-                "remote.autoForwardPorts": false
+                "remote.autoForwardPorts": false{% endif %}
             },
             // Add the IDs of extensions you want installed when the container is created.
             "extensions": [
@@ -44,16 +57,17 @@
                 "redhat.vscode-yaml",
                 "ryanluker.vscode-coverage-gutters",
                 "charliermarsh.ruff",
-                "ms-azuretools.vscode-docker"
+                "ms-azuretools.vscode-docker"{% if add_claude %},
+                "anthropic.claude-code"{% endif %}
             ]
         }
-    },
+    },{% if sphinx %}
     // Explicitly forward sphinx-autobuild port (auto-detection disabled above)
     "forwardPorts": [
         8000
-    ],
+    ],{% endif %}
     // Create host-side dirs needed for bind mounts before the container starts
-    "initializeCommand": "mkdir -p ${localEnv:HOME}/.config/terminal-config",
+    "initializeCommand": "mkdir -p ${localEnv:HOME}/.config/terminal-config{% if add_claude %} ${localEnv:HOME}/.claude{% endif %}",
     "runArgs": [
         // Allow the container to access the host X11 display and EPICS CA
         "--net=host",
@@ -72,10 +86,30 @@
             "source": "devcontainer-shared-cache",
             "target": "/cache",
             "type": "volume"
-        }
+        }{% if install_gh %},
+        // Persist gh auth across container rebuilds with per-repo scoped PAT
+        {
+            "source": "gh-auth-${localWorkspaceFolderBasename}",
+            "target": "/root/.config/gh",
+            "type": "volume"
+        }{% endif %}{% if install_glab %},
+        // Persist glab auth across container rebuilds (GitLab CLI)
+        {
+            "source": "glab-auth-${localWorkspaceFolderBasename}",
+            "target": "/root/.config/glab-cli",
+            "type": "volume"
+        }{% endif %}{% if add_claude %},
+        // Mount Claude config from host (settings, memory, skills)
+        {
+            "source": "${localEnv:HOME}/.claude",
+            "target": "/root/.claude",
+            "type": "bind"
+        }{% endif %}
     ],
     // Mount the parent as /workspaces so we can pip install peers as editable
-    "workspaceMount": "source=${localWorkspaceFolder}/..,target=/workspaces,type=bind",
+    "workspaceMount": "source=${localWorkspaceFolder}/..,target=/workspaces,type=bind",{% if add_claude %}
+    "postCreateCommand": ".devcontainer/postCreate.sh",
+    "postStartCommand": ".devcontainer/postStart.sh"{% else %}
     // After the container is created, recreate the venv then make pre-commit first run faster
-    "postCreateCommand": "uv venv --clear && uv sync && pre-commit install --install-hooks"
+    "postCreateCommand": "uv venv --clear && uv sync && pre-commit install --install-hooks"{% endif %}
 }

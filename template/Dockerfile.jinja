@@ -9,12 +9,19 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
 
 # Node is required by Claude Code's hook runtime; just powers the
 # container's claude/gh-auth/glab-auth recipes in justfile.
+# TODO: nodejs (and gh / glab below) will move into the
+# ubuntu-devcontainer base image once it ships on Ubuntu 26.04, where
+# all three are available from apt at sufficient versions. At that
+# point this block and the install_gh / install_glab copier options
+# can be dropped.
 RUN apt-get update -y && apt-get install -y --no-install-recommends \
     nodejs \
     just \
     && apt-get dist-clean{% endif %}{% if install_gh %}
 
-# GitHub CLI — used by Claude to authenticate to github.com via PAT
+# GitHub CLI — used by Claude to authenticate to github.com via PAT.
+# TODO: drop once the ubuntu-devcontainer base ships on Ubuntu 26.04
+# (apt has gh 2.46.0-4 there).
 RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | \
     dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg && \
     chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg && \
@@ -25,6 +32,8 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | \
 
 # GitLab CLI — used by Claude to authenticate to gitlab instances via PAT.
 # No apt repo, so install from the upstream release tarball.
+# TODO: drop once the ubuntu-devcontainer base ships on Ubuntu 26.04
+# (apt has glab 1.53.0-1build1 there).
 ARG GLAB_VERSION=1.93.0
 RUN curl -fsSL "https://gitlab.com/gitlab-org/cli/-/releases/v${GLAB_VERSION}/downloads/glab_${GLAB_VERSION}_linux_amd64.tar.gz" \
       | tar -xz -C /tmp bin/glab && \

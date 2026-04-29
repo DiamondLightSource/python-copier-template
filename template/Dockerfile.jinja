@@ -7,9 +7,11 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
     graphviz \
     && apt-get dist-clean{% if add_claude %}
 
-# Node is required by Claude Code's hook runtime
+# Node is required by Claude Code's hook runtime; just powers the
+# container's claude/gh-auth/glab-auth recipes in justfile.
 RUN apt-get update -y && apt-get install -y --no-install-recommends \
     nodejs \
+    just \
     && apt-get dist-clean{% endif %}{% if install_gh %}
 
 # GitHub CLI — used by Claude to authenticate to github.com via PAT
@@ -23,7 +25,7 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | \
 
 # GitLab CLI — used by Claude to authenticate to gitlab instances via PAT.
 # No apt repo, so install from the upstream release tarball.
-ARG GLAB_VERSION=1.92.1
+ARG GLAB_VERSION=1.93.0
 RUN curl -fsSL "https://gitlab.com/gitlab-org/cli/-/releases/v${GLAB_VERSION}/downloads/glab_${GLAB_VERSION}_linux_amd64.tar.gz" \
       | tar -xz -C /tmp bin/glab && \
     install -m 0755 /tmp/bin/glab /usr/local/bin/glab && \

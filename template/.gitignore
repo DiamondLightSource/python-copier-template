@@ -69,3 +69,7 @@ lockfiles/
 
 # ruff cache
 .ruff_cache/
+
+# Claude Code local state (commit settings.json, commands, skills, hooks)
+.claude/settings.local.json
+.claude/scheduled_tasks.lock

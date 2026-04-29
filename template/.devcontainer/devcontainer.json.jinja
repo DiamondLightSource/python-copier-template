@@ -109,7 +109,11 @@
     // Mount the parent as /workspaces so we can pip install peers as editable
     "workspaceMount": "source=${localWorkspaceFolder}/..,target=/workspaces,type=bind",{% if add_claude %}
     "postCreateCommand": ".devcontainer/postCreate.sh",
-    "postStartCommand": ".devcontainer/postStart.sh"{% else %}
+    "postStartCommand": ".devcontainer/postStart.sh",
+    // VS Code's Dev Containers extension re-injects its credential bridge
+    // when the editor attaches — after postStart has already run. Re-run
+    // the cleanup at attach so the leak is closed before any git operation.
+    "postAttachCommand": ".devcontainer/postStart.sh"{% else %}
     // After the container is created, recreate the venv then make pre-commit first run faster
     "postCreateCommand": "uv venv --clear && uv sync && pre-commit install --install-hooks"{% endif %}
 }

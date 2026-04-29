@@ -113,6 +113,30 @@ docker_debug:
         be useful if debugging the service inside of the cluster
         infrastructure is required.
 
+add_claude:
+    type: bool
+    help: |
+        Add a Claude Code sandbox to the devcontainer?
+        Disables host SSH agent / VS Code git credential injection inside
+        the container, mounts ~/.claude from the host, installs Claude Code
+        CLI, and enables `--dangerously-skip-permissions` autopilot mode.
+
+install_gh:
+    type: bool
+    when: "{{ add_claude }}"
+    help: |
+        Install the GitHub CLI (gh) so Claude can push/pull via PAT auth?
+        Only useful inside the Claude sandbox — ordinary users typically
+        rely on SSH keys or VS Code git credentials.
+
+install_glab:
+    type: bool
+    when: "{{ add_claude }}"
+    help: |
+        Install the GitLab CLI (glab) for projects that talk to a GitLab
+        instance (e.g. gitlab.diamond.ac.uk submodules)?
+        Only useful inside the Claude sandbox.
+
 docs_type:
     type: str
     help: |

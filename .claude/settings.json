@@ -1,0 +1,38 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit(/workspaces/**)",
+      "Write(/workspaces/**)",
+      "Read(/workspaces/**)",
+      "Bash(*)"
+    ],
+    "deny": [
+      "Bash(git push --force *)",
+      "Bash(git reset --hard*)",
+      "Bash(ssh *)",
+      "Bash(ssh-agent *)",
+      "Bash(*ssh-agent*)",
+      "Bash(scp *)",
+      "Bash(rsync *)",
+      "Bash(sftp *)",
+      "Bash(telnet *)",
+      "Bash(mail *)",
+      "Bash(sendmail *)"
+    ],
+    "additionalDirectories": [
+      "/workspaces/**"
+    ]
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/sandbox-check.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

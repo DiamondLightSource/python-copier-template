@@ -80,8 +80,18 @@ critical FAIL — the host SSH keys are reachable.
 - Any other `credential.*.helper` (especially one pointing at
   `/tmp/vscode-remote-containers-*.js` or `/.vscode-server/...`) is a
   FAIL.
-- No system-scope helper: `git config --system --get credential.helper`
-  must exit non-zero.
+- `/etc/gitconfig` must be masked (bind-mounted to `/dev/null` or
+  absent). `mount | grep '/etc/gitconfig'` should show a bind mount
+  whose source is `/dev/null` (appears as `devtmpfs` with `mode=755`,
+  inode for major 1 / minor 3), OR `ls /etc/gitconfig` returns
+  "No such file or directory". A regular file at `/etc/gitconfig` with
+  any contents is a FAIL — the host's system-scope gitconfig is
+  reachable and could carry `url.insteadof`, `http.proxy`,
+  `core.hooksPath`, or credential helpers that bypass /root/.gitconfig.
+- System scope must be empty: `git config --system --list` must produce
+  no output (exit 0 with empty stdout, or exit non-zero). Any line is a
+  FAIL — broader than just `credential.helper`, since `core.hooksPath`
+  or `url.insteadof` at system scope are equally dangerous.
 
 ### 7. Credential source is gh, not a host bridge
 
@@ -110,7 +120,8 @@ CHECK                                        STATUS  DETAIL
 5.  Host credential dirs masked               PASS/FAIL  ...
 6a. /root/.gitconfig bind-mounted             PASS/FAIL  ...
 6b. Gitconfig contents are sandbox-only       PASS/FAIL  ...
-6c. No system-scope credential.helper         PASS/FAIL  ...
+6c. /etc/gitconfig masked                     PASS/FAIL  ...
+6d. System-scope gitconfig is empty           PASS/FAIL  ...
 7.  git credential fill source is gh          PASS/FAIL/N/A  ...
 ```
 

@@ -28,8 +28,14 @@ EOF
     exit 1
 fi
 
-# Install Python dependencies and pre-commit hooks
+# Install Python dependencies and pre-commit hooks. `uv venv --clear` wipes
+# the venv that lives in /cache (a persistent named volume), so any bash
+# hash entries pointing into the old venv (e.g. cached `pre-commit` path)
+# are stale. `hash -r` after `uv sync` forces re-resolution against the
+# freshly populated venv and against any new `uv` location after a base
+# image bump.
 uv venv --clear
+hash -r
 uv sync
 pre-commit install --install-hooks
 

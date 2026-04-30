@@ -9,28 +9,21 @@ fail() { echo "BLOCKED: $1" >&2; exit 2; }
 [ -n "${IN_DEVCONTAINER:-}" ] || \
     fail "not in the devcontainer (IN_DEVCONTAINER unset). Reopen the project in the devcontainer."
 
+# IS_SANDBOX=1 is set by the inner `just claude` script after it sets up
+# the private mount namespace. If it's missing, Claude was launched
+# without the namespace and /tmp/vscode-*.sock host bridges are reachable.
+[ -n "${IS_SANDBOX:-}" ] || \
+    fail "IS_SANDBOX unset — Claude was not launched via \"just claude\", so the mount-namespace sandbox is not active."
+
 # Host SSH agent must not be reachable. remoteEnv blanks SSH_AUTH_SOCK and
 # `just claude` re-blanks it; if it is set, neither layer applied.
 [ -z "${SSH_AUTH_SOCK:-}" ] || \
     fail "SSH_AUTH_SOCK is set ($SSH_AUTH_SOCK) — host SSH agent is reachable. run \"just claude\" or rebuild the devcontainer."
 
-# VS Code git credential bridge must be silenced. With
-# git.terminalAuthentication=false in devcontainer.json these env vars
-# should never be set — if they are, the setting was not applied.
-[ -z "${VSCODE_GIT_IPC_HANDLE:-}" ] || \
-    fail "VSCODE_GIT_IPC_HANDLE is set — VS Code credential bridge is reachable. Rebuild the devcontainer (git.terminalAuthentication should be false)."
-[ -z "${GIT_ASKPASS:-}" ] || \
-    fail "GIT_ASKPASS is set — VS Code askpass is injected. Rebuild the devcontainer (git.terminalAuthentication should be false)."
-
-# The /tmp credential helper script VS Code drops in must have been removed.
-if compgen -G '/tmp/vscode-remote-containers-*.js' >/dev/null; then
-    fail "/tmp/vscode-remote-containers-*.js bridge present — re-run .devcontainer/postStart.sh."
-fi
-
-# system-scope credential.helper is where VS Code injects; if anything
-# is set there git will use it before our per-host helpers.
-if git config --system --get credential.helper >/dev/null 2>&1; then
-    fail "system credential.helper is still set — re-run .devcontainer/postStart.sh."
-fi
+# GIT_ASKPASS points at a script under /.vscode-server, which the
+# namespace does NOT mask. If the env var is non-empty AND the file is
+# reachable, claude-sandbox.sh's exec-line blank failed to apply.
+[ ! -e "${GIT_ASKPASS:-}" ] || \
+    fail "GIT_ASKPASS script ($GIT_ASKPASS) is reachable — claude-sandbox.sh did not blank the env var. Rebuild the devcontainer or re-run \"just claude\"."
 
 exit 0

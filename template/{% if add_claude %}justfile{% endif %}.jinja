@@ -1,10 +1,12 @@
 # Start Claude Code in sandbox mode (no SSH agent, skip permission prompts).
-# VSCODE_GIT_IPC_HANDLE / GIT_ASKPASS are no longer cleared here — the
-# devcontainer pins git.terminalAuthentication=false so VS Code never sets
-# them. SSH_AUTH_SOCK still gets blanked because there is no VS Code setting
-# to disable host SSH agent forwarding.
+# Runs Claude inside a private mount namespace so VS Code's host-bridge
+# sockets (vscode-ipc-*.sock, vscode-git-*.sock, vscode-ssh-auth-*.sock,
+# vscode-remote-containers-ipc-*.sock) in /tmp and /run/user/<uid>/ are
+# invisible — Claude sees empty tmpfs at those paths. setpriv
+# --pdeathsig SIGKILL inside the inner script makes Claude die if the
+# wrapping shell exits. See README-CLAUDE.md for the full sandbox model.
 claude:
-    SSH_AUTH_SOCK= IS_SANDBOX=1 claude --dangerously-skip-permissions
+    exec unshare -m --propagation private .devcontainer/claude-sandbox.sh
 
 
 # Authenticate gh CLI with a GitHub PAT (token not stored in shell history)

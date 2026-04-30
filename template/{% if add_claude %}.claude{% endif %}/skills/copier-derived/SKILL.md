@@ -58,3 +58,27 @@ The user runs this themselves (it touches many files); only run it
 yourself if explicitly asked. Always pass `--trust`. After update,
 resolve any conflicts (look for `<<<<<<<` markers and `.rej` files)
 before committing.
+
+## Verifying template changes without committing
+
+When editing files in `/workspaces/python-copier-template/template/`,
+render a throwaway project to confirm the change works for both
+branches of every conditional (`add_claude=true` and `false`):
+
+```bash
+cd /tmp && rm -rf render-true render-false
+git init render-true -b main >/dev/null
+uvx copier copy /workspaces/python-copier-template /tmp/render-true \
+    --data-file /workspaces/python-copier-template/example-answers.yml \
+    --vcs-ref HEAD --defaults --trust
+git init render-false -b main >/dev/null
+uvx copier copy /workspaces/python-copier-template /tmp/render-false \
+    --data-file /workspaces/python-copier-template/example-answers.yml \
+    --data add_claude=false --vcs-ref HEAD --defaults --trust
+```
+
+`--vcs-ref HEAD` makes copier render from the working tree (so
+uncommitted edits are picked up). For each render, sanity-check the
+key files: `.devcontainer/devcontainer.json` should parse as JSON
+(strip `//` comments first), conditional files should appear or
+not as expected, and shell scripts should preserve their `755` mode.

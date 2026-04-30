@@ -1,6 +1,6 @@
 ---
 name: copier-derived
-description: This project was generated from python-copier-template. Use when editing devcontainer / Dockerfile / .github / pre-commit / justfile / .gitleaks / renovate config, or when the user asks about updating from the template, resolving copier conflicts, or why a config looks the way it does.
+description: This project was generated from python-copier-template. Use when editing devcontainer / Dockerfile / .github / pre-commit / justfile / .gitleaks / renovate config, anything under .claude/ (hooks, skills, commands, settings), CLAUDE.md, or README-CLAUDE.md, or when the user asks about updating from the template, resolving copier conflicts, or why a config looks the way it does.
 ---
 
 # Copier-template-derived project

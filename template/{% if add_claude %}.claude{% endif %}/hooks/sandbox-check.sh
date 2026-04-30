@@ -11,13 +11,13 @@ fail() { echo "BLOCKED: $1" >&2; exit 2; }
 
 # Host SSH agent must not be reachable.
 [ -z "${SSH_AUTH_SOCK:-}" ] || \
-    fail "SSH_AUTH_SOCK is set ($SSH_AUTH_SOCK) — host SSH agent is reachable."
+    fail "SSH_AUTH_SOCK is set ($SSH_AUTH_SOCK) — host SSH agent is reachable. run \"just claude\""
 
 # VS Code git credential bridge must be silenced.
 [ -z "${VSCODE_GIT_IPC_HANDLE:-}" ] || \
-    fail "VSCODE_GIT_IPC_HANDLE is set — VS Code credential bridge is reachable."
+    fail "VSCODE_GIT_IPC_HANDLE is set — VS Code credential bridge is reachable. run \"just claude\""
 [ -z "${GIT_ASKPASS:-}" ] || \
-    fail "GIT_ASKPASS is set — VS Code askpass is injected."
+    fail "GIT_ASKPASS is set — VS Code askpass is injected. run \"just claude\""
 
 # The /tmp credential helper script VS Code drops in must have been removed.
 if compgen -G '/tmp/vscode-remote-containers-*.js' >/dev/null; then

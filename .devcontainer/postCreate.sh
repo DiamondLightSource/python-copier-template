@@ -47,7 +47,5 @@ if [ -f .gitmodules ]; then
     [ -n "$missing" ] && git submodule update --init $missing
 fi
 
-
 # Install Claude Code CLI
 curl -fsSL https://claude.ai/install.sh | bash
-

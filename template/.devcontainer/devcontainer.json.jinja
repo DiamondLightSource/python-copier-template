@@ -12,15 +12,11 @@
     "remoteEnv": {
         // Allow X11 apps to run inside the container
         "DISPLAY": "${localEnv:DISPLAY}",{% if add_claude %}
-        // Disable SSH agent forwarding — prevents Claude from using host SSH keys
-        "SSH_AUTH_SOCK": "",
-        // Disable VS Code git credential injection — prevents askpass from
-        // relaying host GitHub credentials into the container over the IPC socket
-        "GIT_ASKPASS": "",
-        "VSCODE_GIT_IPC_HANDLE": "",
-        "VSCODE_GIT_ASKPASS_MAIN": "",
-        "VSCODE_GIT_ASKPASS_NODE": "",
-        "VSCODE_GIT_ASKPASS_EXTRA_ARGS": "",{% endif %}
+        // Disable SSH agent forwarding — prevents Claude from using host SSH keys.
+        // No VS Code setting disables this, so the remoteEnv blank is the actual
+        // defence (the GIT_ASKPASS / VSCODE_GIT_IPC_HANDLE bridge is closed at
+        // the customizations.vscode.settings level instead — see below).
+        "SSH_AUTH_SOCK": "",{% endif %}
         // Mark this shell as running inside the devcontainer
         "IN_DEVCONTAINER": "1",
         // Put things that allow it in the persistent cache
@@ -44,7 +40,18 @@
                 "python.terminal.activateEnvironment": false,
                 // Workaround to prevent garbled python REPL in the terminal
                 // https://github.com/microsoft/vscode-python/issues/25505
-                "python.terminal.shellIntegration.enabled": false
+                "python.terminal.shellIntegration.enabled": false{% if add_claude %},
+                // Close every VS Code channel that would otherwise forward host git
+                // credentials into the container. Together these stop the integrated
+                // terminal from inheriting GIT_ASKPASS / VSCODE_GIT_IPC_HANDLE, stop
+                // the Dev Containers extension from writing a credential.helper line
+                // into /etc/gitconfig, and stop the host ~/.gitconfig (with its SSH
+                // url.insteadOf rewrites and per-host helpers) being copied in.
+                // postStart.sh and the sandbox-check.sh hook are belt-and-braces
+                // verifications that these settings actually took effect.
+                "git.terminalAuthentication": false,
+                "dev.containers.gitCredentialHelperConfigLocation": "none",
+                "dev.containers.copyGitConfig": false{% endif %}
             },
             // Add the IDs of extensions you want installed when the container is created.
             "extensions": [

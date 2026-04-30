@@ -14,25 +14,25 @@ and how to verify the sandbox is intact.
 - **No host SSH keys.** `SSH_AUTH_SOCK` is unset in `remoteEnv`, so any
   SSH-agent forwarded by the host is invisible inside the container. No
   private keys are mounted into `/root/.ssh` either — only `known_hosts`.
-- **No VS Code git credential injection.** `GIT_ASKPASS`,
-  `VSCODE_GIT_IPC_HANDLE`, `VSCODE_GIT_ASKPASS_*` are blanked in
-  `devcontainer.json`'s `remoteEnv`, but that only sets the *initial*
-  environment of the remote server — VS Code's built-in Git extension
-  re-injects `GIT_ASKPASS` and `VSCODE_GIT_IPC_HANDLE` per child-process
-  spawn so any extension can prompt for credentials through the UI. The
-  `just claude` recipe therefore re-blanks both vars on the `claude`
-  command line itself, which is the only point at which they can be
-  reliably stripped before `claude` inherits them.
-  `VSCODE_GIT_ASKPASS_NODE`/`_MAIN` may remain populated; they are just
-  paths to the askpass script and are inert without `IPC_HANDLE` (the
-  socket the script phones home through), so they don't need blanking.
-  Separately, `postStart.sh` aggressively unsets `credential.helper` and
-  per-host helpers in BOTH `--system` (`/etc/gitconfig`) and `--global`
-  scopes — VS Code writes the helper into the *system* gitconfig, so a
-  global-only cleanup leaves the leak open. The script also removes the
-  `/tmp/vscode-remote-containers-*.js` bridge that VS Code drops in.
-  The cleanup re-runs on `postAttachCommand` because VS Code re-injects
-  the helper after `postStartCommand`.
+- **No VS Code git credential injection.** Three Dev Containers settings
+  pinned in `devcontainer.json` close every channel at the boundary:
+    - `git.terminalAuthentication: false` — VS Code's Git extension never
+      sets `GIT_ASKPASS` / `VSCODE_GIT_IPC_HANDLE` in the integrated
+      terminal, so there is no IPC socket path for a child process to
+      find. Source-confirmed in `vscode/extensions/git/src/askpass.ts`.
+    - `dev.containers.gitCredentialHelperConfigLocation: "none"` — the
+      Dev Containers extension does not write a `credential.helper` line
+      into `/etc/gitconfig`, so nothing in-container references the
+      `/tmp/vscode-remote-containers-*.js` bridge.
+    - `dev.containers.copyGitConfig: false` — the host's `~/.gitconfig`
+      is not copied into the container, so any `url.ssh://...insteadOf`
+      rewrites or per-host helpers stay on the host.
+
+  These settings are the primary defence. Two layers of belt-and-braces
+  sit on top: `postStart.sh` re-asserts `credential.helper` cleanup at
+  attach (and removes the `/tmp/vscode-remote-containers-*.js` shim if
+  VS Code still drops it), and `.claude/hooks/sandbox-check.sh` verifies
+  the state on every prompt submit.
 - **Per-host helpers point at the in-container CLI.** The host gitconfig
   often references `/usr/local/bin/gh`; here `gh` is at `/usr/bin/gh`. We
   rewrite the helper to `command -v gh` / `command -v glab` so it doesn't

@@ -9,15 +9,18 @@ fail() { echo "BLOCKED: $1" >&2; exit 2; }
 [ -n "${IN_DEVCONTAINER:-}" ] || \
     fail "not in the devcontainer (IN_DEVCONTAINER unset). Reopen the project in the devcontainer."
 
-# Host SSH agent must not be reachable.
+# Host SSH agent must not be reachable. remoteEnv blanks SSH_AUTH_SOCK and
+# `just claude` re-blanks it; if it is set, neither layer applied.
 [ -z "${SSH_AUTH_SOCK:-}" ] || \
-    fail "SSH_AUTH_SOCK is set ($SSH_AUTH_SOCK) — host SSH agent is reachable. run \"just claude\""
+    fail "SSH_AUTH_SOCK is set ($SSH_AUTH_SOCK) — host SSH agent is reachable. run \"just claude\" or rebuild the devcontainer."
 
-# VS Code git credential bridge must be silenced.
+# VS Code git credential bridge must be silenced. With
+# git.terminalAuthentication=false in devcontainer.json these env vars
+# should never be set — if they are, the setting was not applied.
 [ -z "${VSCODE_GIT_IPC_HANDLE:-}" ] || \
-    fail "VSCODE_GIT_IPC_HANDLE is set — VS Code credential bridge is reachable. run \"just claude\""
+    fail "VSCODE_GIT_IPC_HANDLE is set — VS Code credential bridge is reachable. Rebuild the devcontainer (git.terminalAuthentication should be false)."
 [ -z "${GIT_ASKPASS:-}" ] || \
-    fail "GIT_ASKPASS is set — VS Code askpass is injected. run \"just claude\""
+    fail "GIT_ASKPASS is set — VS Code askpass is injected. Rebuild the devcontainer (git.terminalAuthentication should be false)."
 
 # The /tmp credential helper script VS Code drops in must have been removed.
 if compgen -G '/tmp/vscode-remote-containers-*.js' >/dev/null; then

@@ -33,6 +33,15 @@ if [ -e /root/.netrc ]; then
     mount --bind /dev/null /root/.netrc
 fi
 
+# /etc/gitconfig (system scope) on a VS Code dev-container image carries a
+# credential.helper that shells out via /tmp/vscode-remote-containers-*.js —
+# the same bridge the per-user mask defends against. Bind /dev/null over it
+# so Claude sees an empty system config; only the URL-scoped gh/glab helpers
+# in /root/.gitconfig remain. The user's regular terminal is unaffected.
+if [ -e /etc/gitconfig ]; then
+    mount --bind /dev/null /etc/gitconfig
+fi
+
 # Build a Claude-only /root/.gitconfig containing the in-container
 # credential helpers (gh / glab) and HTTPS rewrites — and nothing else
 # the user has on the host (no SSH url rewrites, no host-specific

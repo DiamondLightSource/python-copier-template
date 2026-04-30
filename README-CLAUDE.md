@@ -52,6 +52,10 @@ and how to verify the sandbox is intact.
   by `dev.containers.copyGitConfig`'s default), so the host's SSH url
   rewrites, custom credential helpers, and identity all work normally
   outside Claude — but Claude only ever sees the curated config.
+  `/etc/gitconfig` (system scope) is also masked: VS Code dev-container
+  images bake a `credential.helper` there that shells out via
+  `/tmp/vscode-remote-containers-*.js`, so `claude-sandbox.sh` binds
+  `/dev/null` over it inside the namespace.
 - **The "log in to GitHub" popup is closed for Claude.** The user
   terminal keeps `git.terminalAuthentication` at its default (true), so
   `GIT_ASKPASS` and `VSCODE_GIT_IPC_HANDLE` are injected into terminals
@@ -151,6 +155,8 @@ ls /root/.ssh /root/.gnupg /root/.aws 2>/dev/null   # all empty (or missing)
 # no host SSH url rewrites or unrelated host helpers.
 git config --global --list | grep -E 'credential|insteadof'
 mount | grep '/root/.gitconfig'                     # bind from /etc/claude-gitconfig
+git config --system --get credential.helper         # should exit non-zero
+mount | grep '/etc/gitconfig'                       # bind from /dev/null
 
 # Should return creds only if `just gh-auth` has been run for this repo.
 printf 'protocol=https\nhost=github.com\n\n' | git credential fill

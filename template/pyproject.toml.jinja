@@ -21,7 +21,6 @@ requires-python = ">=3.11"
 
 [dependency-groups]
 dev = [
-    "copier",
     {% if type_checker=="mypy" %}"mypy",
     {% endif %}{% if sphinx %}"myst-parser",
     {% endif %}"pre-commit",

@@ -20,7 +20,7 @@ The template has tests for:
 However, this does not test whether processes like CI and docs work correctly. You can ensure that these are checked by:
 
 - Making your changes on a branch of <https://github.com/DiamondLightSource/python-copier-template>
-- Running `copier update --vcs-ref=<branch_name>` in the repo where you would like to demonstrate the behaviour
+- Running `uvx copier update --vcs-ref=<branch_name>` in the repo where you would like to demonstrate the behaviour
 - Linking to that demonstration repo in the PR
 
 ## Developer Information

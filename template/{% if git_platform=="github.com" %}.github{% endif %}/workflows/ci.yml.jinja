@@ -1,13 +1,11 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - main
-    tags:
-      - '*'
   pull_request:
-
+  push:
+    branches:[main]
+    tags:['*']
+  
 jobs:
 
   lint:
@@ -16,15 +14,9 @@ jobs:
       tox: pre-commit,type-checking
 {% raw %}
   test:
-    strategy:
-      matrix:
-        runs-on: ["ubuntu-latest"] # can add windows-latest, macos-latest
-        python-version: ["3.11", "3.12", "3.13", "3.14"]
-      fail-fast: false
     uses: ./.github/workflows/_test.yml
     with:
-      runs-on: ${{ matrix.runs-on }}
-      python-version: ${{ matrix.python-version }}
+      runs-on: ubuntu-latest
 {% endraw %}{% if docker %}{% raw %}
   container:
     needs: test
@@ -37,10 +29,12 @@ jobs:
       packages: write
 {% endraw %}{% endif %}{% if sphinx %}
   docs:
-    uses: ./.github/workflows/_docs.yml
-    permissions:
-      contents: write
-{% endif %}
+    uses: DiamondLightSource/myst-version-switcher-plugin/.github/workflows/docs.yml@v0.24.1
+    with:
+    # Whatever turns your sources into docs/_build/html at $BASE_URL.
+    # uv and Node are preinstalled; so: make docs · tox -e docs · npm ci && npm run docs
+      build-command: uv run --locked tox -e docs
+      html-dir: build/html
   dist:
     uses: ./.github/workflows/_dist.yml
   {% if pypi %}
@@ -54,6 +48,19 @@ jobs:
   release:
     needs: [dist, test{% if sphinx %}, docs{% endif %}]
     if: github.ref_type == 'tag'
-    uses: ./.github/workflows/_release.yml
+    uses: DiamondLightSource/myst-version-switcher-plugin/.workflows/release.yml@v0.24.1
     permissions:
       contents: write
+  publish:
+    needs: [docs]
+    if: github.repository == 'DiamondLightSource/python-copier-template' && github.ref_type == 'tag' #publish only on tags
+    uses: ./.github/workflows/publish-dispatch.yml # your workflow (below)
+    with:
+      version-name: ${{ needs.docs.outputs.version-name }}
+    permissions:
+      contents: read
+      actions: write
+      pages: write
+      id-token: write
+      statuses: write
+  {%endif}  

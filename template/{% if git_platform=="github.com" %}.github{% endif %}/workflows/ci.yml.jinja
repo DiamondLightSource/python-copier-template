@@ -45,7 +45,7 @@ jobs:
     permissions:
       id-token: write
   {% endif %}
-  release:
+  release: #release
     needs: [dist, test{% if sphinx %}, docs{% endif %}]
     if: github.ref_type == 'tag'
     uses: DiamondLightSource/myst-version-switcher-plugin/.workflows/release.yml@v0.24.1

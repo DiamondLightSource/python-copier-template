@@ -14,9 +14,15 @@ jobs:
       tox: pre-commit,type-checking
 {% raw %}
   test:
+    strategy:
+      matrix:
+        runs-on: ["ubuntu-latest"] # can add windows-latest, macos-latest
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
+      fail-fast: false
     uses: ./.github/workflows/_test.yml
     with:
-      runs-on: ubuntu-latest
+      runs-on: ${{ matrix.runs-on }}
+      python-version: ${{ matrix.python-version }}
 {% endraw %}{% if docker %}{% raw %}
   container:
     needs: test
@@ -27,8 +33,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-{% endraw %}{% endif %}
-  {% if sphinx %}
+{% endraw %}{% endif %}{% if sphinx %}
   docs:
     uses: DiamondLightSource/myst-version-switcher-plugin/.github/workflows/docs.yml@v0.24.1
     with:
@@ -36,6 +41,7 @@ jobs:
     # uv and Node are preinstalled; so: make docs · tox -e docs · npm ci && npm run docs
       build-command: uv run --locked tox -e docs
       html-dir: build/html
+  {% endif %}
   dist:
     uses: ./.github/workflows/_dist.yml
   {% if pypi %}

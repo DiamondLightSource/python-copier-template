@@ -11,7 +11,7 @@ jobs:
   lint:
     uses: ./.github/workflows/_tox.yml
     with:
-      tox: pre-commit,type-checking
+      tox: pre-commit
 {% raw %}
   test:
     uses: ./.github/workflows/_test.yml
@@ -27,7 +27,8 @@ jobs:
     permissions:
       contents: read
       packages: write
-{% endraw %}{% endif %}{% if sphinx %}
+{% endraw %}{% endif %}
+  {% if sphinx %}
   docs:
     uses: DiamondLightSource/myst-version-switcher-plugin/.github/workflows/docs.yml@v0.24.1
     with:
@@ -48,7 +49,7 @@ jobs:
   release:
     needs: [dist, test{% if sphinx %}, docs{% endif %}]
     if: github.ref_type == 'tag'
-    uses: DiamondLightSource/myst-version-switcher-plugin/.workflows/release.yml@v0.24.1
+    uses: DiamondLightSource/myst-version-switcher-plugin/.github/workflows/release.yml@v0.24.1
     permissions:
       contents: write
   publish:

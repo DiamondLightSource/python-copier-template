@@ -18,7 +18,7 @@ on:
 
 jobs:
   publish:
-    uses: DiamondLightSource/myst-version-switcher-plugin/.github/workflows/publish.yml@v0.24
+    uses: DiamondLightSource/myst-version-switcher-plugin/.github/workflows/publish.yml@v0.24.1
     with:
       # "" on dispatch → pure durable gather
       version-name: ${{ inputs.version-name }}

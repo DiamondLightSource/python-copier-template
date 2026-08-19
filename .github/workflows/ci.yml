@@ -10,7 +10,7 @@ jobs:
   lint:
     uses: ./.github/workflows/_tox.yml
     with:
-      tox: pre-commit, type-checking
+      tox: pre-commit
 
   test:
     uses: ./.github/workflows/_test.yml

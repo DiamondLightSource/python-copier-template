@@ -25,9 +25,6 @@ jobs:
       build-command: uv run --locked tox -e docs
       html-dir: build/html
 
-  dist:
-    uses: ./.github/workflows/_dist.yml
-
   example:
     needs: test
     if: github.ref_name == 'main'

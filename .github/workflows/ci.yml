@@ -36,7 +36,7 @@ jobs:
       EXAMPLE_DEPLOY_KEY: ${{ secrets.EXAMPLE_DEPLOY_KEY }}
 
   release:
-    needs: [test, docs, dist]
+    needs: [test, docs]
     if: github.ref_type == 'tag' # tag pushes only
     uses: DiamondLightSource/myst-version-switcher-plugin/.github/workflows/release.yml@v0.24.1
     permissions:

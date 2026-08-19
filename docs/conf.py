@@ -126,7 +126,7 @@ html_theme_options = {
         "json_url": switcher_json,
         "version_match": version,
     },
-    "check_switcher": True,
+    "check_switcher": False,
     "navbar_end": ["theme-switcher", "navbar-icon-links", "version-switcher"],
 }
 

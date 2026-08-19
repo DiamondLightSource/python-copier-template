@@ -6,6 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "python-copier-template"
 description = "Diamond's opinionated copier template for pure Python projects."
 dynamic = ["version"]
+readme = "README.md"
 requires-python = ">=3.11"
 
 [dependency-groups]

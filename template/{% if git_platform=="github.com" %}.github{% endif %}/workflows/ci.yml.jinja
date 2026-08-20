@@ -58,6 +58,7 @@ jobs:
     uses: DiamondLightSource/myst-version-switcher-plugin/.github/workflows/release.yml@v0.24.1
     permissions:
       contents: write
+  {% if sphinx %}{% raw %}
   publish:
     needs: [docs]
     if: github.repository == 'DiamondLightSource/python-copier-template' && github.ref_type == 'tag' #publish only on tags
@@ -70,3 +71,4 @@ jobs:
       pages: write
       id-token: write
       statuses: write
+  {% endraw %}{% endif %}

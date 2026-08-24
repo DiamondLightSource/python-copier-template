@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Check docs for style &#8212; python-copier-template 5.4.1.dev4+g01c35b3a4 documentation</title>
+    <title>Check docs for style &#8212; python-copier-template 5.4.1.dev5+ge3910cf9b documentation</title>
   
   
   
@@ -41,7 +41,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=4b439273"></script>
+    <script src="../_static/documentation_options.js?v=a0c022b1"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -495,7 +495,7 @@
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.ruff.lint]</span>
 <span class="n">extend-select</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="c1"># ...</span>
-<span class="w">    </span><span class="s2">&quot;D&quot;</span><span class="p">,</span><span class="w">   </span><span class="c1"># pydocstyle - https://docs.astral.sh/ruff/rules/#pydocstyle-d</span>
+<span class="w">    </span><span class="s2">"D"</span><span class="p">,</span><span class="w">   </span><span class="c1"># pydocstyle - https://docs.astral.sh/ruff/rules/#pydocstyle-d</span>
 <span class="w">    </span><span class="c1"># ...</span>
 <span class="p">]</span>
 </pre></div>
@@ -504,16 +504,16 @@
 <li><p>Selecting a convention</p></li>
 </ul>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.ruff.lint.pydocstyle]</span>
-<span class="n">convention</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;google&quot;</span>
+<span class="n">convention</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"google"</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>Ignoring docstring checking in tests</p></li>
 </ul>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.ruff.lint.per-file-ignores]</span>
-<span class="s2">&quot;tests/**/*&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="s2">"tests/**/*"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="c1"># ...</span>
-<span class="w">    </span><span class="s2">&quot;D&quot;</span><span class="p">,</span><span class="w">      </span><span class="c1"># Don&#39;t check docstrings in tests</span>
+<span class="w">    </span><span class="s2">"D"</span><span class="p">,</span><span class="w">      </span><span class="c1"># Don't check docstrings in tests</span>
 <span class="w">    </span><span class="c1"># ...</span>
 <span class="p">]</span>
 </pre></div>

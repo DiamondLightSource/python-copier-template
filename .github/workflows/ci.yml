@@ -18,7 +18,7 @@ jobs:
       runs-on: ubuntu-latest
 
   docs: # Call the docs building workflow directly
-    uses: DiamondLightSource/myst-version-switcher-plugin/.github/workflows/docs.yml@v0.24.1
+    uses: DiamondLightSource/myst-version-switcher-plugin/.github/workflows/docs.yml@v0.27.0
     with:
       # Whatever turns your sources into docs/_build/html at $BASE_URL. uv and Node
       # are preinstalled; so: make docs · tox -e docs · npm ci && npm run docs
@@ -35,20 +35,6 @@ jobs:
   release:
     needs: [test, docs]
     if: github.ref_type == 'tag' # tag pushes only
-    uses: DiamondLightSource/myst-version-switcher-plugin/.github/workflows/release.yml@v0.24.1
+    uses: DiamondLightSource/myst-version-switcher-plugin/.github/workflows/release.yml@v0.27.0
     permissions:
       contents: write # create the Release + attach assets
-
-  publish:
-    needs: [docs]
-    # don't publish a pages site in the fork's org
-    if: github.repository == 'DiamondLightSource/python-copier-template' && github.ref_type == 'tag' # publish only on tags
-    uses: ./.github/workflows/publish-dispatch.yml # your workflow (below)
-    with:
-      version-name: ${{ needs.docs.outputs.version-name }}
-    permissions:
-      contents: read
-      actions: write
-      pages: write
-      id-token: write
-      statuses: write

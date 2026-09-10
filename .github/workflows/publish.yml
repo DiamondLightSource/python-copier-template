@@ -1,0 +1,39 @@
+name: Publish
+
+on:
+  # matches ci.yml's `name:`, NOT its filename
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+
+  # fork-PR previews and manual re-deploys
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: "Fork PR to approve + preview (empty = re-deploy)"
+        required: false
+        default: ""
+
+jobs:
+  publish:
+    # Both guards fail OPEN — copy them verbatim.
+    #   conclusion == 'success' : workflow_run fires on failures too
+    #   head_repository == this repo : workflow_run holds a WRITE token even when a
+    #     fork's PR triggered it (the pwn-request shape)
+    # The repository check keeps forks of blueapi from publishing to their own Pages.
+    if: >-
+      github.repository == 'DiamondLightSource/blueapi' &&
+      (github.event_name == 'workflow_dispatch' ||
+       (github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.head_repository.full_name == github.repository))
+    uses: DiamondLightSource/myst-version-switcher-plugin/.github/workflows/publish-gh-pages.yml@v0.27.0
+    with:
+      pr: ${{ inputs.pr }}
+      max-releases: "30"
+      max-prs: "20"
+    permissions:
+      contents: read
+      actions: read      # gather cross-run docs artifacts
+      pages: write
+      id-token: write
+      statuses: write    # record the fork-preview approval / preview link

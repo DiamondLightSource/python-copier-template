@@ -24,6 +24,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y graphviz
 
   docs: # Call the docs building workflow directly
+    needs: install-graphviz
     uses: DiamondLightSource/myst-version-switcher-plugin/.github/workflows/docs.yml@v0.27.0
     with:
       # Whatever turns your sources into docs/_build/html at $BASE_URL. uv and Node

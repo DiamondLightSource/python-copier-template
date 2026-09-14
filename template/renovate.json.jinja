@@ -27,7 +27,8 @@
         "docker/login-action",
         "docker/build-push-action",
         "docker/metadata-action"{% endif %}{% if pypi %},
-        "pypa/gh-action-pypi-publish"{% endif %}
+        "pypa/gh-action-pypi-publish",
+        "actions/download-artifact"{% endif %}
       ],
       "matchManagers": [
         "github-actions"

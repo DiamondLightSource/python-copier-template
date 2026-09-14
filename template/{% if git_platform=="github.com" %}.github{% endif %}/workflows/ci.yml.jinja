@@ -34,6 +34,12 @@ jobs:
       contents: read
       packages: write
 {% endraw %}{% endif %}{% if sphinx %}
+  install-graphviz:
+  runs-on: ubuntu-latest
+  steps:
+    - name: Install system packages
+      run: sudo apt-get update && sudo apt-get install -y graphviz
+
   docs:
     uses: DiamondLightSource/myst-version-switcher-plugin/.github/workflows/docs.yml@v0.27.0
     with:

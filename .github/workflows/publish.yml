@@ -22,7 +22,7 @@ jobs:
     #     fork's PR triggered it (the pwn-request shape)
     # The repository check keeps forks of blueapi from publishing to their own Pages.
     if: >-
-      github.repository == 'DiamondLightSource/blueapi' &&
+      github.repository == 'DiamondLightSource/python-copier-template' &&
       (github.event_name == 'workflow_dispatch' ||
        (github.event.workflow_run.conclusion == 'success' &&
         github.event.workflow_run.head_repository.full_name == github.repository))
@@ -33,7 +33,7 @@ jobs:
       max-prs: "20"
     permissions:
       contents: read
-      actions: read      # gather cross-run docs artifacts
+      actions: read # gather cross-run docs artifacts
       pages: write
       id-token: write
-      statuses: write    # record the fork-preview approval / preview link
+      statuses: write # record the fork-preview approval / preview link

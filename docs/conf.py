@@ -3,11 +3,9 @@
 # This file only contains a selection of the most common options. For a full
 # list see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
-
+import os
 import sys
 from importlib.metadata import version
-from pathlib import Path
-from subprocess import check_output
 
 import requests
 
@@ -19,14 +17,7 @@ project = "python-copier-template"
 # The full version, including alpha/beta/rc tags.
 release = version(project)
 
-# The short X.Y version.
-if "+" in release:
-    # Not on a tag, use branch name
-    root = Path(__file__).absolute().parent.parent
-    git_branch = check_output("git branch --show-current".split(), cwd=root)
-    version = git_branch.decode().strip()
-else:
-    version = release
+version = os.environ.get("VERSION_NAME", "local")
 
 extensions = [
     # For graphviz diagrams
@@ -135,8 +126,8 @@ html_theme_options = {
         "json_url": switcher_json,
         "version_match": version,
     },
-    "check_switcher": True,
-    "navbar_end": ["theme-switcher", "icon-links", "version-switcher"],
+    "check_switcher": False,
+    "navbar_end": ["theme-switcher", "navbar-icon-links", "version-switcher"],
 }
 
 # A dictionary of values to pass into the template engine’s context for all pages

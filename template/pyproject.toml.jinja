@@ -53,8 +53,10 @@ version_file = "src/{{ package_name }}/_version.py"
 typeCheckingMode = "strict"
 {% else %}
 typeCheckingMode = "standard"
-{% endif %}reportMissingImports = false # Ignore missing stubs in imported modules
-{% endif %}{% if type_checker=="mypy" %}
+{% endif %}
+reportMissingImports = false # Ignore missing stubs in imported modules
+{% endif %}
+{% if type_checker=="mypy" %}
 [tool.mypy]
 ignore_missing_imports = true # Ignore missing stubs in imported modules
 {% endif %}

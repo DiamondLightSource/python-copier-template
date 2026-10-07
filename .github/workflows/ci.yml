@@ -22,7 +22,7 @@ jobs:
     with:
       # Whatever turns your sources into docs/_build/html at $BASE_URL. uv and Node
       # are preinstalled; so: make docs · tox -e docs · npm ci && npm run docs
-      build-command: uv run --locked tox -e docs
+      build-command: sudo apt-get install -y graphviz && uv run --locked tox -e docs
       html-dir: build/html
 
   example:

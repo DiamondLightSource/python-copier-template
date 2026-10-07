@@ -41,8 +41,12 @@ $ tox -e docs-autobuild -- --watch tests
 (building-docs-in-ci)=
 ## Building docs in CI
 
+Docs are built using the [myst-version-switcher-plugin](https://github.com/DiamondLightSource/myst-version-switcher-plugin). 
+
 After a successful run of CI
 
 Settings > Pages
 
-![Setup GitHub Pages](../images/gh-pages-setup.png)
+![Setup GitHub Pages](../images/github-pages-actions-setup.png)
+
+If your repo was using the ```gh-pages``` branch to publish docs, follow the [migration instructions](https://diamondlightsource.github.io/myst-version-switcher-plugin/main/how-to/) to now use Github Actions. 

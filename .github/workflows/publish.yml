@@ -20,7 +20,7 @@ jobs:
     #   conclusion == 'success' : workflow_run fires on failures too
     #   head_repository == this repo : workflow_run holds a WRITE token even when a
     #     fork's PR triggered it (the pwn-request shape)
-    # The repository check keeps forks of blueapi from publishing to their own Pages.
+    # The repository check keeps forks of python copier template from publishing to their own Pages.
     if: >-
       github.repository == 'DiamondLightSource/python-copier-template' &&
       (github.event_name == 'workflow_dispatch' ||

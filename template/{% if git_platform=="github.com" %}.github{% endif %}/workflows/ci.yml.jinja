@@ -1,11 +1,14 @@
 name: CI
 
 on:
-  pull_request:
   push:
-    branches:[main]
-    tags:['*']
-  
+    branches:
+      - main
+    tags:
+      - '*'
+  pull_request:
+  merge_group:
+
 jobs:
 
   lint:

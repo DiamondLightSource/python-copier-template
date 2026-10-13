@@ -4,10 +4,6 @@
     "url": "https://DiamondLightSource.github.io/python-copier-template/main/"
   },
   {
-    "version": "pages-default-seed",
-    "url": "https://DiamondLightSource.github.io/python-copier-template/pages-default-seed/"
-  },
-  {
     "version": "5.4.0",
     "url": "https://DiamondLightSource.github.io/python-copier-template/5.4.0/"
   },
@@ -150,5 +146,9 @@
   {
     "version": "1.29.5",
     "url": "https://DiamondLightSource.github.io/python-copier-template/1.29.5/"
+  },
+  {
+    "version": "pages-default-seed",
+    "url": "https://DiamondLightSource.github.io/python-copier-template/pages-default-seed/"
   }
 ]

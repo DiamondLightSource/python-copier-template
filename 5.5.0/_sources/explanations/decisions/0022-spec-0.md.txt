@@ -1,0 +1,19 @@
+# 22. Follow NEP 0029 release cycle
+
+Date: 2025-05-09
+
+## Status
+
+Proposed
+
+## Context
+
+The scientific Python ecosystem, whilst continuing to move to benefit from new Python features, must maintain support for existing projects and provide a reasonable time-frame and predictability for breaking changes. Multiple libraries therefore make use of the [NEP-0029 deprecation policy](https://numpy.org/neps/nep-0029-deprecation_policy.html). We should follow suite.
+
+## Decision
+
+This template will follow the NEP-0029 deprecation policy.
+
+## Consequences
+
+The matrix of supported Python versions will be periodically updated to those expected by the policy. When versions of Python are dropped, this will be considered a Major change for the purposes of Semantic Versioning and ADR #21.

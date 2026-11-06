@@ -41,8 +41,12 @@ $ tox -e docs-autobuild -- --watch tests
 (building-docs-in-ci)=
 ## Building docs in CI
 
-After a successful run of CI
+For a successful docs build, the source for the 'Build and Deployment' of the Github Pages should be set to GitHub Actions (Not 'Deploy from a branch'). This should be changes first and then the CI will publish.
 
 Settings > Pages
 
-![Setup GitHub Pages](../images/gh-pages-setup.png)
+![Setup GitHub Pages](../images/github-pages-actions-setup.png)
+
+If your repo was using the `gh-pages` branch to publish docs, follow the [migration instructions](https://diamondlightsource.github.io/myst-version-switcher-plugin/main/how-to/migrate-from-gh-pages) to now use Github Actions. 
+
+Docs are built using the [myst-version-switcher-plugin](https://github.com/DiamondLightSource/myst-version-switcher-plugin). 

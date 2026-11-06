@@ -3,11 +3,9 @@
 # This file only contains a selection of the most common options. For a full
 # list see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
-
+import os
 import sys
 from importlib.metadata import version
-from pathlib import Path
-from subprocess import check_output
 
 import requests
 
@@ -19,14 +17,7 @@ project = "python-copier-template"
 # The full version, including alpha/beta/rc tags.
 release = version(project)
 
-# The short X.Y version.
-if "+" in release:
-    # Not on a tag, use branch name
-    root = Path(__file__).absolute().parent.parent
-    git_branch = check_output("git branch --show-current".split(), cwd=root)
-    version = git_branch.decode().strip()
-else:
-    version = release
+version = os.environ.get("VERSION_NAME", "local")
 
 extensions = [
     # For graphviz diagrams
@@ -110,9 +101,9 @@ switcher_exists = requests.get(switcher_json).ok
 if not switcher_exists:
     print(
         "*** Can't read version switcher, is GitHub pages enabled? \n"
-        "    Once Docs CI job has successfully run once, set the "
-        "Github pages source branch to be 'gh-pages' at:\n"
-        f"    https://github.com/{github_user}/{github_repo}/settings/pages",
+        "    Set the Github pages source to 'GitHub Actions' at:\n"
+        f"    https://github.com/{github_user}/{github_repo}/settings/pages\n"
+        "    then CI will publish the docs on its next successful run.",
         file=sys.stderr,
     )
 
@@ -135,15 +126,15 @@ html_theme_options = {
         "json_url": switcher_json,
         "version_match": version,
     },
-    "check_switcher": True,
-    "navbar_end": ["theme-switcher", "icon-links", "version-switcher"],
+    "check_switcher": False,
+    "navbar_end": ["theme-switcher", "navbar-icon-links", "version-switcher"],
 }
 
 # A dictionary of values to pass into the template engine’s context for all pages
 html_context = {
     "github_user": github_user,
     "github_repo": github_repo,
-    "github_version": version,
+    "github_version": "main",
     "doc_path": "docs",
 }
 

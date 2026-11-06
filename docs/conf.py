@@ -101,9 +101,9 @@ switcher_exists = requests.get(switcher_json).ok
 if not switcher_exists:
     print(
         "*** Can't read version switcher, is GitHub pages enabled? \n"
-        "    Once Docs CI job has successfully run once, set the "
-        "Github pages source branch to be 'gh-pages' at:\n"
-        f"    https://github.com/{github_user}/{github_repo}/settings/pages",
+        "    Set the Github pages source to 'GitHub Actions' at:\n"
+        f"    https://github.com/{github_user}/{github_repo}/settings/pages\n"
+        "    then CI will publish the docs on its next successful run.",
         file=sys.stderr,
     )
 
@@ -134,7 +134,7 @@ html_theme_options = {
 html_context = {
     "github_user": github_user,
     "github_repo": github_repo,
-    "github_version": version,
+    "github_version": "main",
     "doc_path": "docs",
 }
 

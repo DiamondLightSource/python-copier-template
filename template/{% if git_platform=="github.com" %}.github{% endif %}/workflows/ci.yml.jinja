@@ -1,10 +1,13 @@
 name: CI
 
 on:
-  pull_request:
   push:
-    branches:[main]
-    tags:['*']
+    branches:
+      - main
+    tags:
+      - '*'
+  pull_request:
+  merge_group:
   
 jobs:
 
@@ -37,10 +40,7 @@ jobs:
   docs:
     uses: DiamondLightSource/myst-version-switcher-plugin/.github/workflows/docs.yml@v0.28.0
     with:
-    # Whatever turns your sources into docs/_build/html at $BASE_URL.
-    # uv and Node are preinstalled; so: make docs · tox -e docs · npm ci && npm run docs
-      build-command: sudo apt-get install -y graphviz && uv run --locked tox -e docs
-      html-dir: build/html
+      # Some of the docs need graphviz, so install it as well as running sphinx
   {% endif %}
   dist:
     uses: ./.github/workflows/_dist.yml

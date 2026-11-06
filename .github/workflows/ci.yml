@@ -20,8 +20,7 @@ jobs:
   docs: # Call the docs building workflow directly
     uses: DiamondLightSource/myst-version-switcher-plugin/.github/workflows/docs.yml@v0.28.0
     with:
-      # Whatever turns your sources into docs/_build/html at $BASE_URL. uv and Node
-      # are preinstalled; so: make docs · tox -e docs · npm ci && npm run docs
+      # Some of the docs need graphviz, so install it as well as running sphinx
       build-command: sudo apt-get install -y graphviz && uv run --locked tox -e docs
       html-dir: build/html
 

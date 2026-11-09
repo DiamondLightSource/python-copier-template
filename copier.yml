@@ -163,6 +163,7 @@ _migrations:
           - echo This update will require you to login to pypi.org and make changes before you can make a new release to PyPI. If you do not have time to do this now, press CTRL+C to abort this update.
       after:
           - echo Visit https://diamondlightsource.github.io/python-copier-template/main/how-to/pypi.html to find out how to set up PyPI trusted publishing
-
-publish:
-    - echo: If your repo was using the `gh-pages` branch to publish docs, follow the [migration instructions](https://diamondlightsource.github.io/myst-version-switcher-plugin/main/how-to/migrate-from-gh-pages) to now use Github Actions.
+    - version: 6.0.0
+      after:
+          - command: echo If your repo was using the `gh-pages` branch to publish docs, follow the [migration instructions](https://diamondlightsource.github.io/myst-version-switcher-plugin/main/how-to/migrate-from-gh-pages) to now use Github Actions.
+            when: "{{ docs_type == 'sphinx' }}"

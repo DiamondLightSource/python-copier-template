@@ -41,6 +41,8 @@ jobs:
     uses: DiamondLightSource/myst-version-switcher-plugin/.github/workflows/docs.yml@v0.28.0
     with:
       # Some of the docs need graphviz, so install it as well as running sphinx
+      build-command: sudo apt-get install -y graphviz && uv run --locked tox -e docs
+      html-dir: build/html
   {% endif %}
   dist:
     uses: ./.github/workflows/_dist.yml

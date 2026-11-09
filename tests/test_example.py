@@ -362,6 +362,11 @@ def test_renovate_actions_match_what_is_shipped(override: dict, tmp_path: Path):
     for workflow_file in (tmp_path / ".github" / "workflows").glob("*.yml"):
         workflow = yaml.safe_load(workflow_file.read_text())
         for job in workflow.get("jobs", {}).values():
+            # Call reusable workflows with a job-level 'uses'. Skip local ones
+            job_uses = job.get("uses")
+            if job_uses and not job_uses.startswith("./"):
+                repo = "/".join(job_uses.split("@")[0].split("/")[:2])
+                used_github_actions.add(repo)
             for step in job.get("steps", []):
                 action = step.get("uses")
                 if action:

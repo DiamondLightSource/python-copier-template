@@ -164,6 +164,5 @@ _migrations:
       after:
           - echo Visit https://diamondlightsource.github.io/python-copier-template/main/how-to/pypi.html to find out how to set up PyPI trusted publishing
     - version: 6.0.0
-      after:
-          - command: echo If your repo was using the `gh-pages` branch to publish docs, follow the [migration instructions](https://diamondlightsource.github.io/myst-version-switcher-plugin/main/how-to/migrate-from-gh-pages) to now use Github Actions.
-            when: "{{ docs_type == 'sphinx' }}"
+      command: echo "If your repo was using the gh-pages branch to publish docs, follow https://diamondlightsource.github.io/myst-version-switcher-plugin/main/how-to/migrate-from-gh-pages/ to publish with GitHub Actions instead."
+      when: "{{ _stage == 'after' and docs_type == 'sphinx' }}"

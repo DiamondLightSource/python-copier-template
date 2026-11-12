@@ -41,7 +41,7 @@ $ tox -e docs-autobuild -- --watch tests
 (building-docs-in-ci)=
 ## Building docs in CI
 
-For a successful docs build, the source for the 'Build and Deployment' of the Github Pages should be set to GitHub Actions (Not 'Deploy from a branch'). This should be changes first and then the CI will publish.
+For a successful docs build, the source for the 'Build and Deployment' of the GitHub Pages should be set to GitHub Actions (not 'Deploy from a branch'). This should be changed first, then CI will publish.
 
 Settings > Pages
 

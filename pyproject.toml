@@ -44,11 +44,11 @@ env_list = ["pre-commit", "tests", "docs"]
 # Pass all environment variables to the test environments
 passenv = ["*"]
 allowlist_externals = [
+    "pyright",
     "pytest",
     "pre-commit",
     "sphinx-build",
     "sphinx-autobuild",
-    "pyright",
 ]
 
 [tool.tox.env.pre-commit]

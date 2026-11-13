@@ -91,11 +91,13 @@ env_list = ["pre-commit", "type-checking", "tests"{% if sphinx %}, "docs"{% endi
 # Pass all environment variables to the test environments
 passenv = ["*"]
 allowlist_externals = [
-    "pytest",
+    {% if type_checker=="mypy" %}"mypy",
+    {% endif %}{% if type_checker=="pyright" %}"pyright",
+    {% endif %}"pytest",
     "pre-commit",
-    "sphinx-build",
+    {% if sphinx %}"sphinx-build",
     "sphinx-autobuild",
-    "pyright",
+    {% endif %}
 ]
 
 [tool.tox.env.pre-commit]

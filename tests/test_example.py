@@ -29,9 +29,10 @@ def copy_project(project_path: Path, **kwargs):
 
 
 def run_pipe(cmd: str, cwd=None, venv="") -> str:
-    env = dict(os.environ, UV_PROJECT_ENVIRONMENT="", VIRTUAL_ENV=str(venv))
+    env = dict(os.environ, UV_PROJECT_ENVIRONMENT="", VIRTUAL_ENV=venv)
     if venv:
-        # Activate the venv so tox commands find its tools, not the outer venv's
+        # Activate thevenv. This means the newly created Python project
+        # is in the environment, along with its associated tools.
         env["PATH"] = f"{venv}/bin{os.pathsep}{env['PATH']}"
     sp = subprocess.run(
         shlex.split(cmd),

@@ -34,7 +34,7 @@ dev = [
     {% if sphinx %}"sphinx-autobuild",
     "sphinx-copybutton",
     "sphinx-design",
-    {% endif %}"tox-uv",
+    {% endif %}"tox-uv-bare",
     "types-mock",
 ]
 
@@ -90,6 +90,15 @@ env_list = ["pre-commit", "type-checking", "tests"{% if sphinx %}, "docs"{% endi
 [tool.tox.env_run_base]
 # Pass all environment variables to the test environments
 passenv = ["*"]
+allowlist_externals = [
+    {% if type_checker=="mypy" %}"mypy",
+    {% endif %}{% if type_checker=="pyright" %}"pyright",
+    {% endif %}"pytest",
+    "pre-commit",
+    {% if sphinx %}"sphinx-build",
+    "sphinx-autobuild",
+    {% endif %}
+]
 
 [tool.tox.env.pre-commit]
 description = "Run pre-commit on all files"

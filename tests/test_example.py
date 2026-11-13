@@ -370,6 +370,42 @@ def test_renovate_actions_match_what_is_shipped(override: dict, tmp_path: Path):
     assert used_github_actions == config_github_actions
 
 
+@pytest.mark.parametrize("docker", [False, True])
+def test_renovate_dockerfile_base_images_match_what_is_shipped(
+    docker: bool, tmp_path: Path
+):
+    # Generate a project with the given answers
+    copy_project(tmp_path, docker=docker)
+    # Find the Dockerfile base images ignored by renovate
+    renovate_config_path = tmp_path / "renovate.json"
+    renovate_config = json.loads(renovate_config_path.read_text())
+    dockerfile_rules = [
+        rule
+        for rule in renovate_config["packageRules"]
+        if rule.get("matchManagers") == ["dockerfile"]
+    ]
+    assert len(dockerfile_rules) == 1
+    rule = dockerfile_rules[0]
+    # The rule must disable every update type (tags and digests), not just one
+    assert rule["enabled"] is False
+    assert "matchUpdateTypes" not in rule
+    config_base_images = set(rule["matchDepNames"])
+    # Find the base images actually used in the Dockerfile
+    stages = set[str]()
+    used_base_images = set[str]()
+    for line in (tmp_path / "Dockerfile").read_text().splitlines():
+        words = line.split()
+        if words and words[0] == "FROM":
+            image = words[1]
+            if image not in stages:
+                used_base_images.add(image.split("@")[0].split(":")[0])
+            if len(words) > 3 and words[2] == "AS":
+                stages.add(words[3])
+    # Check every base image in the Dockerfile is covered by the rule
+    assert used_base_images
+    assert used_base_images <= config_base_images
+
+
 def test_python_versions_match(tmp_path: Path):
     copy_project(tmp_path)
     # Grab the python versions from ci.yml

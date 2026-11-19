@@ -1,0 +1,23 @@
+# 23. Adopt uv
+
+Date: 2025-09-22
+
+## Status
+
+Accepted
+
+## Context
+
+[`uv`](https://docs.astral.sh/uv/) appears to be gaining a critical mass of adoption, and adopting the project flow would bring some benefits:
+- Much faster venv creation times
+- A native lockfile implementation
+- A single base image that can install multiple pythons
+- Which would allow us to make a single devcontainer base with our feature built in, which would speed up the devcontainer creation time
+
+## Decision
+
+We will adopt this flow.
+
+## Consequences
+
+Docs will need to be updated, especially around lockfile support. Commands will need to be updated slightly for the new version of tox. Work on `renovate` will need to follow as `dependabot` does not support the uv lockfile.

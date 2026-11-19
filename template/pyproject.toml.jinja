@@ -94,10 +94,9 @@ allowlist_externals = [
     {% if type_checker=="mypy" %}"mypy",
     {% endif %}{% if type_checker=="pyright" %}"pyright",
     {% endif %}"pytest",
-    "pre-commit",
-    {% if sphinx %}"sphinx-build",
-    "sphinx-autobuild",
-    {% endif %}
+    "pre-commit",{% if sphinx %}
+    "sphinx-build",
+    "sphinx-autobuild",{% endif %}
 ]
 
 [tool.tox.env.pre-commit]

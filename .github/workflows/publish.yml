@@ -1,0 +1,37 @@
+name: Publish
+
+on:
+  # matches ci.yml's `name:`, NOT its filename
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+
+  # fork-PR previews and manual re-deploys
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: "Fork PR to approve + preview (empty = re-deploy)"
+        required: false
+        default: ""
+
+jobs:
+  publish:
+    # Run if the workflow has been manually dispatched or it was a
+    # successful CI run that did not come from a fork.
+    # Skip merge queue runs as they deploy the same commit as the PR commit
+    if: >-
+      (github.event_name == 'workflow_dispatch' ||
+       (github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.event != 'merge_group' &&
+        github.event.workflow_run.head_repository.full_name == github.repository))
+    uses: DiamondLightSource/myst-version-switcher-plugin/.github/workflows/publish-gh-pages.yml@v0.28.0
+    with:
+      pr: ${{ inputs.pr }}
+      max-releases: "30"
+      max-prs: "20"
+    permissions:
+      contents: read
+      actions: read # gather cross-run docs artifacts
+      pages: write
+      id-token: write
+      statuses: write # record the fork-preview approval / preview link

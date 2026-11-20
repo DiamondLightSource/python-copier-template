@@ -8,7 +8,7 @@ on:
       - '*'
   pull_request:
   merge_group:
-
+  
 jobs:
 
   lint:
@@ -38,10 +38,12 @@ jobs:
       packages: write
 {% endraw %}{% endif %}{% if sphinx %}
   docs:
-    uses: ./.github/workflows/_docs.yml
-    permissions:
-      contents: write
-{% endif %}
+    uses: DiamondLightSource/myst-version-switcher-plugin/.github/workflows/docs.yml@v0.28.0
+    with:
+      # Some of the docs need graphviz, so install it as well as running sphinx
+      build-command: sudo apt-get install -y graphviz && uv run --locked tox -e docs
+      html-dir: build/html
+  {% endif %}
   dist:
     uses: ./.github/workflows/_dist.yml
   {% if pypi %}
@@ -55,6 +57,6 @@ jobs:
   release:
     needs: [dist, test{% if sphinx %}, docs{% endif %}]
     if: github.ref_type == 'tag'
-    uses: ./.github/workflows/_release.yml
+    uses: DiamondLightSource/myst-version-switcher-plugin/.github/workflows/release.yml@v0.28.0
     permissions:
       contents: write

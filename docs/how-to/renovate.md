@@ -2,8 +2,8 @@
 
 [Renovate](https://github.com/apps/renovate) is a tool for automating dependency updates. It is used to:
 - Automatically update the [uv lock file](./lock-requirements.md) and automerge if tests pass
-- Update any dependencies in the Dockerfile
-- Update the versions of any GitHub actions not manager by the python-copier-template
+- Update any dependencies in the Dockerfile, apart from the base images managed by the python-copier-template
+- Update the versions of any GitHub actions not managed by the python-copier-template
 
 ## Install the Renovate GitHub app
 
